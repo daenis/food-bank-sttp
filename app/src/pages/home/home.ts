@@ -7,7 +7,11 @@ import { NavController } from 'ionic-angular';
 })
 export class HomePage {
 
+  name: string;
+
   constructor(public navCtrl: NavController) {
+      
+      this.name = "HomePage";
 
   }
 
