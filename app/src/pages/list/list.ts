@@ -5,7 +5,7 @@ import { NavController, NavParams } from 'ionic-angular';
   selector: 'page-list',
   templateUrl: 'list.html'
 })
-export class VendorPage {
+export class PartnerPage {
   selectedItem: any;
   icon: string;
   items: Array<{title: string, icon: string}>;
@@ -38,7 +38,7 @@ export class VendorPage {
 
   itemTapped(event, item) {
     // That's right, we're pushing to ourselves!
-    this.navCtrl.push(VendorPage, {
+    this.navCtrl.push(PartnerPage, {
       item: item
     });
   }
