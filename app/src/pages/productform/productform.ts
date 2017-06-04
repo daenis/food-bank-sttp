@@ -22,10 +22,6 @@ export class ProductForm {
             if (product === foodIDAsString)
             return "";
         }
-        
-
-        
-
     }
 
 }
