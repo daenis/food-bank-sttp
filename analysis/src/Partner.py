@@ -1,8 +1,9 @@
-class Partner:
-    state: "DE"
+import uuid
 
+class Partner:
     def __init__(self):
         self._dict = None
+        self.id = str(uuid.uuid4())
 
     def _assert_defined(self, field):
         if self._dict != None:
@@ -13,23 +14,17 @@ class Partner:
             self._dict = dictionary
 
     def _assert_fields(self, dictionary):
-        requiredFields = ['AgencyName', 'Addr1', 'City', 'Zip'];
+        requiredFields = ['AgencyName', 'Addr1', 'City', 'Zip']
         for field in requiredFields:
-            if dictionary[field] == None:
+            if dictionary[field] == '':
                 return False
         return True
-
-    def agencyRef(self):
-        return self._assert_defined('AgencyRef')
 
     def agencyName(self):
         return self._assert_defined('AgencyName')
 
     def addr1(self):
         return self._assert_defined('Addr1')
-
-    def addr2(self):
-        return self._assert_defined('Addr2')
 
     def city(self):
         return self._assert_defined('City')
@@ -40,17 +35,18 @@ class Partner:
     def zip(self):
         return self._assert_defined('Zip')
 
-    def phone(self):
-        return self._assert_defined('Phone')
+    def to_user_JSON(self):
+        return {
+          'UUID': self.id,
+          'Name': self.agencyName(),
+          'Type': 'Partner',
+          'Password': '1234',
+          'Username': self.agencyName()
+        }
 
-    def county(self):
-        return self._assert_defined('County')
-
-    def group(self):
-        return self._assert_defined('Group')
-
-    def city(self):
-        return self._assert_defined('City')
-
-    def zip(self):
-        return self._assert_defined('Zip')
+    def to_partners_JSON(self):
+        return {
+          'UUID': self.id,
+          'Organization': self.agencyName(),
+          'Location': "{}, {}, {}".format(self.city(), self.state(), self.zip())
+        }
