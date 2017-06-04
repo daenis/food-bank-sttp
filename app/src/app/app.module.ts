@@ -6,7 +6,8 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { PartnerPage } from '../pages/list/list';
 import { OrderForm } from '../pages/orderform/orderform';
-import { ProductForm } from '../pages/productform/productform'; 
+import { ProductForm } from '../pages/productform/productform';
+import { Volunteer } from '../pages/volunteer/volunteer';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -17,7 +18,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     HomePage,
     PartnerPage,
     OrderForm,
-    ProductForm
+    ProductForm,
+    Volunteer
   ],
   imports: [
     BrowserModule,
@@ -29,7 +31,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     HomePage,
     PartnerPage,
     OrderForm,
-    ProductForm
+    ProductForm,
+    Volunteer
   ],
   providers: [
     StatusBar,
