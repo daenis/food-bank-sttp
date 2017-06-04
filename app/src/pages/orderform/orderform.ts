@@ -7,17 +7,26 @@ import { ProductForm } from '../productform/productform';
   templateUrl: 'orderform.html'
 })
 export class OrderForm {
-  
-    private agencyName = document.getElementById("AgencyName");
-    private agencyAccountNumber = document.getElementById("Account#");
-    private agencyContact = document.getElementById("AgencyContact");
-    private agencyEmail = document.getElementById("AgencyEmail");
-    private agencyPhoneNumber = document.getElementById("AgencyPhone#");
-    private agencyFaxNumber = document.getElementById("AgencyFax#");
-    private pickUpDate = document.getElementById("PickUp");
-    private deliveryDate = document.getElementById("Delivery");
     
+    private AgencyName;
+    private AgencyNumber;
+    private AgencyContact;
+    private AgencyEmail;
+    private AgencyPhoneNumber;
+    private AgencyFaxNumber;
+    private PickUp;
+    private Delivery;
+
     constructor(public navCtrl: NavController) {}
+
+    getAgencyName(): string {return this.AgencyName;}
+    getAgencyNumber(): string {return this.AgencyNumber;}
+    getAgencyContact(): string {return this.AgencyContact;}
+    getAgencyEmail(): string {return this.AgencyEmail;}
+    getAgencyPhoneNumber(): string {return this.AgencyPhoneNumber;}
+    getAgencyFaxNumber(): string {return this.AgencyFaxNumber;}
+    getPickup(): string {return this.PickUp;}
+    getDelivery(): string {return this.Delivery;}
 
     itemTapped(event) {
     this.navCtrl.push(ProductForm);
