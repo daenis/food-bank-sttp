@@ -14,25 +14,14 @@ export class ProductForm {
     quantity1;
     productNumber2;
     quantity2;
-    /*
-    productNumber3 = document.getElementById("Food3ID");
-    quantity3 = document.getElementById("Food3Quantity");
-    productNumber4 = document.getElementById("Food4ID");
-    quantity4 = document.getElementById("Food4Quantity");
-    productNumber5 = document.getElementById("Food5ID");
-    quantity5 = document.getElementById("Food5Quantity");
+    productNumber3;
+    quantity3;
+    productNumber4;;
+    quantity4;
+    productNumber5;
+    quantity5;
+    returnList;
 
-    productNumber6 = document.getElementById("Food6ID");
-    quantity6 = document.getElementById("Food6Quantity");
-    productNumber7 = document.getElementById("Food7ID");
-    quantity7 = document.getElementById("Food7Quantity");
-    productNumber8 = document.getElementById("Food8ID");
-    quantity8 = document.getElementById("Food8Quantity");
-    productNumber9 = document.getElementById("Food9ID");
-    quantity9 = document.getElementById("Food9Quantity");
-    productNumber10 = document.getElementById("Food10ID");
-    quantity10 = document.getElementById("Food10Quantity");
-*/
     constructor(public navCtrl: NavController) {
     }
 
@@ -46,15 +35,50 @@ export class ProductForm {
         this.quantity2 = document.getElementById("Food2Quantity");
         return [this.productNumber2, this.quantity2];
     }
+    getFoodItem3(): any[] {
+        this.productNumber3 = document.getElementById("Food3ID");
+        this.quantity3 = document.getElementById("Food3Quantity");
+        return [this.productNumber3, this.quantity3];
+    }
+    getFoodItem4(): any[] {
+        this.productNumber4 = document.getElementById("Food4ID");
+        this.quantity4 = document.getElementById("Food4Quantity");
+        return [this.productNumber4, this.quantity4];
+    }
+
+    getFoodItem5(): any[] {
+        this.productNumber5 = document.getElementById("Food5ID");
+        this.quantity5 = document.getElementById("Food5Quantity");
+        return [this.productNumber5, this.quantity5];
+    }
+
+    consolidateFoodItems(): any[] {
+        let foodList = this.getFoodItem1();
+        foodList.push(this.getFoodItem2());
+        foodList.push(this.getFoodItem3());
+        foodList.push(this.getFoodItem4());
+        foodList.push(this.getFoodItem5());
+        return foodList;
+    }
+
+    eliminateIncompleteEntries(foodList: any[]): void {
+        this.returnList = [];
+        for (let index = 0; index < foodList.length; index++ ) {
+            if (foodList[index][0] && foodList[index][1] !== "") {
+                this.returnList.push(foodList[index]);
+            }
+        }
+    }
+
+    getConsolidatedFoodList(): any[] {
+        return this.returnList;
+    }
 
     itemTapped(event) {
-        let foodList = this.getFoodItem1();
-        foodList.concat(this.getFoodItem2());
-        for (let index = 0; index < foodList.length; index++ ) {
-        }
-    // Nav to product form
-    this.navCtrl.push(ProductForm);
-  }
+        let foodList = this.consolidateFoodItems();
+        this.eliminateIncompleteEntries(foodList);
+        //this.navCtrl.push(OrderSummaryPage);
+    }
 
 }
 
