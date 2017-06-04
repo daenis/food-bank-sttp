@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Agency Information Form</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <div class="order-form">
+        <p>Please fill out all applicable fields before submitting</p>
+        <label class="AgencyName">
+            <ion-input type="text" id="AgencyName" [(ngModel)]="AgencyName" placeholder="Agency Name: "></ion-input>
+        </label>
+        <br />
+        <label class="AccountNumber">
+            <ion-input type="text" id="AccountNumber" [(ngModel)]="AgencyNumber" placeholder="Account # : "></ion-input>
+        </label>
+        <br />
+        <label class="AgencyContact">
+            <ion-input type="text" id="AgencyContact" [(ngModel)]="AgencyContact" placeholder="Agency Contact :  "></ion-input>
+        </label>
+        <br />
+        <label class="AgencyEmail">
+            <ion-input type="text" id="AgencyEmail" [(ngModel)]="AgencyEmail" placeholder="Agency Email :  "></ion-input>
+        </label>
+        <br />
+        <label class="AgencyPhoneNumber">
+            <ion-input type="text" id="AgencyPhoneNumber" [(ngModel)]="AgencyPhoneNumber" placeholder="Agency Phone Number :  "></ion-input>
+        </label>
+        <br />
+        <label class="AgencyFaxNumber">
+            <ion-input type="text" id="AgencyFaxNumber" [(ngModel)]="AgencyFaxNumber" placeholder="Agency Fax Number :  "></ion-input>
+        </label>
+        <br />
+        <label class="PickUp">
+            <ion-input type="text" id="PickUp" [(ngModel)]="PickUp" placeholder="Pick up Date :  "></ion-input>
+        </label>
+        <br />
+        <label class="Delivery">
+            <ion-input type="text" id="Delivery" [(ngModel)]="Delivery" placeholder="Delivery Date :  "></ion-input>
+        </label>
+        <br />
+    </div>
+
+
+
+
+
+  <footer>
+      <button class="submit" (click)="itemTapped(event)">Submit</button>
+      <img src="/assets/img/foodbank-logo.png" style="width: 375px; height: 150px">
+  </footer>
+</ion-content>

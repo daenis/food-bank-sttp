@@ -22,3 +22,15 @@ Thumbs.db
 # Application specific files
 venv
 .sass-cache
+.env
+
+.vscode/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+__pycache__
+*.pyc
+output/

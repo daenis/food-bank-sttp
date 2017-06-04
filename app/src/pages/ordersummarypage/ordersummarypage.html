@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Confirm Order</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <div class="row">
+      <div class = "col col-100">AgencyInformation</div>
+    </div>
+    <div class="row">
+      <div class = "col col-35">AgencyName</div>
+      <div class = "col"><p>{{AgencyName}}</p></div>
+    </div>
+  <footer>
+      <button class="submit" (click)="itemTapped(event)">Submit</button>
+      <img src="/assets/img/foodbank-logo.png" style="width: 375px; height: 150px">
+  </footer>
+</ion-content>
