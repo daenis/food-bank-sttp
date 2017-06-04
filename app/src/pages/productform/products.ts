@@ -9,7 +9,7 @@ export class Products {
     
     products: {title: string, id: string, price: number}[];
 
-    createProductsList() {
+    createProductsList(): any[] {
         this.products.push({title: "Vegetarian Black Soup", id: "702785", price: 0});
         this.products.push({title: "Pretzels, Frozen (45 pretzels per box)", id: "703516", price: 0})
         this.products.push({title: "Vanilla Cream Puffs (6/13.2 oz)", id: "703578", price: 1.33})
@@ -19,6 +19,7 @@ export class Products {
         this.products.push({title: "Beef, Assorted (25 lb box)", id: "702917", price: 5.25})
         this.products.push({title: "Spaghetti w/ Meatballs (12/15 oz)", id: "702739", price: 10.27})
         this.products.push({title: "Spaghetti Sauce, Meat (12/24 oz)", id: "702783", price: 13.33})
+        return this.products;
     }
     
 

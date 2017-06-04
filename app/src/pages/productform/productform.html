@@ -9,25 +9,59 @@
 
 <ion-content>
     <div class="product-form">
-        <br />
+        <br>
         <label class="Product Number" id="Food1ID">
-            <input type="text" placeholder="Product #"><br />
+            <input type="text" placeholder="Product #">
         </label>
-        <br />
-        <label class="Food Description" id="Food1Description">
-            <input type="text" placeholder="Food Description"><br />
-        </label>
-        <br />
+        <br>
         <label class="Quantity" id="Food1Quantity">
-            <input type="text" placeholder="Quantity"><br />
+            <input type="text" placeholder="Quantity">
         </label>
-        <br />
-        <label class="SubTotal" id="Food1Subtotal">
-            <input type="text" placeholder="Subtotal Price"><br />
+        <br>
+        <br>
+
+        <label class="Product Number" id="Food2ID">
+            <input type="text" placeholder="Product #">
         </label>
+        <br>
+        <label class="Quantity" id="Food2Quantity">
+            <input type="text" placeholder="Quantity">
+        </label>
+        <br>
+        <br>
+
+        <label class="Product Number" id="Food3ID">
+            <input type="text" placeholder="Product #">
+        </label>
+        <br>
+        <label class="Quantity" id="Food3Quantity">
+            <input type="text" placeholder="Quantity">
+        </label>
+        <br>
+        <br>
+
+        <label class="Product Number" id="Food4ID">
+            <input type="text" placeholder="Product #">
+        </label>
+        <br>
+        <label class="Quantity" id="Food4Quantity">
+            <input type="text" placeholder="Quantity">
+        </label>
+        <br>
+        <br>
+
+        <label class="Product Number" id="Food5ID">
+            <input type="text" placeholder="Product #">
+        </label>
+        <br>
+        <label class="Quantity" id="Food5Quantity">
+            <input type="text" placeholder="Quantity">
+        </label>
+        <br>
+
     </div>
 
-  <div *ngIf="selectedItem" padding>
-    You navigated here from <b>{{selectedItem.title}}</b>
-  </div>
+  <footer>
+      <button (click)="itemTapped(event)">Submit</button>
+  </footer>
 </ion-content>
