@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Partners Order Form</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <div class="order-form">
+        <br>
+        <label class="AgencyName" id="AgencyName">
+            <input type="text" placeholder="Agency Name: ">
+        </label>
+        <br />
+        <label class="AccountNumber" id="Account#">
+            <input type="text" placeholder="Account # : ">
+        </label>
+        <br>
+        <label class="AgencyContact" id="AgencyContact">
+            <input type="text" placeholder="Agency Contact :  ">
+        </label>
+        <br>
+        <label class="AgencyEmail" id="AgencyEmail">
+            <input type="text" placeholder="Agency Email :  ">
+        </label>
+        <br>
+        <label class="AgencyPhoneNumber" id="AgencyPhone#">
+            <input type="text" placeholder="Agency Phone Number :  ">
+        </label>
+        <br>
+        <label class="AgencyFaxNumber" id="AgencyFax#">
+            <input type="text" placeholder="Agency Fax Number :  ">
+        </label>
+        <br>
+        <label class="PickUp" id="PickUp">
+            <input type="text" placeholder="Pick up Date (mm/dd/yyyy) :  ">
+        </label>
+        <br>
+        <label class="Delivery" id="Delivery">
+            <input type="text" placeholder="Delivery Date (mm/dd/yyyy) :  ">
+        </label>
+        <br>
+        <!--<label class="ProductNumber" id="Product#">
+            <input type="text" placeholder="Product # :">
+        </label>
+        <br>
+        <label class="Description" id="Description">
+            <input type="text" placeholder="Description">
+        </label>
+        <br>
+        <label class="Quantity" id="Quantity">
+            <input type="text" placeholder="Quantity: ">
+        </label>
+        <br>
+        <label class="TotalPrice" id="TotalPrice">
+            <input type="text" placeholder="Total Price (US $): ">
+        </label>-->
+        <br>
+
+    </div>
+
+  <ion-list>
+    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
+      <ion-icon [name]="item.icon" item-left></ion-icon>
+      {{item.title}}
+      <div class="item-note" item-right>
+        {{item.note}}
+      </div>
+    </button>
+  </ion-list>
+
+  <div *ngIf="selectedItem" padding>
+    You navigated here from <b>{{selectedItem.title}}</b>
+  </div>
+</ion-content>

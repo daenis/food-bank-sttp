@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { OrderForm } from '../orderform/orderform'
 
 @Component({
   selector: 'page-list',
@@ -36,10 +37,8 @@ export class PartnerPage {
 
   }
 
-  itemTapped(event, item) {
+  itemTapped(event) {
     // That's right, we're pushing to ourselves!
-    this.navCtrl.push(PartnerPage, {
-      item: item
-    });
+    this.navCtrl.push(OrderForm);
   }
 }
