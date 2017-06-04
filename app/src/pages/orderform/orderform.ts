@@ -6,11 +6,7 @@ import { NavController, NavParams } from 'ionic-angular';
   templateUrl: 'orderform.html'
 })
 export class OrderForm {
-    //TODO - MOVE THESE TO OTHER FORM
-    // private productNumber = document.getElementById("Product#");
-    // private description = document.getElementById("Description");
-    // private quantity = document.getElementById("Quantity");
-    // private totalprice = document.getElementById("TotalPrice");
+  
     private agencyName = document.getElementById("AgencyName");
     private agencyAccountNumber = document.getElementById("Account#");
     private agencyContact = document.getElementById("AgencyContact");
@@ -20,6 +16,10 @@ export class OrderForm {
     private pickUpDate = document.getElementById("PickUp");
     private deliveryDate = document.getElementById("Delivery");
     
-    constructor() {}
+    constructor(public navCtrl: NavController) {}
 
+  //   itemTapped(event) {
+  //   // Nav to product form
+  //   this.navCtrl.push(ProductForm);
+  // }
 }

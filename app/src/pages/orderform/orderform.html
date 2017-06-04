@@ -9,57 +9,42 @@
 
 <ion-content>
     <div class="order-form">
-        <br>
+        
         <label class="AgencyName" id="AgencyName">
-            <input type="text" placeholder="Agency Name: ">
+            <input type="text" placeholder="Agency Name: "><br />
         </label>
         <br />
         <label class="AccountNumber" id="Account#">
-            <input type="text" placeholder="Account # : ">
+            <input type="text" placeholder="Account # : "><br />
         </label>
-        <br>
+        <br />
         <label class="AgencyContact" id="AgencyContact">
-            <input type="text" placeholder="Agency Contact :  ">
+            <input type="text" placeholder="Agency Contact :  "><br />
         </label>
-        <br>
+        <br />
         <label class="AgencyEmail" id="AgencyEmail">
-            <input type="text" placeholder="Agency Email :  ">
+            <input type="text" placeholder="Agency Email :  "><br />
         </label>
-        <br>
+        <br />
         <label class="AgencyPhoneNumber" id="AgencyPhone#">
-            <input type="text" placeholder="Agency Phone Number :  ">
+            <input type="text" placeholder="Agency Phone Number :  "><br />
         </label>
-        <br>
+        <br />
         <label class="AgencyFaxNumber" id="AgencyFax#">
-            <input type="text" placeholder="Agency Fax Number :  ">
+            <input type="text" placeholder="Agency Fax Number :  "><br />
         </label>
-        <br>
+        <br />
         <label class="PickUp" id="PickUp">
-            <input type="text" placeholder="Pick up Date (mm/dd/yyyy) :  ">
+            <input type="text" placeholder="Pick up Date (mm/dd/yyyy) :  "><br />
         </label>
-        <br>
+        <br />
         <label class="Delivery" id="Delivery">
-            <input type="text" placeholder="Delivery Date (mm/dd/yyyy) :  ">
+            <input type="text" placeholder="Delivery Date (mm/dd/yyyy) :  "><br />
         </label>
-        <br>
-        <!--<label class="ProductNumber" id="Product#">
-            <input type="text" placeholder="Product # :">
-        </label>
-        <br>
-        <label class="Description" id="Description">
-            <input type="text" placeholder="Description">
-        </label>
-        <br>
-        <label class="Quantity" id="Quantity">
-            <input type="text" placeholder="Quantity: ">
-        </label>
-        <br>
-        <label class="TotalPrice" id="TotalPrice">
-            <input type="text" placeholder="Total Price (US $): ">
-        </label>-->
-        <br>
-
     </div>
+    <br />
+
+    
 
   <ion-list>
     <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
@@ -74,4 +59,7 @@
   <div *ngIf="selectedItem" padding>
     You navigated here from <b>{{selectedItem.title}}</b>
   </div>
+  <footer>
+      <button ion-button>Submit</button>
+  </footer>
 </ion-content>
