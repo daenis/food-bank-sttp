@@ -1,46 +1,53 @@
+import uuid
+
 class Establishment:
 
-    def __init__(self, name, addr, city, zipcode, violations, geoCode):
-        self.name = name
-        self.addr = addr
-        self.city = city
-        self.zipcode = zipcode
-        self.violations = violations
-        self.violations = violations
-        self.geoCode = geoCode
+    def __init__(self):
+        self._dict = None
+        self.id = str(uuid.uuid4())
 
-    def setName(self, name):
-        self.name = name
+    def _assert_defined(self, field):
+        if self._dict != None:
+            return self._dict[field]
 
-    def getName(self):
-        return self.name
+    def builder(self, dictionary):
+        if self._assert_fields(dictionary):
+            self._dict = dictionary
 
-    def setAddr(self, addr):
-        self.addr = addr
+    def _assert_fields(self, dictionary):
+        requiredFields = ['name', 'address', 'city', 'zip']
+        for field in requiredFields:
+            if dictionary[field] == None or dictionary[field] == '':
+                return False
+        return True
 
-    def getAddr(self):
-        return self.addr
+    def name(self):
+        return self._assert_defined('name')
 
-    def setCity(self, city):
-        self.city = city
+    def address(self):
+        return self._assert_defined('address')
 
-    def getCity(self):
-        return self.city
+    def city(self):
+        return self._assert_defined('city')
 
-    def setZipcode(self, zipcode):
-        self.zipcode = zipcode
+    def state(self):
+        return self._assert_defined('state')
 
-    def getZipcode(self):
-        return self.zipcode
+    def zip(self):
+        return self._assert_defined('zip')
 
-    def setViolations(self, violations):
-        self.violations = violations
+    def to_user_JSON(self):
+        return {
+          'UUID': self.id,
+          'Name': self.name(),
+          'Type': 'Establishment',
+          'Password': '1234',
+          'Username': self.name()
+        }
 
-    def getViolations(self):
-        return self.violations
-
-    def setGeoCode(self, geoCode):
-        this.geoCode = geoCode
-
-    def getGeoCode(self):
-        return self.geoCode
+    def to_partners_JSON(self):
+        return {
+          'UUID': self.id,
+          'Establishment': self.name(),
+          'Location': "{}, {}, {}".format(self.city(), self.state(), self.zip())
+        }
