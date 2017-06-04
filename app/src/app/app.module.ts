@@ -8,6 +8,9 @@ import { PartnerPage } from '../pages/list/list';
 import { OrderForm } from '../pages/orderform/orderform';
 import { ProductForm } from '../pages/productform/productform';
 import { Volunteer } from '../pages/volunteer/volunteer';
+import { OrderSummaryPage } from '../pages/ordersummarypage/ordersummarypage';
+
+
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -19,7 +22,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     PartnerPage,
     OrderForm,
     ProductForm,
-    Volunteer
+    Volunteer,
+    OrderSummaryPage
   ],
   imports: [
     BrowserModule,
@@ -32,7 +36,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     PartnerPage,
     OrderForm,
     ProductForm,
-    Volunteer
+    Volunteer,
+    OrderSummaryPage
   ],
   providers: [
     StatusBar,

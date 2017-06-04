@@ -6,6 +6,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { PartnerPage } from '../pages/list/list';
 import { Volunteer } from '../pages/volunteer/volunteer';
+import { ProductForm } from '../pages/productform/productform';
+import { OrderSummaryPage } from '../pages/ordersummarypage/ordersummarypage';
+
 
 @Component({
   templateUrl: 'app.html'
