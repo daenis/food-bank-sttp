@@ -9,34 +9,23 @@
 
 <ion-content>
     <div class="product-form">
-        <br>
+        <br />
         <label class="Product Number" id="Food1ID">
-            <input type="text" placeholder="Product #">
+            <input type="text" placeholder="Product #"><br />
         </label>
-        <br>
+        <br />
         <label class="Food Description" id="Food1Description">
-            <input type="text" placeholder="Food Description" value="getFoodDescription(">
+            <input type="text" placeholder="Food Description"><br />
         </label>
-        <br>
+        <br />
         <label class="Quantity" id="Food1Quantity">
-            <input type="text" placeholder="Quantity" value="">
+            <input type="text" placeholder="Quantity"><br />
         </label>
-        <br>
+        <br />
         <label class="SubTotal" id="Food1Subtotal">
-            <input type="text" placeholder="Subtotal Price" value="">
+            <input type="text" placeholder="Subtotal Price"><br />
         </label>
-        <br></br>
     </div>
-
-  <ion-list>
-    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
-      <ion-icon [name]="item.icon" item-left></ion-icon>
-      {{item.title}}
-      <div class="item-note" item-right>
-        {{item.note}}
-      </div>
-    </button>
-  </ion-list>
 
   <div *ngIf="selectedItem" padding>
     You navigated here from <b>{{selectedItem.title}}</b>

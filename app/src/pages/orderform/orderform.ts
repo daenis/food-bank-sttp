@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { ProductForm } from '../productform/productform';
 
 @Component({
   selector: 'page-orderform',
@@ -18,8 +19,8 @@ export class OrderForm {
     
     constructor(public navCtrl: NavController) {}
 
-  //   itemTapped(event) {
-  //   // Nav to product form
-  //   this.navCtrl.push(ProductForm);
-  // }
+    itemTapped(event) {
+    // Nav to product form
+    this.navCtrl.push(ProductForm);
+  }
 }

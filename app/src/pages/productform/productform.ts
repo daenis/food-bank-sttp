@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { Products } from './products'
+import { Products } from './products';
+import { OrderForm } from '../orderform/orderform';
+
 
 @Component({
   selector: 'page-productform',
@@ -18,6 +20,7 @@ export class ProductForm {
     getFoodDescription(foodIDAsString: string): string {
         for (let product in Products) {
             if (product === foodIDAsString)
+            return "";
         }
         
 
