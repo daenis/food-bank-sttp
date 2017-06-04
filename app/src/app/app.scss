@@ -37,7 +37,8 @@ title {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: 16px;
     font-weight: 600;
-    vertical-align: right;
+    margin: 0 auto;
+    display: block;
 }
 h1, div {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -53,12 +54,14 @@ h1, div {
     position: center;
     top: 50%;
     left: 50%;
-    vertical-align: center;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     text-decoration: none;
     font-weight: 700;
     font-size: 16px;
+    display: block;
+    margin: 0 auto;
 }
-.img{
-    align-content: center;
+img {
+    display: block;
+    margin: 0 auto;
 }
