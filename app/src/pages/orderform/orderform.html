@@ -9,7 +9,7 @@
 
 <ion-content>
     <div class="order-form">
-        <p>Please fill out all fields before submitting</p>
+        <p>Please fill out all applicable fields before submitting</p>
         <label class="AgencyName" id="AgencyName">
             <input type="text" placeholder="Agency Name: "><br />
         </label>
@@ -43,11 +43,7 @@
         </label>
     </div>
     <br />
-
-  <div *ngIf="selectedItem" padding>
-    You navigated here from <b>{{selectedItem.title}}</b>
-  </div>
   <footer>
-      <button ion-button>Submit</button>
+      <button (click)="itemTapped(event)">Submit</button>
   </footer>
 </ion-content>
