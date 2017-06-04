@@ -20,7 +20,6 @@ export class OrderForm {
     constructor(public navCtrl: NavController) {}
 
     itemTapped(event) {
-    // Nav to product form
     this.navCtrl.push(ProductForm);
   }
 }

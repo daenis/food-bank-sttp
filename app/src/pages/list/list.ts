@@ -6,6 +6,7 @@ import { OrderForm } from '../orderform/orderform'
   selector: 'page-list',
   templateUrl: 'list.html'
 })
+
 export class PartnerPage {
   selectedItem: any;
   icon: string;
@@ -21,22 +22,22 @@ export class PartnerPage {
     this.items.push({
       title: 'Place Order',
       icon: this.icon
+      
     })
 
     this.items.push({
-      title: 'View Available Items',
+      title: 'Request Volunteers',
       icon: this.icon
     })
 
-  this.items.push({
-      title: 'View Item Prices',
-      icon: this.icon
-    })
+  // this.items.push({
+  //     title: 'View Item Prices',
+  //     icon: this.icon
+  //   })
 
   }
 
   itemTapped(event) {
-    // That's right, we're pushing to ourselves!
     this.navCtrl.push(OrderForm);
   }
 }
