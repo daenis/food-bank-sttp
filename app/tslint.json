@@ -1,3 +1,6 @@
+// General Linter rules
+// Please refer to here:
+// https://palantir.github.io/tslint/rules/
 {
   "rules": {
     "no-duplicate-variable": true,
@@ -5,9 +8,31 @@
     "member-access": true,
     "no-empty": true,
     "eofline": true,
-    "indent": [true, "spaces", 4],
+    "class-name": true,
+    "no-var-keyword": true,
+    "triple-equals": true,
+    "max-line-length": [true, 120],
+    "indent": [true, "tabs"],
+    "variable-name": [
+      true,
+      "ban-keywords",
+      "check-format",
+      "allow-leading-underscore",
+      "allow-snake-case"
+    ],
     "no-unused-variable": [
       true
+    ],
+    "whitespace": [
+      true,
+      "check-branch",
+      "check-operator",
+      "check-typecast",
+      "check-preblock",
+      "check-typecast",
+      "check-separator",
+      "check-module",
+      "check-decl"
     ]
   },
   "rulesDirectory": [
