@@ -8,7 +8,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { MyApp } from '../../app/app.component';
 
-let comp: MyApp;
+let comp: HomePage;
 let fixture: ComponentFixture<HomePage>;
  
 describe('Component: Home Component', () => {
