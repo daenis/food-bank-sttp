@@ -1,6 +1,11 @@
 {
   "rules": {
     "no-duplicate-variable": true,
+    "no-trailing-whitespace": true,
+    "member-access": true,
+    "no-empty": true,
+    "eofline": true,
+    "indent": [true, "spaces", 4],
     "no-unused-variable": [
       true
     ]
