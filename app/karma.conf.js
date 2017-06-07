@@ -29,7 +29,21 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      {pattern: './src/test.ts', watched: false }
+      // zone.js
+        // 'node_modules/zone.js/dist/zone.js',
+        // 'node_modules/zone.js/dist/long-stack-trace-zone.js',
+        // 'node_modules/zone.js/dist/proxy.js',
+        // 'node_modules/zone.js/dist/sync-test.js',
+        // 'node_modules/zone.js/dist/jasmine-patch.js',
+        // 'node_modules/zone.js/dist/async-test.js',
+        // 'node_modules/zone.js/dist/fake-async-test.js',
+        {pattern: 'node_modules/zone.js/dist/zone.js', included: true, watched: false},
+        {pattern: 'node_modules/zone.js/dist/long-stack-trace-zone.js', included: true, watched: false},
+        {pattern: 'node_modules/zone.js/dist/proxy.js', included: true, watched: false},
+        {pattern: 'node_modules/zone.js/dist/sync-test.js', included: true, watched: false},
+        {pattern: 'node_modules/zone.js/dist/jasmine-patch.js', included: true, watched: false},
+        {pattern: 'node_modules/zone.js/dist/async-test.js', included: true, watched: false},
+        {pattern: './src/test.ts', watched: false }
       ],
 
 
