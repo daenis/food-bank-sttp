@@ -1,3 +1,4 @@
+/* tslint:disable */
 import { TestBed, ComponentFixture, async } from '@angular/core/testing';
 import { IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
@@ -10,7 +11,7 @@ let comp: MyApp;
 let fixture: ComponentFixture<MyApp>;
  
 describe('Component: Root Component', () => {
-    beforeEach(async(() => {
+    beforeAll(async(() => {
         TestBed.configureTestingModule({
             declarations: [MyApp],
             providers: [
@@ -23,12 +24,12 @@ describe('Component: Root Component', () => {
         }).compileComponents();
     }));
  
-    beforeEach(() => {
+    beforeAll(() => {
         fixture = TestBed.createComponent(MyApp);
         comp = fixture.componentInstance;
     });
  
-    afterEach(() => {
+    afterAll(() => {
         fixture.destroy();
         comp = null;
     });

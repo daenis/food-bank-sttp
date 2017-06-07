@@ -1,3 +1,4 @@
+/* tslint:disable */
 import { Component } from '@angular/core';
 import { HomePage } from './home';
 import { NavController } from 'ionic-angular';
