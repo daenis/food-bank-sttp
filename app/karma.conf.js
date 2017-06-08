@@ -18,13 +18,13 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine', 'angular-cli'],
+    frameworks: ['jasmine', '@angular/cli'],
     plugins: [
       require('karma-jasmine'),
       require('karma-chrome-launcher'),
       require('karma-remap-istanbul'),
       require('karma-mocha-reporter'),
-      require('angular-cli/plugins/karma')
+      require('@angular/cli/plugins/karma')
     ],
 
     // list of files / patterns to load in the browser
@@ -39,6 +39,7 @@ module.exports = function(config) {
         // 'node_modules/zone.js/dist/fake-async-test.js',
         {pattern: 'node_modules/zone.js/dist/zone.js', included: true, watched: false},
         {pattern: 'node_modules/zone.js/dist/long-stack-trace-zone.js', included: true, watched: false},
+        {pattern: 'node_modules/zone.js/dist/proxy.js', included: true, watched: false},
         {pattern: 'node_modules/zone.js/dist/proxy.js', included: true, watched: false},
         {pattern: 'node_modules/zone.js/dist/sync-test.js', included: true, watched: false},
         {pattern: 'node_modules/zone.js/dist/jasmine-patch.js', included: true, watched: false},
@@ -55,7 +56,7 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      './src/test.ts': ['angular-cli']
+      './src/test.ts': ['@angular/cli']
     },
 
     mime: {
@@ -68,7 +69,7 @@ module.exports = function(config) {
       }
     },
     angularCli: {
-      config: './angular-cli.json',
+      config: './.angular-cli.json',
       environment: 'dev'
     },
 
