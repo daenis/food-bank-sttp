@@ -1,8 +1,8 @@
 import unittest
+from Partner import Partner
 
-class TestPartner(unittest.TestCase):
-
-    def test_assert_partnerParser(self):
+class test_Parser(unittest.TestCase):
+    def test_assert_Parser(self):
         testCSV = {
         'AgencyRef': '200191',
         'AgencyName': 'EAGLES NEST MINISTRIES',
@@ -12,5 +12,6 @@ class TestPartner(unittest.TestCase):
         'Group': 'FOOD CLOSET'
         }
         partner = Partner()
-        partner.builder(testDictionary)
+        partner.builder(testCSV)
+        
         self.assertEqual(partner.agencyName(), 'EAGLES NEST MINISTRIES')

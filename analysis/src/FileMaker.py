@@ -10,7 +10,7 @@ class FileMaker:
             os.makedirs(os.getcwd() + '/output')
           self.file_name = os.getcwd() + '/output/' + file_name + '.json'
           #os.makedirs(os.path.dirname(file_name), exist_ok=True)
-          print(self.file_name)
+          #print(self.file_name)
           self.file = open(self.file_name, 'a+')
         except (OSError, IOError) as e:
             print(e)
