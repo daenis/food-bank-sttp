@@ -12,6 +12,9 @@ import { PartnerProfile } from '../pages/partnerprofile/partnerprofile';
 import { PartnerSignUp } from '../pages/partnersignup/partnersignup';
 import { VolunteerProfile } from '../pages/volunteerprofile/volunteerprofile';
 import { VolunteerSignUp } from '../pages/volunteersignup/volunteersignup';
+import { FoodItem } from '../pages/fooditem/fooditem';
+import { FoodCategory } from '../pages/foodcategory/foodcategory';
+import { ShoppingCart } from '../pages/shoppingcart/shoppingcart';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,10 @@ import { VolunteerSignUp } from '../pages/volunteersignup/volunteersignup';
     PartnerProfile,
     PartnerSignUp,
     VolunteerProfile,
-    VolunteerSignUp
+    VolunteerSignUp,
+    FoodItem,
+    FoodCategory,
+    ShoppingCart
   ],
   imports: [
     BrowserModule,
@@ -37,7 +43,10 @@ import { VolunteerSignUp } from '../pages/volunteersignup/volunteersignup';
     PartnerProfile,
     PartnerSignUp,
     VolunteerProfile,
-    VolunteerSignUp
+    VolunteerSignUp,
+    FoodItem,
+    FoodCategory,
+    ShoppingCart
   ],
   providers: [
     StatusBar,
