@@ -1,0 +1,40 @@
+{
+    "users": [
+        {
+            "id": "1",
+            "name": "Aaron Long",
+            "phone": "123456789",
+            "address": "A A Ron St. NJ",
+            "preferredlocation": "Marshallton",
+            "username": "aaronl",
+            "password": "12345"
+        },
+        {
+            "id": "2",
+            "name": "Jarryd Stamatelos",
+            "phone": "234567890",
+            "address": "Somewhere in Vorhees NJ",
+            "preferredlocation": "Lake Forest High School",
+            "username": "jarryds",
+            "password": "12345"
+        },
+        {
+            "id": "3",
+            "name": "Dennis Kalaygian",
+            "phone": "3456789101",
+            "address": "Somewhere in Milford DE",
+            "preferredlocation": "Lake Forest High School",
+            "username": "dennisk",
+            "password": "12345"
+        },
+        {
+            "id": "4",
+            "name": "Mark Brown",
+            "phone": "4567891012",
+            "address": "Wilmington DE",
+            "preferredlocation": "Marshallton",
+            "username": "markb",
+            "password": "12345"
+        }
+    ]
+}
