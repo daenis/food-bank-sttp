@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-
+import { HomePage } from  '../home/home';
 
 @Component({
   selector: 'page-foodcategory',
@@ -51,6 +51,9 @@ export class FoodCategory {
                 return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
             })
         }
+    }
+    goToMenu() {
+        this.navCtrl.setRoot(HomePage);
     }
 
     
