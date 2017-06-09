@@ -1,8 +1,7 @@
 import unittest
 from Partner import Partner
 
-class TestPartner(unittest.TestCase):
-
+class test_Partner(unittest.TestCase):
     def test_assert_fieldsself_agencyName(self):
         testDictionary = {
         'AgencyRef': '200191',
@@ -107,6 +106,8 @@ class TestPartner(unittest.TestCase):
         partner.builder(testDictionary)
         self.assertEqual(partner.zip(), None)
 
+###############################################
+
     def test_to_user_JSON(self):
         partner = Partner()
         partner.builder({
@@ -125,7 +126,25 @@ class TestPartner(unittest.TestCase):
         for key in expected.keys():
             self.assertEqual(expected[key], partner.to_user_JSON()[key])
 
-    def test_to_partners_JSON(self):
+    def test_to_user_JSON_incomplete(self):
+        partner = Partner()
+        partner.builder({
+        'AgencyName': '',
+        'Addr1': 'PO Box 129',
+        'City': 'Milton',
+        'State': 'DE',
+        'Zip': '19968'
+        })
+        expected = {
+        'Name': None,
+        'Type': 'Partner',
+        'Password': '1234',
+        'Username': None
+        }
+        for key in expected.keys():
+            self.assertEqual(expected[key], partner.to_user_JSON()[key])
+
+    def test_to_identification_JSON(self):
         partner = Partner()
         partner.builder({
         'AgencyName': 'EAGLES NEST MINISTRIES',
@@ -139,7 +158,23 @@ class TestPartner(unittest.TestCase):
         'Location': 'Milton, DE, 19968'
         }
         for key in expected.keys():
-            self.assertEqual(expected[key], partner.to_partners_JSON()[key])
+            self.assertEqual(expected[key], partner.to_identification_JSON()[key])
+
+    def test_to_identification_JSON_incomplete(self):
+        partner = Partner()
+        partner.builder({
+        'AgencyName': '',
+        'Addr1': 'PO Box 129',
+        'City': '',
+        'State': '',
+        'Zip': ''
+        })
+        expected = {
+        'Organization': None,
+        'Location': 'None, None, None'
+        }
+        for key in expected.keys():
+            self.assertEqual(expected[key], partner.to_identification_JSON()[key])
 
 if __name__ == '__main__':
     unittest.main()
