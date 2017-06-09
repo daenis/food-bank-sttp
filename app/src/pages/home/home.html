@@ -1,35 +1,49 @@
-<ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Food Bank Of Delaware Easy Order</ion-title>
-  </ion-navbar>
-</ion-header>
-
 <ion-content padding>
-  <h1><strong>Welcome!</strong></h1><br/>
 
-  <h3>Our Mission</h3>
-  <h1>Our Mission is to provide nutritious foods to Delawareans in need
-and facilitate long-term solutions to the problems of hunger and
-poverty through community education and advocacy.</h1><br />
+<div text-center>
+
+    <h1>
+      Welcome, The Food Bank Of Delaware thanks you for your support!
+    </h1>
+
+      <ion-item>
+        <ion-input type="text" placeholder="Username"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input type="password" placeholder="Password"></ion-input>
+      </ion-item>
 
 
-<div>
-  <h1>Please Login</h1>
-  <label class="FirstNameLogin" id="FirstNameLogi">
-    <input type="text" placeholder="User Name : "><br />
-  </label>
-<br />
-  <label class="Password" id="Password">
-    <input type="text" placeholder="Password : "><br />
-  </label>
-  <br />
+<form class="pure-form pure-form-aligned">
+    <fieldset>
+
+        <!-- <div class="pure-control-group">
+            <label for="name">Username</label>
+            <input id="name" type="text" placeholder="Username">
+        </div>
+
+        <div class="pure-control-group">
+            <label for="password">Password</label>
+            <input id="password" type="password" placeholder="Password">
+        </div> -->
+
+        <div class="pure-controls">
+
+            <button ion-button full type="submit" class="pure-button pure-button-primary">Login</button>
+            <button ion-button full (click)="goToPartnerSignUp()"type="submit" class="pure-button pure-button-primary">Register as a Hunger Relief Parter</button>
+            <button ion-button full (click)="goToVolunteerSignUp()"type="submit" class="pure-button pure-button-primary">Register as a Volunteer</button>
+
+        </div>
+
+        <div padding>
+        <img src="assets/img/foodbank-logo.png"/>
+        </div>
+
+    </fieldset>
+</form>
+
 </div>
-<button class="submit">Login</button>
 
-<img src="/assets/img/foodbank-logo.png" style="width: 375px; height: 150px">
 
-  
 </ion-content>

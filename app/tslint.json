@@ -1,8 +1,5 @@
-// General Linter rules
-// Please refer to here:
-// https://palantir.github.io/tslint/rules/
 {
-  "rules": {
+ "rules": {
     "no-duplicate-variable": true,
     "no-trailing-whitespace": true,
     "member-access": true,

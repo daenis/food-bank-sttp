@@ -14,23 +14,18 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
 .button{
-    background-color: #8dc358; 
-    padding: 20px 40px;
-    position: left;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    vertical-align: left;
+    background-color: #8dc358 ;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    text-decoration: none;
     font-weight: 700;
     font-size: 16px;
 }
-p{
+
+p {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    font-size: 16px;
-    font-weight: 500;
+    font-size: 20px;
+    font-weight: 800;
 }
 
 title {
@@ -42,39 +37,29 @@ title {
 }
 
 ion-input {
-    background-color: white; 
+    background-color:inherit;
     font-color: black;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: 16px;
     font-weight: 600;
     width: 200px;
-    padding-left:10px;
 }
 
-h1, div {
+ion-item {
+   list-style: none;
+}
+
+h1, div{
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: 16px;
     font-weight: 600;
-    vertical-align: right;
-    padding-left:10px;
-}
-
-
-.submit{
-    background-color: #8dc358; 
-    padding: 20px 40px;
-    position: center;
-    top: 50%;
-    left: 50%;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 16px;
-    display: block;
-    margin: 0 auto;
+    padding: 2px;
 }
 
 img {
     display: block;
     margin: 0 auto;
+    padding: 10px;
 }
+
+
