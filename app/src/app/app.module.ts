@@ -1,43 +1,43 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { PartnerPage } from '../pages/list/list';
 import { OrderForm } from '../pages/orderform/orderform';
-import { ProductForm } from '../pages/productform/productform';
-import { Volunteer } from '../pages/volunteer/volunteer';
-import { OrderSummaryPage } from '../pages/ordersummarypage/ordersummarypage';
-
-
-
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
+import { OrderSummary } from '../pages/ordersummary/ordersummary';
+import { PartnerProfile } from '../pages/partnerprofile/partnerprofile';
+import { PartnerSignUp } from '../pages/partnersignup/partnersignup';
+import { VolunteerProfile } from '../pages/volunteerprofile/volunteerprofile';
+import { VolunteerSignUp } from '../pages/volunteersignup/volunteersignup';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    PartnerPage,
     OrderForm,
-    ProductForm,
-    Volunteer,
-    OrderSummaryPage
+    OrderSummary,
+    PartnerProfile,
+    PartnerSignUp,
+    VolunteerProfile,
+    VolunteerSignUp
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage,
-    PartnerPage,
     OrderForm,
-    ProductForm,
-    Volunteer,
-    OrderSummaryPage
+    OrderSummary,
+    PartnerProfile,
+    PartnerSignUp,
+    VolunteerProfile,
+    VolunteerSignUp
   ],
   providers: [
     StatusBar,
