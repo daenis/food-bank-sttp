@@ -1,4 +1,4 @@
-{
+ {
  "rules": {
     "no-duplicate-variable": true,
     "no-trailing-whitespace": true,
@@ -9,7 +9,7 @@
     "no-var-keyword": true,
     "triple-equals": true,
     "max-line-length": [true, 120],
-    "indent": [true, "tabs"],
+    "indent": [true, "tabs", 2],
     "variable-name": [
       true,
       "ban-keywords",
