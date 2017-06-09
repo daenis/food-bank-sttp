@@ -1,3 +1,4 @@
+/* tslint:disable */
 import { TestBed, ComponentFixture, async } from '@angular/core/testing';
 import { IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
@@ -10,43 +11,32 @@ let comp: MyApp;
 let fixture: ComponentFixture<MyApp>;
  
 describe('Component: Root Component', () => {
- 
-    beforeEach(async(() => {
- 
+    beforeAll(async(() => {
         TestBed.configureTestingModule({
- 
             declarations: [MyApp],
- 
             providers: [
             StatusBar,
             SplashScreen
             ],
- 
             imports: [
                 IonicModule.forRoot(MyApp)
             ]
- 
         }).compileComponents();
- 
     }));
  
-    beforeEach(() => {
- 
+    beforeAll(() => {
         fixture = TestBed.createComponent(MyApp);
-        comp    = fixture.componentInstance;
- 
+        comp = fixture.componentInstance;
     });
  
-    afterEach(() => {
+    afterAll(() => {
         fixture.destroy();
         comp = null;
     });
  
     it('is created', () => {
- 
         expect(fixture).toBeTruthy();
         expect(comp).toBeTruthy();
- 
     });
  
     it('initialises with a root page of HomePage', () => {
