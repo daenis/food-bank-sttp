@@ -1,22 +1,11 @@
+from Organization import Organization
 import uuid
 
-class Partner:
-    def __init__(self):
-        self._dict = None
-        self.id = str(uuid.uuid4())
-
-    def _assert_defined(self, field):
-        if self._dict != None:
-            return self._dict[field]
-
-    def builder(self, dictionary):
-        if self._assert_fields(dictionary):
-            self._dict = dictionary
-
+class Partner(Organization):
     def _assert_fields(self, dictionary):
         requiredFields = ['AgencyName', 'Addr1', 'City', 'Zip']
         for field in requiredFields:
-            if dictionary[field] == '':
+            if dictionary[field] == None or dictionary[field] == '':
                 return False
         return True
 
@@ -44,7 +33,7 @@ class Partner:
           'Username': self.agencyName()
         }
 
-    def to_partners_JSON(self):
+    def to_identification_JSON(self):
         return {
           'UUID': self.id,
           'Organization': self.agencyName(),

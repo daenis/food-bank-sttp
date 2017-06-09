@@ -5,8 +5,7 @@ import json
 
 cwd = os.getcwd()
 
-class PartnerParser:
-
+class Parser:
     def parseCSV(self):
         arrayOfPartners = []
         with open(cwd + '/analysis/assets/partners.csv') as csv_file:
@@ -18,8 +17,6 @@ class PartnerParser:
 
         return arrayOfPartners
 
-
-
 if __name__ == '__main__':
-    print(cwd)
-    PartnerParser().parseCSV()
+    #print(cwd)
+    Parser().parseCSV()

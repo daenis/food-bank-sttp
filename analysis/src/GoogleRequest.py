@@ -5,7 +5,7 @@ from Establishment import Establishment
 from dotenv import load_dotenv
 
 dotenv_path = os.getcwd() + '/.env'
-print(dotenv_path)
+#print(dotenv_path)
 load_dotenv(dotenv_path)
 GOOGLE_API = os.environ.get("GOOGLE_API")
 GOOGLE_URL = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurants+"
@@ -13,18 +13,19 @@ GOOGLE_URL = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=r
 class GoogleRequest:
     def __init__(self, partner):
         self.url = GOOGLE_URL + "{}&key={}".format(partner.zip(), GOOGLE_API)
+        #print(self.url)
         self.json = requests.get(self.url).json()
-        print(self.json)
+        #print(self.json)
 
     def make_distributors(self):
         establishments = []
         for data in self.json["results"]:
-            print(data)
+            #print(data)
             establishments.append(self.extract(data))
         return establishments
 
     def extract(self, data):
-        print(data)
+        #print(data)
         distributor = {}
         fields = ["formatted_address", "name"]
         address = data[fields[0]].split(',')
@@ -43,17 +44,6 @@ class GoogleRequest:
             restaurants = GoogleRequest(item)
             return restaurants.make_distributors()
 
-
-if __name__ == '__main__':
-    testDictionary = {
-    'AgencyRef': '200191',
-    'AgencyName': '',
-    'Addr1': 'PO Box 129', 'Addr2': '26633 Zion Church Rd',
-    'City': 'Milton', 'State': 'DE', 'Zip': '19968',
-    'Phone': '302684-4983', 'County': 'SUSSEX',
-    'Group': 'FOOD CLOSET'
-    }
-    partner = Partner()
-    partner.builder(testDictionary)
-    google = GoogleRequest(partner)
-    print(google.make_distributors())
+#if __name__ == '__main__':
+    #main()
+    
