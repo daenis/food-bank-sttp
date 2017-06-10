@@ -24,6 +24,8 @@ venv
 .sass-cache
 .env
 
+package-lock.json
+
 .vscode/
 .vscode/*
 !.vscode/settings.json
