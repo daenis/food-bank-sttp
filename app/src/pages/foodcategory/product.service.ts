@@ -1,29 +1,29 @@
-// Promise Version
 import { Injectable }              from '@angular/core';
 import { Http, Response }          from '@angular/http';
+import { Headers, RequestOptions } from '@angular/http';
+import { environment } from '../../environments/environment'
 
-
-import 'rxjs/add/operator/toPromise';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
 
 import { Product } from './product';
 
 @Injectable()
 export class ProductService {
-
-  private productsUrl = 'localhost:6700';
+  private productsUrl = 'environment.uri'; 
 
   constructor (private http: Http) {}
 
-  getProductsList(): Promise<Product[]> {
+  getProducts(): Observable<Product[]> {
     return this.http.get(this.productsUrl)
-                    .toPromise()
-                    .then(this.extractProductsList)
+                    .map(this.extractData)
                     .catch(this.handleError);
   }
 
-  private extractProductsList(res: Response) {
-    let body = res.json();
-    return body.productList.category || { };
+  private extractData(rest: Object) {
+    let body = rest;
+    return body || { };
   }
 
   private handleError (error: Response | any) {
@@ -36,7 +36,7 @@ export class ProductService {
       errMsg = error.message ? error.message : error.toString();
     }
     console.error(errMsg);
-    return Promise.reject(errMsg);
+    return Observable.throw(errMsg);
   }
 
 }

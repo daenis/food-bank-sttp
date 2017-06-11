@@ -15,8 +15,8 @@ import { VolunteerProfile } from '../pages/volunteerprofile/volunteerprofile';
 import { VolunteerSignUp } from '../pages/volunteersignup/volunteersignup';
 import { ShoppingCart } from '../pages/shoppingcart/shoppingcart';
 import { SignUp } from '../pages/signup/signup';
-import { ProductListPromise } from '../pages/foodcategory/productlist.promise';
 import { HttpModule, JsonpModule } from '@angular/http';
+import { ProductListComponent } from '../pages/foodcategory/product-list.component';
 
 @NgModule({
   declarations: [
@@ -31,8 +31,8 @@ import { HttpModule, JsonpModule } from '@angular/http';
     FoodItem,
     FoodCategory,
     ShoppingCart,
-    ProductListPromise,
-	SignUp
+	SignUp,
+  ProductListComponent
   ],
   imports: [
     BrowserModule,
@@ -53,8 +53,8 @@ import { HttpModule, JsonpModule } from '@angular/http';
     FoodItem,
     FoodCategory,
     ShoppingCart,
-    ProductListPromise,
-	SignUp
+	SignUp,
+  ProductListComponent
   ],
   providers: [
     StatusBar,
