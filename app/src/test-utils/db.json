@@ -72,7 +72,7 @@
             "Location": "Wilmington, DE, 19801"
         }
     ],
-    "productList": [
+    "product": [
         {
             "referenceNumber": 888888,
             "category": "Meat",

@@ -1,9 +1,8 @@
-export class Product {
-    constructor(
-        public referenceNumber: number,
-        public category: string,
-        public description: string,
-        public price: number,
-        public unitMeasure: string
-    ){}
+export interface IProduct {
+    referenceNumber: number;
+    category: string;
+    description: string;
+    price: number;
+    unitMeasure: string;
+    quantityAvailable: number;
 }

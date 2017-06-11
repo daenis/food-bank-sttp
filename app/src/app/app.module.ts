@@ -17,6 +17,8 @@ import { ShoppingCart } from '../pages/shoppingcart/shoppingcart';
 import { SignUp } from '../pages/signup/signup';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { ProductListComponent } from '../pages/foodcategory/product-list.component';
+import { ProductFilterPipe } from '../pages/foodcategory/product-filter.pipe';
+import { ProductDetailComponent } from '../pages/foodcategory/product-detail.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { ProductListComponent } from '../pages/foodcategory/product-list.compone
     FoodCategory,
     ShoppingCart,
 	SignUp,
-  ProductListComponent
+  ProductListComponent,
+  ProductDetailComponent,
+  ProductFilterPipe
   ],
   imports: [
     BrowserModule,
@@ -54,7 +58,8 @@ import { ProductListComponent } from '../pages/foodcategory/product-list.compone
     FoodCategory,
     ShoppingCart,
 	SignUp,
-  ProductListComponent
+  ProductListComponent,
+  ProductDetailComponent
   ],
   providers: [
     StatusBar,

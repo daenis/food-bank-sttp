@@ -1,26 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-import { Product }              from './product';
-import { ProductService }       from './product.service';
+
+import { IProduct } from './product';
+import { ProductService } from './product.service';
 
 @Component({
-  selector: 'product-list',
-  templateUrl: './foodcategory.html',
-  providers: [ ProductService ],
-  styles: ['.error {color:red;}']
+    templateUrl: './product-list.component.html',
+    providers: [ProductService]
 })
 export class ProductListComponent implements OnInit {
-  errorMessage: string;
-  products: Product[];
+    pageTitle: string = 'Product List';
+    listFilter: string;
+    errorMessage: string;
 
-  constructor (private productService: ProductService) {}
+    products: IProduct[];
 
-  ngOnInit() { this.getProducts(); }
+    constructor(private _productService: ProductService) {
 
-  getProducts() {
-    this.productService.getProducts()
-                     .subscribe(
-                       products => this.products = products,
-                       error =>  this.errorMessage = <any>error);
-  }
-  
+    }
+
+    ngOnInit(): void {
+        this._productService.getProducts()
+                .subscribe(products => this.products = products,
+                           error => this.errorMessage = <any>error);
+    }
+    
 }

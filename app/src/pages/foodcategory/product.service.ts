@@ -1,42 +1,29 @@
-import { Injectable }              from '@angular/core';
-import { Http, Response }          from '@angular/http';
-import { Headers, RequestOptions } from '@angular/http';
-import { environment } from '../../environments/environment'
-
+import { Injectable } from '@angular/core';
+import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
+import { environment } from '../../environments/environment';
 
-import { Product } from './product';
+import { IProduct } from './product';
 
 @Injectable()
 export class ProductService {
-  private productsUrl = 'environment.uri'; 
+    private _productUrl = 'http://localhost:6700/';
 
-  constructor (private http: Http) {}
+    constructor(private _http: Http) {}
 
-  getProducts(): Observable<Product[]> {
-    return this.http.get(this.productsUrl)
-                    .map(this.extractData)
-                    .catch(this.handleError);
-  }
-
-  private extractData(rest: Object) {
-    let body = rest;
-    return body || { };
-  }
-
-  private handleError (error: Response | any) {
-    let errMsg: string;
-    if (error instanceof Response) {
-      const body = error.json() || '';
-      const err = body.error || JSON.stringify(body);
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-    } else {
-      errMsg = error.message ? error.message : error.toString();
+    getProducts(): Observable<IProduct[]> {
+        return this._http.get(this._productUrl)
+            .map((response: Response) => <IProduct[]> response.json())
+            .do(data => console.log('All: ' +  JSON.stringify(data || null)))
+            .catch(this.handleError);
     }
-    console.error(errMsg);
-    return Observable.throw(errMsg);
-  }
+
+    private handleError(error: Response) {
+        console.error(error);
+        return Observable.throw(error.json().error || 'Server error');
+    }
 
 }
