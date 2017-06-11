@@ -25,18 +25,18 @@ export class SignUp implements OnInit {
 			address: ['']
 		})
 	}
-	
+
 	public goBack(): void {
 		this.navCtrl.pop();
 	}
 
 	public submit(): void {
 		if (this.form.valid) {
-			const result = this.parseForm(this.form.getRawValue())
-			const uri = environment.uri + 'users/'
+			const result = this.parseForm(this.form.getRawValue());
+			const uri = environment.uri + 'users/';
 			this.http.post(uri, result).toPromise()
-			         .then(e => this.goBack())
-					 .catch(e => console.warn(e))
+			.then(e => this.goBack())
+			.catch(e => console.warn(e))
 		}
 	}
 
