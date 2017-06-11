@@ -2,36 +2,15 @@
 <ion-content>
 	<div class="sign-up">
 		<p>Please fill out all applicable fields before submitting</p>
-		<form [formGroup]="form">
-			<ion-list>
-				<ion-item>
-					<ion-label color="dark">Name: </ion-label>
-					<ion-input formControlName="name" placeholder=""></ion-input>
-				</ion-item>
-				<ion-item>
-					<ion-label color="dark">Username: </ion-label>
-					<ion-input formControlName="userName" placeholder=""></ion-input>
-				</ion-item>
-				<ion-item>
-					<ion-label color="dark">password: </ion-label>
-					<ion-input formControlName="password" placeholder=""
-						type="password"></ion-input>
-				</ion-item>
-				<ion-item>
-					<ion-label color="dark">Email Address: </ion-label>
-					<ion-input formControlName="email" placeholder=""></ion-input>
-				</ion-item>
-				<ion-item>
-					<ion-label color="dark">Address: </ion-label>
-					<ion-input formControlName="address" placeholder=""></ion-input>
-				</ion-item>
-				<ion-item>
-					<ion-label color="dark">Phone Number: </ion-label>
-					<ion-input formControlName="phoneNumber" placeholder=""></ion-input>
-				</ion-item>
-			</ion-list>
+		<form [formGroup]="form" class="pure-form pure-form-stacked pure-form-aligned">
+			<input type="text" formControlName="name" placeholder="name" />
+			<input type="text" formControlName="userName" placeholder="User Name" />
+			<input formControlName="password" placeholder="Password" type="password" />
+			<input type="email" formControlName="email" placeholder="Email"/>
+			<input type="text" formControlName="address" placeholder="Address" />
+			<input type="text" formControlName="phoneNumber" placeholder="Phone Number" />
 			<div class="pure-controls">
-				<button ion-button full (click)="submit()" type="submit" class="pure-button pure-button-primary">Start making a difference today!</button>
+				<button ion-button id="signup" (click)="submit()" type="submit" class="pure-button pure-button-primary">Start making a difference today!</button>
 				<img src="assets/img/alt-logo.png"/>
 				<button ion-button full (click)="goBack()" type="submit" class="pure-button pure-button-primary">Back</button>
 			</div>
