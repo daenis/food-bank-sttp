@@ -19,47 +19,47 @@ import { ProductListPromise } from '../pages/foodcategory/productlist.promise';
 import { HttpModule, JsonpModule } from '@angular/http';
 
 @NgModule({
-  declarations: [
-    MyApp,
-    HomePage,
-    OrderForm,
-    OrderSummary,
-    PartnerProfile,
-    PartnerSignUp,
-    VolunteerProfile,
-    VolunteerSignUp,
-    FoodItem,
-    FoodCategory,
-    ShoppingCart,
-    ProductListPromise,
-	SignUp
-  ],
-  imports: [
-    BrowserModule,
-    HttpModule,
-    JsonpModule,
-    IonicModule.forRoot(MyApp)
-  ],
-  bootstrap: [IonicApp],
-  entryComponents: [
-    MyApp,
-    HomePage,
-    OrderForm,
-    OrderSummary,
-    PartnerProfile,
-    PartnerSignUp,
-    VolunteerProfile,
-    VolunteerSignUp,
-    FoodItem,
-    FoodCategory,
-    ShoppingCart,
-    ProductListPromise,
-	SignUp
-  ],
-  providers: [
-    StatusBar,
-    SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
-  ]
+	declarations: [
+		MyApp,
+		HomePage,
+		OrderForm,
+		OrderSummary,
+		PartnerProfile,
+		PartnerSignUp,
+		VolunteerProfile,
+		VolunteerSignUp,
+		FoodItem,
+		FoodCategory,
+		ShoppingCart,
+		ProductListPromise,
+		SignUp
+	],
+	imports: [
+		BrowserModule,
+		HttpModule,
+		JsonpModule,
+		IonicModule.forRoot(MyApp)
+	],
+	bootstrap: [IonicApp],
+	entryComponents: [
+		MyApp,
+		HomePage,
+		OrderForm,
+		OrderSummary,
+		PartnerProfile,
+		PartnerSignUp,
+		VolunteerProfile,
+		VolunteerSignUp,
+		FoodItem,
+		FoodCategory,
+		ShoppingCart,
+		ProductListPromise,
+		SignUp
+	],
+	providers: [
+		StatusBar,
+		SplashScreen,
+		{provide: ErrorHandler, useClass: IonicErrorHandler}
+	]
 })
 export class AppModule {}
