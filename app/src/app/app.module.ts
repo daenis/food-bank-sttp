@@ -15,6 +15,8 @@ import { VolunteerSignUp } from '../pages/volunteersignup/volunteersignup';
 import { FoodItem } from '../pages/fooditem/fooditem';
 import { FoodCategory } from '../pages/foodcategory/foodcategory';
 import { ShoppingCart } from '../pages/shoppingcart/shoppingcart';
+import { ProductListPromise } from '../pages/foodcategory/productlist.promise';
+import { HttpModule, JsonpModule } from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -28,10 +30,13 @@ import { ShoppingCart } from '../pages/shoppingcart/shoppingcart';
     VolunteerSignUp,
     FoodItem,
     FoodCategory,
-    ShoppingCart
+    ShoppingCart,
+    ProductListPromise
   ],
   imports: [
     BrowserModule,
+    HttpModule,
+    JsonpModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -46,7 +51,8 @@ import { ShoppingCart } from '../pages/shoppingcart/shoppingcart';
     VolunteerSignUp,
     FoodItem,
     FoodCategory,
-    ShoppingCart
+    ShoppingCart,
+    ProductListPromise
   ],
   providers: [
     StatusBar,
