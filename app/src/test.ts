@@ -23,6 +23,8 @@ import { App,
          GestureController,
         } from 'ionic-angular';
 import { ConfigMock, PlatformMock, NavMock, DeepLinkerMock } from './test-utils/mocks';
+import { MockBackend } from '@angular/http/testing';
+import { Http } from '@angular/http';
 
 
 // Unfortunately there's no typing for the `__karma__` variable. Just declare it as any.
@@ -67,7 +69,8 @@ export class TestUtils {
         {provide: Platform, useClass: PlatformMock},
         {provide: Config, useClass: ConfigMock},
         {provide: DeepLinker, useClass: DeepLinkerMock},
-        {provide: NavController, useClass: NavMock}
+        {provide: NavController, useClass: NavMock},
+        {provide: Http, deps: [MockBackend]}
       ],
       imports: [
         IonicModule

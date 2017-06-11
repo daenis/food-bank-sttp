@@ -2,23 +2,26 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { VolunteerSignUp } from '../volunteersignup/volunteersignup';
 import { PartnerSignUp } from '../partnersignup/partnersignup';
+import { SignUp } from '../signup/signup';
 
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+	selector: 'page-home',
+	templateUrl: 'home.html'
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController) {
-    
-  }
-  goToVolunteerSignUp(){
-    this.navCtrl.push(VolunteerSignUp);
-  }
-  goToPartnerSignUp(){
-    this.navCtrl.push(PartnerSignUp);
-  }
-  
+	constructor(public navCtrl: NavController) {
+		
+	}
+	goToVolunteerSignUp(){
+		this.navCtrl.push(VolunteerSignUp);
+	}
+	goToPartnerSignUp(){
+		this.navCtrl.push(PartnerSignUp);
+	}
 
+	goToSignUp() {
+		this.navCtrl.push(SignUp);
+	}
 
 }
