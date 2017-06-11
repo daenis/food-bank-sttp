@@ -1,11 +1,7 @@
-<ion-content>
-    <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
-<ion-list>
-  <ion-item *ngFor="let item of items">
-    {{ item }}
-  </ion-item>
-</ion-list>
-  <div class="pure-controls">
-      <button ion-button full (click)="goToMenu()" type="submit" class="pure-button pure-button-primary">Return to menu</button>
-  </div>
-</ion-content>
+
+<h3>Categories:</h3>
+<ul>
+  <li *ngFor="let product of products">{{productList.category}}</li>
+</ul>
+
+<p class="error" *ngIf="errorMessage">{{errorMessage}}</p>
