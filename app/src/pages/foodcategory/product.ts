@@ -1,4 +1,4 @@
-export class IProduct {
+export class Product {
     referenceNumber: number;
     category: string;
     description: string;
