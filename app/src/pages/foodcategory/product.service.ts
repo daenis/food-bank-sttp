@@ -6,7 +6,7 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
 import { environment } from '../../environments/environment';
 
-import { IProduct } from './product';
+import { Product } from './product';
 
 @Injectable()
 export class ProductService {
@@ -14,9 +14,9 @@ export class ProductService {
 
     constructor(private _http: Http) {}
 
-    getProducts(): Observable<IProduct[]> {
+    getProducts(): Observable<Product[]> {
         return this._http.get(this._productUrl)
-            .map((response: Response) => <IProduct[]> response.json())
+            .map((response: Response) => <Product[]> response.json())
             .do(data => console.log('All: ' +  JSON.stringify(data || null)))
             .catch(this.handleError);
     }

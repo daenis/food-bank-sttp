@@ -12,7 +12,7 @@
         <ion-item>{{ product.category| lowercase }}</ion-item>
         <ion-item>{{ product.description }}</ion-item>
         <ion-item>{{ product.price | currency:'USD':true:'1.2-2'}}</ion-item>-->
-        <ion-item *ngFor='let product of products | productFilter'>{{product.category}}></ion-item>
+        <ion-item *ngFor="let product of products | productFilter: 'category' ">{{product.category}}</ion-item>
     </ion-list>
 
     
