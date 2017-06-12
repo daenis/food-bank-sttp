@@ -1,14 +1,15 @@
 import { PipeTransform, Pipe } from '@angular/core';
 
-import { IProduct } from './product';
-
+import { Product } from './product';
+import * as _ from 'lodash'; 
 @Pipe({
     name: 'productFilter'
 })
 export class ProductFilterPipe implements PipeTransform {
-    transform(value: IProduct[], filterBy: string): IProduct[] {
-        filterBy = filterBy ? filterBy.toLocaleLowerCase() : null;
-        return filterBy ? value.filter((product: IProduct) =>
-            product.category.toLocaleLowerCase().indexOf(filterBy) !== -1) : value;
+        transform(value: any): any{
+            if(value!== undefined && value!== null){
+                return _.uniqBy(value, 'category');
+            }
+            return value;
     }
 }
