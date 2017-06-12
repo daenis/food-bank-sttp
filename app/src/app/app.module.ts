@@ -3,7 +3,6 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-import { FoodCategory } from '../pages/foodcategory/foodcategory';
 import { FoodItem } from '../pages/fooditem/fooditem';
 import { HomePage } from '../pages/home/home';
 import { MyApp } from './app.component';
@@ -31,7 +30,6 @@ import { ProductDetailComponent } from '../pages/foodcategory/product-detail.com
     VolunteerProfile,
     VolunteerSignUp,
     FoodItem,
-    FoodCategory,
     ShoppingCart,
 	SignUp,
   ProductListComponent,
@@ -55,7 +53,6 @@ import { ProductDetailComponent } from '../pages/foodcategory/product-detail.com
     VolunteerProfile,
     VolunteerSignUp,
     FoodItem,
-    FoodCategory,
     ShoppingCart,
 	SignUp,
   ProductListComponent,

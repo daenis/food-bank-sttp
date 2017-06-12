@@ -1,15 +1,16 @@
 import { PipeTransform, Pipe } from '@angular/core';
 
 import { Product } from './product';
-import * as _ from 'lodash'; 
+import * as _ from 'lodash';
+
 @Pipe({
-    name: 'productFilter'
+		name: 'productFilter'
 })
 export class ProductFilterPipe implements PipeTransform {
-        transform(value: any): any{
-            if(value!== undefined && value!== null){
-                return _.uniqBy(value, 'category');
-            }
-            return value;
-    }
+		public transform(value: any): any {
+				if (value !== undefined && value !== null) {
+						return _.uniqBy(value, 'category');
+								}
+						return value;
+		}
 }

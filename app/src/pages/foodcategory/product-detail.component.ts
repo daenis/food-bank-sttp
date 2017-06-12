@@ -3,9 +3,9 @@ import { Component } from '@angular/core';
 import { Product } from './product';
 
 @Component({
-    templateUrl: './product-detail.component.html'
+		templateUrl: './product-detail.component.html'
 })
 export class ProductDetailComponent {
-    pageTitle: string = 'Product Detail';
-    product: Product;
+		public pageTitle: string = 'Product Detail';
+		public product: Product;
 }
