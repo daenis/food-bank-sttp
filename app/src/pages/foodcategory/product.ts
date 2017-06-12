@@ -1,8 +1,8 @@
 export class Product {
-    referenceNumber: number;
-    category: string;
-    description: string;
-    price: number;
-    unitMeasure: string;
-    quantityAvailable: number;
+	public referenceNumber: number;
+	public category: string;
+	public description: string;
+	public price: number;
+	public unitMeasure: string;
+	public quantityAvailable: number;
 }
