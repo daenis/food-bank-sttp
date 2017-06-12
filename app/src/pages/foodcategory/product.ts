@@ -1,4 +1,4 @@
-export interface IProduct {
+export class IProduct {
     referenceNumber: number;
     category: string;
     description: string;

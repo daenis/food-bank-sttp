@@ -6,7 +6,6 @@ import { IProduct } from './product';
     name: 'productFilter'
 })
 export class ProductFilterPipe implements PipeTransform {
-
     transform(value: IProduct[], filterBy: string): IProduct[] {
         filterBy = filterBy ? filterBy.toLocaleLowerCase() : null;
         return filterBy ? value.filter((product: IProduct) =>

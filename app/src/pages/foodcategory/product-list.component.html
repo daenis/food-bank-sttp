@@ -1,43 +1,20 @@
-<div class='panel panel-primary'>
+
     <div class='panel-heading'>
         {{pageTitle}}
     </div>
-    <div class='panel-body'>
-        <div class='row'>
-            <div class='col-md-2'>Filter by:</div>
-            <div class='col-md-4'>
-                <input type='text' [(ngModel)]='listFilter' />
-            </div>
-        </div>
-        <div class='row'>
-            <div class='col-md-6'>
-                <h3>Filtered by: {{listFilter}} </h3>
-            </div>
-        </div>
-        <div class='table-responsive'>
-            <table class='table'
-                   *ngIf='products && products.length'>
-                <thead>
-                    <tr>
-                        <th>Product</th>
-                        <th>Category</th>
-                        <th>Description</th>
-                        <th>Price</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor='let product of products | productFilter:listFilter'>
-                        <td>
-                                [src]='product.imageUrl'
-                                [title]='product.referenceNumber'
-                        </td>
-                        <td>{{ product.referenceNumber }}</td>
-                        <td>{{ product.category| lowercase }}</td>
-                        <td>{{ product.description }}</td>
-                        <td>{{ product.price | currency:'USD':true:'1.2-2'}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    <div class='filer-input'>
+        <ion-input>
+            <input type='text' [(ngModel)]='listFilter' />  
+        </ion-input>
     </div>
-</div>
+    <ion-list>
+        <!--<ion-item>{{ product.referenceNumber }}</ion-item>
+        <ion-item>{{ product.category| lowercase }}</ion-item>
+        <ion-item>{{ product.description }}</ion-item>
+        <ion-item>{{ product.price | currency:'USD':true:'1.2-2'}}</ion-item>-->
+        <ion-item *ngFor='let product of products | productFilter'>{{product.category}}></ion-item>
+    </ion-list>
+
+    
+    
+    
