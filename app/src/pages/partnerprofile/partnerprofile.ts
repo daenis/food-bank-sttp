@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { FoodCategory } from '../foodcategory/foodcategory';
-import { ProductListPromise } from '../foodcategory/productlist.promise'; 
+import { ProductListComponent } from '../foodcategory/product-list.component';
+
 
 @Component({
   selector: 'page-partnerprofile',
@@ -18,7 +19,7 @@ export class PartnerProfile {
   }
 
   goToOrderForm(){
-    this.navCtrl.push(ProductListPromise);
+    this.navCtrl.push(ProductListComponent);
   }
 
 }
