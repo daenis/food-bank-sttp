@@ -11,45 +11,35 @@
       Poverty Through Community Education And Advocacy.
     </h1>
 
-      <ion-item>
-        <ion-input type="text" placeholder="Username"></ion-input>
-      </ion-item>
 
-      <ion-item>
-        <ion-input type="password" placeholder="Password"></ion-input>
-      </ion-item>
+    <form [formGroup]="login" class="pure-form pure-form-aligned">
+        <fieldset>
 
+            <div class="pure-control-group">
+                <input formControlName="username" id="name" type="text" placeholder="Username">
+            </div>
 
-<form class="pure-form pure-form-aligned">
-    <fieldset>
+            <div class="pure-control-group">
+                <input formControlName="password" id="password" type="password" placeholder="Password">
+            </div>
 
-        <!-- <div class="pure-control-group">
-            <label for="name">Username</label>
-            <input id="name" type="text" placeholder="Username">
-        </div>
+            <div class="pure-controls">
 
-        <div class="pure-control-group">
-            <label for="password">Password</label>
-            <input id="password" type="password" placeholder="Password">
-        </div> -->
+                <button ion-button full type="submit" (click)="authenticate()" class="pure-button pure-button-primary">Login</button>
 
-        <div class="pure-controls">
+                <!--COMMENT OUT BELOW BUTTONS FOR WEDNESDAY DEMO-->
+                <button ion-button full (click)="goToPartnerSignUp()"type="submit" class="pure-button pure-button-primary">Register as a Hunger Relief Parter</button>
+                <button ion-button full (click)="goToVolunteerSignUp()"type="submit" class="pure-button pure-button-primary">Register as a Volunteer</button>
+                <button ion-button full (click)="goToSignUp()"type="submit" class="pure-button pure-button-primary">Register</button>
 
-            <button ion-button full type="submit" class="pure-button pure-button-primary">Login</button>
+            </div>
 
-            <!--COMMENT OUT BELOW BUTTONS FOR WEDNESDAY DEMO-->
-            <button ion-button full (click)="goToPartnerSignUp()"type="submit" class="pure-button pure-button-primary">Register as a Hunger Relief Parter</button>
-            <button ion-button full (click)="goToVolunteerSignUp()"type="submit" class="pure-button pure-button-primary">Register as a Volunteer</button>
-            <button ion-button full (click)="goToSignUp()"type="submit" class="pure-button pure-button-primary">Register</button>
+            <div padding>
+            <img src="assets/img/foodbank-logo.png"/>
+            </div>
 
-        </div>
-
-        <div padding>
-        <img src="assets/img/foodbank-logo.png"/>
-        </div>
-
-    </fieldset>
-</form>
+        </fieldset>
+    </form>
 
 </div>
 
