@@ -8,7 +8,7 @@ import { ProductService } from './product.service';
     providers: [ProductService]
 })
 export class ProductListComponent implements OnInit {
-    pageTitle: string = 'Product List';
+    pageTitle: string = 'Categories';
     listFilter: string;
     errorMessage: string;
 
