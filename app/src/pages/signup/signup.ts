@@ -30,15 +30,15 @@ export class SignUp implements OnInit {
 		this.navCtrl.pop();
 	}
 
-	public submit(): void {
-		if (this.form.valid) {
-			const result = this.parseForm(this.form.getRawValue());
-			const uri = environment.uri + 'users/';
-			this.http.post(uri, result).toPromise()
-			.then(e => this.goBack())
-			.catch(e => console.warn(e))
-		}
-	}
+	// public submit(): void {
+	// 	if (this.form.valid) {
+	// 		const result = this.parseForm(this.form.getRawValue());
+	// 		const uri = environment.uri + 'users/';
+	// 		this.http.post(uri, result).toPromise()
+	// 		.then(e => this.goBack())
+	// 		.catch(e => console.warn(e))
+	// 	}
+	// }
 
 	private parseForm(form: Object): Object {
 		return ({

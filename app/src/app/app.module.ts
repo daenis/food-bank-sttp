@@ -21,7 +21,6 @@ import { ProductFilterPipe } from '../pages/foodcategory/product-filter.pipe';
 import { ProductDetailComponent } from '../pages/foodcategory/product-detail.component';
 
 @NgModule({
-<<<<<<< HEAD
   declarations: [
     MyApp,
     HomePage,
@@ -67,49 +66,5 @@ import { ProductDetailComponent } from '../pages/foodcategory/product-detail.com
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
-=======
-	declarations: [
-		MyApp,
-		HomePage,
-		OrderForm,
-		OrderSummary,
-		PartnerProfile,
-		PartnerSignUp,
-		VolunteerProfile,
-		VolunteerSignUp,
-		FoodItem,
-		FoodCategory,
-		ShoppingCart,
-		ProductListPromise,
-		SignUp
-	],
-	imports: [
-		BrowserModule,
-		HttpModule,
-		JsonpModule,
-		IonicModule.forRoot(MyApp)
-	],
-	bootstrap: [IonicApp],
-	entryComponents: [
-		MyApp,
-		HomePage,
-		OrderForm,
-		OrderSummary,
-		PartnerProfile,
-		PartnerSignUp,
-		VolunteerProfile,
-		VolunteerSignUp,
-		FoodItem,
-		FoodCategory,
-		ShoppingCart,
-		ProductListPromise,
-		SignUp
-	],
-	providers: [
-		StatusBar,
-		SplashScreen,
-		{provide: ErrorHandler, useClass: IonicErrorHandler}
-	]
->>>>>>> dev
 })
 export class AppModule {}
