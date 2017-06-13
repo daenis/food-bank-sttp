@@ -3,9 +3,9 @@
         {{pageTitle}}
     </div>
     <ion-list>
-        <ion-item *ngFor="let product of products | productFilter ">
+        <ion-item *ngFor="let product of products">
             <button ion-button full (click)="goToProductDetail()">
-                {{product.category}}
+                {{product}}
             </button>
         </ion-item>
     </ion-list>

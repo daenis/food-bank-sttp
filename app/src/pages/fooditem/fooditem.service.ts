@@ -5,18 +5,19 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
 import { environment } from '../../environments/environment';
-
-import { Product } from './product';
+import { Product } from '../foodcategory/product';
 
 @Injectable()
-export class ProductService {
-		private _productUrl = environment.uri + 'api/categories/';
+export class FoodItemService {
+
+        private Category: string;
+		private _productUrl = environment.uri + this.Category;
 
 		constructor(private _http: Http) {}
 
-		public getProducts(): Observable<String[]> {
+		public getProducts(): Observable<Product[]> {
 				return this._http.get(this._productUrl)
-						.map((response: Response) => <String[]> response.json()["categories"])
+						.map((response: Response) => <Product[]> response.json())
 						.catch(this.handleError);
 		}
 
