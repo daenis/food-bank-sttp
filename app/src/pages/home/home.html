@@ -1,17 +1,10 @@
 <ion-content padding>
+    <div padding>
+        <img src="assets/img/foodbank-logo.png"/>
+    </div>
 
 <div text-center>
     
-    <h3>
-      <strong>Welcome, The Food Bank Of Delaware Thanks You For Your Support!</strong>
-    </h3>
-    <h1>
-      <strong>OUR MISSION</strong> Is To Provide Nutritious Foods To Delawareans In Need
-      And Facilitate Long-Term Solutions To The Problems Of Hunger And
-      Poverty Through Community Education And Advocacy.
-    </h1>
-
-
     <form [formGroup]="login" class="pure-form pure-form-aligned">
         <fieldset>
 
@@ -26,22 +19,13 @@
             <div class="pure-controls">
 
                 <button ion-button full type="submit" (click)="authenticate()" class="pure-button pure-button-primary">Login</button>
-
-                <!--COMMENT OUT BELOW BUTTONS FOR WEDNESDAY DEMO-->
-                <button ion-button full (click)="goToPartnerSignUp()"type="submit" class="pure-button pure-button-primary">Register as a Hunger Relief Parter</button>
-                <button ion-button full (click)="goToVolunteerSignUp()"type="submit" class="pure-button pure-button-primary">Register as a Volunteer</button>
                 <button ion-button full (click)="goToSignUp()"type="submit" class="pure-button pure-button-primary">Register</button>
-
             </div>
 
-            <div padding>
-            <img src="assets/img/foodbank-logo.png"/>
-            </div>
 
         </fieldset>
     </form>
 
 </div>
-
 
 </ion-content>

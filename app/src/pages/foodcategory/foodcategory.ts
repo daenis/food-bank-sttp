@@ -3,14 +3,13 @@ import { NavController } from 'ionic-angular';
 import { HomePage } from  '../home/home';
 
 @Component({
-  selector: 'page-foodcategory',
-  templateUrl: 'foodcategory.html'
+	selector: 'page-foodcategory',
+	templateUrl: 'foodcategory.html'
 })
 
 export class FoodCategory {
 
-    constructor(public navCtrl:NavController){
+		constructor(public navCtrl:NavController) {
 
-    }
-    
+		}
 }
