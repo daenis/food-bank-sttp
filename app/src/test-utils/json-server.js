@@ -12,6 +12,7 @@ function server () {
   // this.server.use(this.routes)
   this.server.use('/data/', this.defaults)
   this.server.use('/data/', this.routes)
+  this.server.use(cors())
   this.server.get('/api/categories/', (req, res) => {
     const items = []
     let ctg = db.product.map(e => e.category).filter(e => {
@@ -27,7 +28,6 @@ function server () {
     console.log(req.params)
     res.json({categories: ctg})
   })
-  this.server.use(cors())
   this.server.listen(6700, () => {
     console.log('JSON Server is running')
   })
