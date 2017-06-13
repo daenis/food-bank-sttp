@@ -18,6 +18,7 @@ import { HttpModule, JsonpModule } from '@angular/http';
 import { ProductListComponent } from '../pages/foodcategory/product-list.component';
 import { ProductFilterPipe } from '../pages/foodcategory/product-filter.pipe';
 import { ProductDetailComponent } from '../pages/foodcategory/product-detail.component';
+import { ProductDetailPipe } from '../pages/foodcategory/product-detail-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { ProductDetailComponent } from '../pages/foodcategory/product-detail.com
 	SignUp,
   ProductListComponent,
   ProductDetailComponent,
-  ProductFilterPipe
+  ProductFilterPipe,
+  ProductDetailPipe
   ],
   imports: [
     BrowserModule,

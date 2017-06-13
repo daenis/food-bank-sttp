@@ -4,8 +4,8 @@
         {{pageTitle}}
     </div>
     <ion-list>
-        <ion-item *ngFor="let product of products ">
-                {{product.category["description"]}}
+        <ion-item *ngFor="let product of products | productDetailFilter ">
+                {{product.description}}
         </ion-item>
     </ion-list>
 

@@ -16,15 +16,16 @@ export class ProductListComponent implements OnInit {
 
 		constructor(
 			private _productService: ProductService,
-			private navCtrl: NavController) {
+			private navCtrl: NavController,
+			private navParams: NavParams) {
 		}
 		public ngOnInit(): void {
 				this._productService.getProducts()
 								.subscribe(products => this.products = products,
 														error => this.errorMessage = <any> error);
 		}
-		public goToProductDetail() {
-			this.navCtrl.push(ProductDetailComponent);
+		public goToProductDetail(description) {
+			this.navCtrl.push(ProductDetailComponent, description);
 		}
 
 

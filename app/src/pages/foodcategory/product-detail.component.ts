@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from './product';
 import { ProductService } from './product.service';
+import { NavController } from 'ionic-angular';
 
 @Component({
 		templateUrl: './product-detail.component.html',
