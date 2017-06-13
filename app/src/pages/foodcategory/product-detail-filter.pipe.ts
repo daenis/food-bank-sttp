@@ -4,12 +4,12 @@ import { Product } from './product';
 import * as _ from 'lodash';
 
 @Pipe({
-		name: 'productFilter'
+		name: 'productDetailFilter'
 })
-export class ProductFilterPipe implements PipeTransform {
+export class ProductDetailPipe implements PipeTransform {
 		public transform(value: any): any {
 				if (value !== undefined && value !== null) {
-						return _.uniqBy(value, 'category');
+						return _.uniqBy(value, 'description');
 								}
 						return value;
 		}

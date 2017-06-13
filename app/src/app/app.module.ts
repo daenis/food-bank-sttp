@@ -3,7 +3,6 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-import { FoodCategory } from '../pages/foodcategory/foodcategory';
 import { FoodItem } from '../pages/fooditem/fooditem';
 import { HomePage } from '../pages/home/home';
 import { MyApp } from './app.component';
@@ -19,6 +18,7 @@ import { HttpModule, JsonpModule } from '@angular/http';
 import { ProductListComponent } from '../pages/foodcategory/product-list.component';
 import { ProductFilterPipe } from '../pages/foodcategory/product-filter.pipe';
 import { ProductDetailComponent } from '../pages/foodcategory/product-detail.component';
+import { ProductDetailPipe } from '../pages/foodcategory/product-detail-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -31,12 +31,12 @@ import { ProductDetailComponent } from '../pages/foodcategory/product-detail.com
     VolunteerProfile,
     VolunteerSignUp,
     FoodItem,
-    FoodCategory,
     ShoppingCart,
 	SignUp,
   ProductListComponent,
   ProductDetailComponent,
-  ProductFilterPipe
+  ProductFilterPipe,
+  ProductDetailPipe
   ],
   imports: [
     BrowserModule,
@@ -55,7 +55,6 @@ import { ProductDetailComponent } from '../pages/foodcategory/product-detail.com
     VolunteerProfile,
     VolunteerSignUp,
     FoodItem,
-    FoodCategory,
     ShoppingCart,
 	SignUp,
   ProductListComponent,

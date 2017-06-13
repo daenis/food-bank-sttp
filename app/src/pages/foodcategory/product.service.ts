@@ -10,20 +10,19 @@ import { Product } from './product';
 
 @Injectable()
 export class ProductService {
-    private _productUrl = environment.uri + 'product';
+		private _productUrl = environment.uri + 'product';
 
-    constructor(private _http: Http) {}
+		constructor(private _http: Http) {}
 
-    getProducts(): Observable<Product[]> {
-        return this._http.get(this._productUrl)
-            .map((response: Response) => <Product[]> response.json())
-            .do(data => console.log('All: ' +  JSON.stringify(data || null)))
-            .catch(this.handleError);
-    }
+		public getProducts(): Observable<Product[]> {
+				return this._http.get(this._productUrl)
+						.map((response: Response) => <Product[]> response.json())
+						.catch(this.handleError);
+		}
 
-    private handleError(error: Response) {
-        console.error(error);
-        return Observable.throw(error.json().error || 'Server error');
-    }
+		private handleError(error: Response) {
+				console.error(error);
+				return Observable.throw(error.json().error || 'Server error');
+		}
 
 }

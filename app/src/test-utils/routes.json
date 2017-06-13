@@ -1,3 +1,4 @@
 {
-    "/:resource/:id/" : "/:resource/:id"
+    "/user/:id/" : "/:resource/:id/",
+    "/u/:user/" : "/users?username=:user"
 }

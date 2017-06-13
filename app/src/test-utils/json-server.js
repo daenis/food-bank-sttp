@@ -6,7 +6,7 @@ function server () {
   const uri = process.cwd() + '/src/test-utils/'
   const db = JSON.parse(fs.readFileSync(uri + 'db.json', 'utf8'))
   this.server = jsonServer.create()
-  this.router = jsonServer.defaults(uri + 'routes.json')
+  this.router = jsonServer.defaults()
   this.middleware = jsonServer.router(db)
   this.server.use(this.router)
   this.server.use(this.middleware)
