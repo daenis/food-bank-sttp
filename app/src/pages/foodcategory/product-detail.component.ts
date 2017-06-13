@@ -9,7 +9,7 @@ import { NavController } from 'ionic-angular';
 })
 export class ProductDetailComponent implements OnInit {
 		public errorMessage: string;
-		public products: Product[];
+		public products: String[];
 		constructor(
 			private _productService: ProductService) {
 		}

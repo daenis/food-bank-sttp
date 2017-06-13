@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { Product } from '../foodcategory/product';
+import { environment } from '../../environments/environment';
 
 
 @Component({
@@ -9,40 +11,13 @@ import { NavController } from 'ionic-angular';
 
 export class FoodItem {
 
-		private referenceNumber: string;
-		private totalCostPerUnit: number;
-		private description: string;
-		private quantityAvailable: number;
+		private products: Product[]; 
 
     constructor(public navCtrl:NavController){
 		}
 
-    // getReferenceNumber() {
-    //     return this.referenceNumber;
-    // }
 
-    // getTotalCostPerUnit() {
-    //     return this.totalCostPerUnit;
-    // }
 
-    // getDescription() {
-    //     return this.description;
-    // }
 
-    // getQuantityAvailable() {
-    //     return this.quantityAvailable;
-    // }
-
-    // addQuantity(number) {
-    //     this.quantityAvailable += number;
-    // }
-
-    // dockQuantity(number) {
-    //     if (this.quantityAvailable - number < 0) {
-    //             this.quantityAvailable = 0;
-    //     } else {
-    //             this.quantityAvailable -= number;
-    //     }
-		// }
 		
 }
