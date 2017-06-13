@@ -25,6 +25,14 @@ p {
 .ion-item {
     background-color: transparent;
 }
+.item-md {
+    padding-left: 16px;
+    padding-right: 0;
+    position: relative;
+    font-size: 1.6rem;
+    font-weight: bold;
+    background-color: transparent;
+}
 title {
     font-size: 16px;
     font-weight: 600;
@@ -41,14 +49,12 @@ input, textarea {
 h1 {
     font-size: 20px;
     font-weight: 600;
-    padding: 2px;
     text-shadow: 2px 2px 5px darkcyan;
 }
 
 img {
     display: block;
     margin: 0 auto;
-    padding: 10px;
     opacity: 1;
 }
 ion-title {
