@@ -25,6 +25,7 @@ import { App,
 import { ConfigMock, PlatformMock, NavMock, DeepLinkerMock } from './test-utils/mocks';
 import { MockBackend } from '@angular/http/testing';
 import { HttpModule, XHRBackend } from '@angular/http';
+import { Auth } from './app/auth.service'
 
 
 // Unfortunately there's no typing for the `__karma__` variable. Just declare it as any.
@@ -65,7 +66,7 @@ export class TestUtils {
 				...components,
 			],
 			providers: [
-				App, Form, Keyboard, DomController, MenuController, NavController, GestureController,
+				App, Auth, Form, Keyboard, DomController, MenuController, NavController, GestureController,
 				{provide: Platform, useClass: PlatformMock},
 				{provide: Config, useClass: ConfigMock},
 				{provide: DeepLinker, useClass: DeepLinkerMock},
