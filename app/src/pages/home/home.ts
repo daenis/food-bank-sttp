@@ -46,7 +46,7 @@ export class HomePage implements OnInit {
 	public authenticate(): void {
 		if (this.login.valid) {
 			const auth = this.login.getRawValue();
-			const uri = environment.uri + 'users?username=' + auth.username;
+			const uri = environment.uri + 'data/users?username=' + auth.username;
 			this.http.get(uri, auth).toPromise()
 			.then((result: Response) => result.json())
 			.then((json: Object) => this.formatUserAuthDetails(json))

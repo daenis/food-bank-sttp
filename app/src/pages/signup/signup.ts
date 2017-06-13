@@ -34,7 +34,7 @@ export class SignUp implements OnInit {
 	public submit(): void {
 		if (this.form.valid) {
 			const result = this.parseForm(this.form.getRawValue());
-			const uri = environment.uri + 'users/';
+			const uri = environment.uri + 'data/users/';
 			this.http.post(uri, result).toPromise()
 			.then(e => this.goBack())
 			.catch(e => console.warn(e))
