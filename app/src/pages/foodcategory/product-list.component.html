@@ -2,6 +2,7 @@
     <div class='panel-heading'>
         {{pageTitle}}
     </div>
+    <div>
     <ion-list>
         <ion-item *ngFor="let product of products">
             <button ion-button full (click)="goToProductDetail()">
@@ -9,6 +10,7 @@
             </button>
         </ion-item>
     </ion-list>
+    </div>
 </ion-content>
     
 

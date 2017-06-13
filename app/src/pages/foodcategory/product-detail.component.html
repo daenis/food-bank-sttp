@@ -1,12 +1,10 @@
 <ion-content>
-    <ion-title>Product Details</ion-title>
-    <div class='panel-heading'>
-        {{pageTitle}}
-    </div>
+    <div>
     <ion-list>
         <ion-item *ngFor="let product of products | productDetailFilter ">
                 {{product.description}}
         </ion-item>
     </ion-list>
+    </div>
 
 </ion-content>
