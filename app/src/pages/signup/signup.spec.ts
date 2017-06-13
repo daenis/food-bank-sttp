@@ -22,7 +22,7 @@ describe('SignUp', () => {
 
 	it('Check empty form submission ', () => {
 		button.triggerEventHandler('ngSubmit', {})
-		fetch(environment.uri + 'users')
+		fetch(environment.uri + 'data/users')
 		.then(response => response.json())
 		.then((json: Array<Object>) => expect(json.length).toBe(4));
 	});
@@ -32,7 +32,7 @@ describe('SignUp', () => {
 		form.map(e => e.nativeElement.value = 'dummy data')
 		button.triggerEventHandler('ngSubmit', null)
 		setTimeout(() =>  {
-			fetch(environment.uri + 'users')
+			fetch(environment.uri + 'data/users')
 			.then(response => response.json())
 			.then((json: Array<Object>) => {
 				expect(json.length).toBe(5)
