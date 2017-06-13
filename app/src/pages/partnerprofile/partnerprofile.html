@@ -1,17 +1,24 @@
-
-<ion-title>Partner Profile</ion-title>
-
 <ion-content>
-    <div class="partner-profile">
-        <h1>Partner Profile</h1>
-    </div>
 
-    <div class="pure-controls">
-        <button ion-button full (click)="goToOrderForm()" type="submit" class="pure-button pure-button-primary">Place Order</button>
-    </div>
+<ion-content class="card-background-page">
+
+  <ion-card (click)="goToOrderForm()">
+    <img src="/assets/img/cans.png"/>
+    <div class="card-title">Place an Order</div>
+    <div class="card-subtitle">Click here to see all categories</div>
+  </ion-card>
+
+  <ion-card>
+    <img src="/assets/img/veggies.png"/>
+    <div class="card-title">Update your profile</div>
+  </ion-card>
 
     <div class="pure-controls">
         <button ion-button full (click)="goToMenu()" type="submit" class="pure-button pure-button-primary">Return to menu</button>
     </div>
+
+</ion-content>
+
+
 
 </ion-content>
