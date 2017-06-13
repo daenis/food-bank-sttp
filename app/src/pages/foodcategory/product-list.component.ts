@@ -12,7 +12,7 @@ export class ProductListComponent implements OnInit {
 		public pageTitle: string = 'Categories';
 		public listFilter: string;
 		public errorMessage: string;
-		public products: Product[];
+		public products: String[];
 
 		constructor(
 			private _productService: ProductService,

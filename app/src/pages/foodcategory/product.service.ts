@@ -14,9 +14,9 @@ export class ProductService {
 
 		constructor(private _http: Http) {}
 
-		public getProducts(): Observable<Product[]> {
+		public getProducts(): Observable<String[]> {
 				return this._http.get(this._productUrl)
-						.map((response: Response) => <Product[]> response.json())
+						.map((response: Response) => <String[]> response.json()["categories"])
 						.catch(this.handleError);
 		}
 
