@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Product } from './product';
 import { ProductService } from './product.service';
-import { ProductDetailComponent } from './product-detail.component';
+//import { ProductDetailComponent } from './product-detail.component';
+import { FoodItem } from '../fooditem/fooditem'
 
 @Component({
 		templateUrl: './product-list.component.html',
@@ -24,8 +25,9 @@ export class ProductListComponent implements OnInit {
 								.subscribe(products => this.products = products,
 														error => this.errorMessage = <any> error);
 		}
-		public goToProductDetail() {
-			this.navCtrl.push(ProductDetailComponent);
+		public goToProductDetail(category: string) {
+			console.log(category)
+			this.navCtrl.push(FoodItem, {category});
 		}
 
 }

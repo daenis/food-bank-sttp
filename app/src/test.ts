@@ -19,10 +19,11 @@ import { App,
 					DeepLinker,
 					MenuController,
 					NavController,
+					NavParams,
 					Platform,
 					GestureController,
 				} from 'ionic-angular';
-import { ConfigMock, PlatformMock, NavMock, DeepLinkerMock } from './test-utils/mocks';
+import { ConfigMock, PlatformMock, NavMock, DeepLinkerMock, NavParamsMock } from './test-utils/mocks';
 import { MockBackend } from '@angular/http/testing';
 import { HttpModule, XHRBackend } from '@angular/http';
 import { Auth } from './app/auth.service'
@@ -71,7 +72,8 @@ export class TestUtils {
 				{provide: Config, useClass: ConfigMock},
 				{provide: DeepLinker, useClass: DeepLinkerMock},
 				{provide: NavController, useClass: NavMock},
-				{ provide: XHRBackend, useClass: MockBackend }
+				{ provide: XHRBackend, useClass: MockBackend },
+				{ provide: NavParams, useClass:  NavParamsMock }
 			],
 			imports: [
 				IonicModule, HttpModule

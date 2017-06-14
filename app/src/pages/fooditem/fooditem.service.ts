@@ -10,8 +10,8 @@ import { Product } from '../foodcategory/product';
 @Injectable()
 export class FoodItemService {
 
-        private Category: string;
-		private _productUrl = environment.uri + this.Category;
+		private category: string;
+		private _productUrl = environment.uri + this.category;
 
 		constructor(private _http: Http) {}
 
