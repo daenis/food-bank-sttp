@@ -4,6 +4,7 @@
     font-family: 'Varela Round', sans-serif;
     font-variant: small-caps;
     font-weight: 300;
+    text-shadow: .5px 1px;
 }
 .scroll-content{
     background-image: url('/assets/img/alt-background.png');
@@ -24,6 +25,7 @@ p {
 }
 .ion-item {
     background-color: transparent;
+    font-size: 20px;
 }
 .item-md {
     padding-left: 16px;
@@ -66,7 +68,7 @@ ion-title {
   height: 100%;
   text-align: center;
   background-color: transparent;
-  background-image: url('/assets/img/gray-back.png');
+  background-image: url('assets/img/gray-back.png');
 }
 
 [nav-view-transition][nav-view-direction] {

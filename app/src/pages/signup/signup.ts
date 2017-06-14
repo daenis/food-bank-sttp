@@ -44,7 +44,7 @@ export class SignUp implements OnInit {
 	private parseForm(form: Object): Object {
 		return ({
 			name: form['name'],
-			username: form['username'],
+			username: form['userName'],
 			address: form['address'],
 			email: form['email'],
 			password: form['password'],

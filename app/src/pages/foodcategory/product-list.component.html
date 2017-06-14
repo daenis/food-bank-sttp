@@ -5,7 +5,7 @@
     <div>
     <ion-list>
         <ion-item *ngFor="let product of products">
-            <button ion-button full (click)="goToProductDetail()">
+            <button ion-button full (click)="goToProductDetail(product)">
                 {{product}}
             </button>
         </ion-item>
