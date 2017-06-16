@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { Product } from '../foodcategory/product';
+import { Product } from '../product/product';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs/Observable';
 import { Http, Response } from '@angular/http';

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { HomePage } from '../home/home';
-import { ProductListComponent } from '../foodcategory/product-list.component';
+import { ProductListComponent } from '../product/product-list.component';
 
 
 @Component({

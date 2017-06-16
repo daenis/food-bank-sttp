@@ -13,10 +13,10 @@ import { VolunteerProfile } from '../pages/volunteerprofile/volunteerprofile';
 import { ShoppingCart } from '../pages/shoppingcart/shoppingcart';
 import { SignUp } from '../pages/signup/signup';
 import { HttpModule, JsonpModule } from '@angular/http';
-import { ProductListComponent } from '../pages/foodcategory/product-list.component';
-import { ProductFilterPipe } from '../pages/foodcategory/product-filter.pipe';
-import { ProductDetailComponent } from '../pages/foodcategory/product-detail.component';
-import { ProductDetailPipe } from '../pages/foodcategory/product-detail-filter.pipe';
+import { ProductListComponent } from '../pages/product/product-list.component';
+import { ProductFilterPipe } from '../pages/product/product-filter.pipe';
+import { ProductDetailComponent } from '../pages/product/product-detail.component';
+import { ProductDetailPipe } from '../pages/product/product-detail-filter.pipe';
 
 @NgModule({
 	declarations: [
