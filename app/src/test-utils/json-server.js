@@ -13,7 +13,7 @@ function server () {
   this.server.use('/data/', this.defaults)
   this.server.use('/data/', this.routes)
   this.server.use(cors())
-  this.server.get('/api/categories/', (req, res) => {
+  this.server.get('/api/item/category', (req, res) => {
     const items = []
     let ctg = db.product.map(e => e.category).filter(e => {
       if (items.indexOf(e) === -1) {
@@ -23,11 +23,21 @@ function server () {
     })
     res.json({categories: ctg.sort()})
   })
-  this.server.get('/api/categories/:type', (req, res) => {
-    let ctg = db.product.filter(e => req.params.type.localeCompare(e.category) === 0)
-    console.log(req.params)
+  this.server.get('/api/item/category/:category', (req, res) => {
+    let ctg = db.product.filter(e => req.params.category.localeCompare(e.category) === 0)
     res.json({categories: ctg})
   })
+
+  this.server.get('/api/item/', (req, res) => {
+    res.json({items: db.product})
+  })
+
+  this.server.get('/api/item/:identifier', (req, res) => {
+    // referenceNumber
+    let item = db.product.filter(e => req.params.identifier.localeCompare(e.referenceNumber) === 0)
+    res.json(item)
+  })
+
   this.server.listen(6700, () => {
     console.log('JSON Server is running')
   })
