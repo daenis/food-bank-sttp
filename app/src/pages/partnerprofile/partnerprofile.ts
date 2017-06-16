@@ -5,20 +5,19 @@ import { ProductListComponent } from '../product/product-list.component';
 
 
 @Component({
-  selector: 'page-partnerprofile',
-  templateUrl: 'partnerprofile.html'
+	selector: 'page-partnerprofile',
+	templateUrl: 'partnerprofile.html'
 })
 export class PartnerProfile {
 
-  constructor(public navCtrl: NavController) {
+		constructor(public navCtrl: NavController) {}
 
-  }
-  goToMenu() {
-    this.navCtrl.setRoot(HomePage);
-  }
+		public goToMenu() {
+			this.navCtrl.setRoot(HomePage);
+		}
 
-  goToOrderForm(){
-    this.navCtrl.push(ProductListComponent);
-  }
+		public goToOrderForm() {
+			this.navCtrl.push(ProductListComponent);
+		}
 
 }
