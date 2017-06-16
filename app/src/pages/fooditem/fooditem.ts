@@ -13,7 +13,7 @@ import { Http, Response } from '@angular/http';
 export class FoodItem implements OnInit {
 
 		private products: Product[];
-		private uri: string = environment.uri + "api/categories/"
+		private uri: string = environment.uri + 'api/item/category/';
 		private item: String;
 
 		constructor(
@@ -23,14 +23,12 @@ export class FoodItem implements OnInit {
 			) {}
 
 		public ngOnInit(): void {
-			console.log('Happening')
 			this.item = this.navParams.get("category")
-			console.log(this.item);
-			this.populateFootItems()
+			this.populateFoodItems()
 						.subscribe(products => this.products = products);
 		}
 
-		private populateFootItems(): Observable<Product[]> {
+		private populateFoodItems(): Observable<Product[]> {
 			return this.http.get(this.uri + this.item)
 									.map((response: Response) => {
 										return <Product[]> this.generateFoodItemList(response.json());
