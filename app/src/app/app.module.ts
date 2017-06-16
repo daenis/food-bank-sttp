@@ -10,7 +10,6 @@ import { OrderForm } from '../pages/orderform/orderform';
 import { OrderSummary } from '../pages/ordersummary/ordersummary';
 import { PartnerProfile } from '../pages/partnerprofile/partnerprofile';
 import { VolunteerProfile } from '../pages/volunteerprofile/volunteerprofile';
-import { ShoppingCart } from '../pages/shoppingcart/shoppingcart';
 import { SignUp } from '../pages/signup/signup';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { ProductListComponent } from '../pages/product/product-list.component';
@@ -27,7 +26,6 @@ import { ProductDetailPipe } from '../pages/product/product-detail-filter.pipe';
 		PartnerProfile,
 		VolunteerProfile,
 		FoodItem,
-		ShoppingCart,
 		SignUp,
 		ProductListComponent,
 		ProductDetailComponent,
@@ -49,7 +47,6 @@ import { ProductDetailPipe } from '../pages/product/product-detail-filter.pipe';
 		PartnerProfile,
 		VolunteerProfile,
 		FoodItem,
-		ShoppingCart,
 		SignUp,
 		ProductListComponent,
 		ProductDetailComponent
