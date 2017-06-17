@@ -15,6 +15,7 @@ export class FoodItem implements OnInit {
 		private products: Product[];
 		private uri: string = environment.uri + 'api/item/category/';
 		private item: String;
+		private itemCounter: number = 0;
 
 		constructor(
 				private http: Http,
@@ -50,6 +51,14 @@ export class FoodItem implements OnInit {
 
 		public getFoodProducts(): Product[] {
 			return this.products;
+		}
+
+		public incrementItem(): number {
+			return this.itemCounter++;
+		}
+
+		public decrementItem(): number {
+			return this.itemCounter--;
 		}
 
 }

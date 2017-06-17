@@ -4,8 +4,14 @@
   <ion-list>
     <ion-item *ngFor="let product of getFoodProducts()">
       {{product.description}}
+      <button ion-button (click)="incrementItem()">Add</button>
+      <button ion-button (click)="decrementItem()">Remove</button>
+        <div class="cart">
+            Add to cart : {{itemCounter}}
+          </div>
     </ion-item>
   </ion-list>
+
   <button ion-button full (click)="goBack()">Go Back</button>
   </div>
 </ion-content>
