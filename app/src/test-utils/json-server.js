@@ -1,6 +1,7 @@
 const jsonServer = require('json-server')
 const fs = require('fs')
 const cors = require('cors')
+const bodyParser = require('body-parser')
 
 function server () {
   const uri = process.cwd() + '/src/test-utils/'
@@ -13,6 +14,7 @@ function server () {
   this.server.use('/data/', this.defaults)
   this.server.use('/data/', this.routes)
   this.server.use(cors())
+  this.server.use(bodyParser.json())
   this.server.get('/api/item/category', (req, res) => {
     const items = []
     let ctg = db.product.map(e => e.category).filter(e => {
@@ -36,6 +38,15 @@ function server () {
     // referenceNumber
     let item = db.product.filter(e => req.params.identifier.localeCompare(e.referenceNumber) === 0)
     res.json(item)
+  })
+
+  this.server.get('/api/order', (req, res) => {
+    res.json({items: db.order})
+  })
+
+  this.server.put('/api/order', (req, res) => {
+    db.order.push(req.body)
+    res.sendStatus(200)
   })
 
   this.server.listen(6700, () => {
