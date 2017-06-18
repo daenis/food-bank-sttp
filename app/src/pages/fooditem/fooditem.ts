@@ -53,12 +53,4 @@ export class FoodItem implements OnInit {
 			return this.products;
 		}
 
-		public incrementItem(): number {
-			return this.itemCounter++;
-		}
-
-		public decrementItem(): number {
-			return this.itemCounter--;
-		}
-
 }
