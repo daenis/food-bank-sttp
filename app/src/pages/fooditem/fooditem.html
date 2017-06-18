@@ -5,9 +5,17 @@
     <ion-item *ngFor="let product of getFoodProducts()">
       {{product.description}} <br />
       Price: {{product.price | currency:'USD':true:'1.2-2'}}
+      <button ion-button right (click)="addToOrder(product)">Add To Cart</button>
+    </ion-item>
+  </ion-list>
+  <h2>Current Items in cart: </h2>
+  <ion-list>
+    <ion-item *ngFor="let product of cartItems">
+      {{product.description}}
     </ion-item>
   </ion-list>
 
+  <button ion-button full (click)="goToOrderForm(cartItems)">Go to cart</button>
   <button ion-button full (click)="goBack()">Go Back</button>
   </div>
 </ion-content>

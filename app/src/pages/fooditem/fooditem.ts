@@ -4,6 +4,7 @@ import { Product } from '../product/product';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs/Observable';
 import { Http, Response } from '@angular/http';
+import { OrderForm } from '../orderform/orderform';
 
 @Component({
 	selector: 'food-item',
@@ -15,7 +16,7 @@ export class FoodItem implements OnInit {
 		private products: Product[];
 		private uri: string = environment.uri + 'api/item/category/';
 		private item: String;
-		private itemCounter: number = 0;
+		private cartItems: Product[] = [];
 
 		constructor(
 				private http: Http,
@@ -49,8 +50,19 @@ export class FoodItem implements OnInit {
 			this.navController.pop();
 		}
 
+		public addToOrder(product){
+			console.log(this.cartItems);
+			this.cartItems.push(product);
+		}
+
+		public goToOrderForm(item: string){
+			this.navController.push(OrderForm, this.cartItems);
+		}
+
 		public getFoodProducts(): Product[] {
 			return this.products;
 		}
+
+
 
 }

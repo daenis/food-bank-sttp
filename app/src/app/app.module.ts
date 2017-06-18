@@ -13,7 +13,6 @@ import { VolunteerProfile } from '../pages/volunteerprofile/volunteerprofile';
 import { SignUp } from '../pages/signup/signup';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { ProductListComponent } from '../pages/product/product-list.component';
-import { ProductFilterPipe } from '../pages/product/product-filter.pipe';
 import { ProductDetailComponent } from '../pages/product/product-detail.component';
 
 @NgModule({
@@ -27,8 +26,7 @@ import { ProductDetailComponent } from '../pages/product/product-detail.componen
 		FoodItem,
 		SignUp,
 		ProductListComponent,
-		ProductDetailComponent,
-		ProductFilterPipe
+		ProductDetailComponent
 	],
 	imports: [
 		BrowserModule,

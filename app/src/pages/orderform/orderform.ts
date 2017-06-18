@@ -7,8 +7,12 @@ import { NavController } from 'ionic-angular';
 })
 export class OrderForm {
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navController: NavController) {
 
   }
+
+	public goBack() {
+		this.navController.pop();
+	}
 
 }
