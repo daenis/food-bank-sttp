@@ -1,19 +1,26 @@
-<ion-content>
-
-<ion-content class="card-background-page">
-
+<ion-content class="card-background-page">  
   <ion-card (click)="goToOrderForm()">
-    <img src="/assets/img/cans.png"/>
     <div class="card-title">Place an Order</div>
-    <div class="card-subtitle">Click here to see all categories</div>
+    <!--<div class="card-subtitle">Click here to see all categories</div>-->
+    <img src="/assets/img/food-bank-donation1.jpg"/>
   </ion-card>
+  <ion-card (click)="goToProfile()">
+    <div class="card-title">View Profile</div>
+    <!--<div class="card-subtitle">Click here to see all categories</div>-->
+    <img src="/assets/img/donate-food.jpg"/>
+  </ion-card>
+
 
     <div class="pure-controls">
         <button ion-button full (click)="goToMenu()" type="submit" class="pure-button pure-button-primary">Return to menu</button>
     </div>
-
 </ion-content>
 
+<!--<ion-content>
+  <ion-card class="card-background-page" (click)="goToOrderForm()">
+    <img src="../../assets/img/cans.png"/>
+    <div class="card-title">Place an Order</div>
+    <div class="card-subtitle">Click here to see all categories</div>
+  </ion-card>
+</ion-content>-->
 
-
-</ion-content>
