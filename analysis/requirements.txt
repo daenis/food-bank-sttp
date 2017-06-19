@@ -1,5 +1,5 @@
-click==6.7
 future==0.16.0
-python-dotenv==0.6.4
+geopy==1.11.0
 requests==2.12.1
 sodapy==1.4.3
+virtualenv==15.1.0

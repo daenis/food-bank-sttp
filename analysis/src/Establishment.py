@@ -24,7 +24,7 @@ class Establishment(Organization):
     def zip(self):
         return self._assert_defined('zip')
 
-    def to_user_JSON(self):
+    def to_user_json(self):
         return {
           'UUID': self.id,
           'Name': self.name(),
@@ -33,7 +33,7 @@ class Establishment(Organization):
           'Username': self.name()
         }
 
-    def to_identification_JSON(self):
+    def to_identification_json(self):
         return {
           'UUID': self.id,
           'Establishment': self.name(),
