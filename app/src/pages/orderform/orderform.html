@@ -1,7 +1,10 @@
 <ion-content>
   <div class="wrapper">
+  <h2>Current Items in cart: </h2>
   <ion-list>
-    
+    <ion-item *ngFor="let product of products">
+      {{product}}
+    </ion-item>
   </ion-list>
 
   <button ion-button full (click)="goBack()">Go Back</button>

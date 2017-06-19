@@ -43,7 +43,7 @@ export class FoodItem implements OnInit {
 		
 		public addToOrder(product) {
 			this.addSelectedProductToOrder(product).subscribe(
-				data=> {
+				data => {
 					this.getFoodProducts();
 					return true;
 				}
@@ -71,7 +71,5 @@ export class FoodItem implements OnInit {
 		public getFoodProducts(): Product[] {
 			return this.products;
 		}
-
-
 
 }
