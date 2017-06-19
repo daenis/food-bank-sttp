@@ -11,10 +11,13 @@ import { User } from '../../app/user';
 })
 export class PartnerProfile {
 
+		private user: User;
+
 		constructor(public navCtrl: NavController, public authService: Auth) {}
 
-		public getUser(): User {
-			return this.authService.getUser();
+		public getUser(): string {
+			this.user = this.authService.getUser();
+			return this.user.name;
 		}
 
 		public goToMenu() {

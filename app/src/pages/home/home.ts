@@ -54,7 +54,7 @@ export class HomePage implements OnInit {
 	}
 
 	private formatUserAuthDetails(authDetails: Object) {
-		return new User(authDetails[0]['id'], authDetails[0]['type'], authDetails[0]['org']);
+		return new User(authDetails[0]['id'], authDetails[0]['name'], authDetails[0]['type'], authDetails[0]['org']);
 	}
 
 	public authenticate(): void {

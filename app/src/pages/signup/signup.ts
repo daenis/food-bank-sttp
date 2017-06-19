@@ -15,6 +15,7 @@ export class SignUp implements OnInit {
 	constructor(public navCtrl: NavController,
 				private fb: FormBuilder,
 				private http: Http) {}
+
 	public ngOnInit() {
 		this.form = this.fb.group({
 			name: ['', Validators.minLength(2)],
@@ -49,7 +50,7 @@ export class SignUp implements OnInit {
 			email: form['email'],
 			password: form['password'],
 			phone: form['phoneNumber'],
-			type: 'volunteers'
+			type: 'volunteer'
 		})
 	}
 }
