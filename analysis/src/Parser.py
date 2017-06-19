@@ -1,22 +1,25 @@
 import os
 import csv
-from Partner import Partner
-import json
+#import json
+from analysis.src.Partner import Partner
 
-cwd = os.getcwd()
+CWD = os.getcwd()
 
 class Parser:
-    def parseCSV(self):
-        arrayOfPartners = []
-        with open(cwd + '/analysis/assets/partners.csv') as csv_file:
+
+    def parse_csv(self):
+        """Convert a CSV file to a list of Partner objects
+        Returns:
+        An array of partner objects"""
+        array_of_partners = []
+        with open(CWD + '/analysis/assets/partners.csv') as csv_file:
             reader = csv.DictReader(csv_file)
             for row in reader:
                 partner = Partner()
                 partner.builder(row)
-                arrayOfPartners.append(partner)
+                array_of_partners.append(partner)
 
-        return arrayOfPartners
+        return array_of_partners
 
 if __name__ == '__main__':
-    #print(cwd)
-    Parser().parseCSV()
+    Parser().parse_csv()

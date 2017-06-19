@@ -2,40 +2,40 @@ import unittest
 from Partner import Partner
 
 class test_Partner(unittest.TestCase):
-    def test_assert_fieldsself_agencyName(self):
+    def test_assert_fieldsself_agency_name(self):
         testDictionary = {
-        'AgencyRef': '200191',
-        'AgencyName': 'EAGLES NEST MINISTRIES',
-        'Addr1': 'PO Box 129', 'Addr2': '26633 Zion Church Rd',
-        'City': 'Milton', 'State': 'DE', 'Zip': '19968',
-        'Phone': '302684-4983', 'County': 'SUSSEX',
-        'Group': 'FOOD CLOSET'
+            'AgencyRef': '200191',
+            'agency_name': 'EAGLES NEST MINISTRIES',
+            'Addr1': 'PO Box 129', 'Addr2': '26633 Zion Church Rd',
+            'City': 'Milton', 'State': 'DE', 'Zip': '19968',
+            'Phone': '302684-4983', 'County': 'SUSSEX',
+            'Group': 'FOOD CLOSET'
         }
         partner = Partner()
         partner.builder(testDictionary)
-        self.assertEqual(partner.agencyName(), 'EAGLES NEST MINISTRIES')
+        self.assertEqual(partner.agency_name(), 'EAGLES NEST MINISTRIES')
 
-    def test_assert_fieldsself_agencyName_missing(self):
+    def test_assert_fieldsself_agency_name_missing(self):
         testDictionary = {
-        'AgencyRef': '200191',
-        'AgencyName': '',
-        'Addr1': 'PO Box 129', 'Addr2': '26633 Zion Church Rd',
-        'City': 'Milton', 'State': 'DE', 'Zip': '19968',
-        'Phone': '302684-4983', 'County': 'SUSSEX',
-        'Group': 'FOOD CLOSET'
+            'AgencyRef': '200191',
+            'agency_name': '',
+            'Addr1': 'PO Box 129', 'Addr2': '26633 Zion Church Rd',
+            'City': 'Milton', 'State': 'DE', 'Zip': '19968',
+            'Phone': '302684-4983', 'County': 'SUSSEX',
+            'Group': 'FOOD CLOSET'
         }
         partner = Partner()
         partner.builder(testDictionary)
-        self.assertEqual(partner.agencyName(), None)
+        self.assertEqual(partner.agency_name(), None)
 
     def test_assert_fieldsself_addr1(self):
         testDictionary = {
-        'AgencyRef': '200191',
-        'AgencyName': 'EAGLES NEST MINISTRIES',
-        'Addr1': 'PO Box 129', 'Addr2': '26633 Zion Church Rd',
-        'City': 'Milton', 'State': 'DE', 'Zip': '19968',
-        'Phone': '302684-4983', 'County': 'SUSSEX',
-        'Group': 'FOOD CLOSET'
+            'AgencyRef': '200191',
+            'agency_name': 'EAGLES NEST MINISTRIES',
+            'Addr1': 'PO Box 129', 'Addr2': '26633 Zion Church Rd',
+            'City': 'Milton', 'State': 'DE', 'Zip': '19968',
+            'Phone': '302684-4983', 'County': 'SUSSEX',
+            'Group': 'FOOD CLOSET'
         }
         partner = Partner()
         partner.builder(testDictionary)
@@ -43,12 +43,12 @@ class test_Partner(unittest.TestCase):
 
     def test_assert_fieldsself_addr1_missing(self):
         testDictionary = {
-        'AgencyRef': '200191',
-        'AgencyName': 'EAGLES NEST MINISTRIES',
-        'Addr1': '', 'Addr2': '26633 Zion Church Rd',
-        'City': 'Milton', 'State': 'DE', 'Zip': '19968',
-        'Phone': '302684-4983', 'County': 'SUSSEX',
-        'Group': 'FOOD CLOSET'
+            'AgencyRef': '200191',
+            'agency_name': 'EAGLES NEST MINISTRIES',
+            'Addr1': '', 'Addr2': '26633 Zion Church Rd',
+            'City': 'Milton', 'State': 'DE', 'Zip': '19968',
+            'Phone': '302684-4983', 'County': 'SUSSEX',
+            'Group': 'FOOD CLOSET'
         }
         partner = Partner()
         partner.builder(testDictionary)
@@ -56,12 +56,12 @@ class test_Partner(unittest.TestCase):
 
     def test_assert_fieldsself_city(self):
         testDictionary = {
-        'AgencyRef': '200191',
-        'AgencyName': 'EAGLES NEST MINISTRIES',
-        'Addr1': 'PO Box 129', 'Addr2': '26633 Zion Church Rd',
-        'City': 'Milton', 'State': 'DE', 'Zip': '19968',
-        'Phone': '302684-4983', 'County': 'SUSSEX',
-        'Group': 'FOOD CLOSET'
+            'AgencyRef': '200191',
+            'agency_name': 'EAGLES NEST MINISTRIES',
+            'Addr1': 'PO Box 129', 'Addr2': '26633 Zion Church Rd',
+            'City': 'Milton', 'State': 'DE', 'Zip': '19968',
+            'Phone': '302684-4983', 'County': 'SUSSEX',
+            'Group': 'FOOD CLOSET'
         }
         partner = Partner()
         partner.builder(testDictionary)
@@ -69,12 +69,12 @@ class test_Partner(unittest.TestCase):
 
     def test_assert_fieldsself_city_missing(self):
         testDictionary = {
-        'AgencyRef': '200191',
-        'AgencyName': 'EAGLES NEST MINISTRIES',
-        'Addr1': 'PO Box 129', 'Addr2': '26633 Zion Church Rd',
-        'City': '', 'State': 'DE', 'Zip': '19968',
-        'Phone': '302684-4983', 'County': 'SUSSEX',
-        'Group': 'FOOD CLOSET'
+            'AgencyRef': '200191',
+            'agency_name': 'EAGLES NEST MINISTRIES',
+            'Addr1': 'PO Box 129', 'Addr2': '26633 Zion Church Rd',
+            'City': '', 'State': 'DE', 'Zip': '19968',
+            'Phone': '302684-4983', 'County': 'SUSSEX',
+            'Group': 'FOOD CLOSET'
         }
         partner = Partner()
         partner.builder(testDictionary)
@@ -82,12 +82,12 @@ class test_Partner(unittest.TestCase):
 
     def test_assert_fieldsself_zip(self):
         testDictionary = {
-        'AgencyRef': '200191',
-        'AgencyName': 'EAGLES NEST MINISTRIES',
-        'Addr1': 'PO Box 129', 'Addr2': '26633 Zion Church Rd',
-        'City': 'Milton', 'State': 'DE', 'Zip': '19968',
-        'Phone': '302684-4983', 'County': 'SUSSEX',
-        'Group': 'FOOD CLOSET'
+            'AgencyRef': '200191',
+            'agency_name': 'EAGLES NEST MINISTRIES',
+            'Addr1': 'PO Box 129', 'Addr2': '26633 Zion Church Rd',
+            'City': 'Milton', 'State': 'DE', 'Zip': '19968',
+            'Phone': '302684-4983', 'County': 'SUSSEX',
+            'Group': 'FOOD CLOSET'
         }
         partner = Partner()
         partner.builder(testDictionary)
@@ -95,12 +95,12 @@ class test_Partner(unittest.TestCase):
 
     def test_assert_fieldsself_zip_missing(self):
         testDictionary = {
-        'AgencyRef': '200191',
-        'AgencyName': 'EAGLES NEST MINISTRIES',
-        'Addr1': 'PO Box 129', 'Addr2': '26633 Zion Church Rd',
-        'City': 'Milton', 'State': 'DE', 'Zip': '',
-        'Phone': '302684-4983', 'County': 'SUSSEX',
-        'Group': 'FOOD CLOSET'
+            'AgencyRef': '200191',
+            'agency_name': 'EAGLES NEST MINISTRIES',
+            'Addr1': 'PO Box 129', 'Addr2': '26633 Zion Church Rd',
+            'City': 'Milton', 'State': 'DE', 'Zip': '',
+            'Phone': '302684-4983', 'County': 'SUSSEX',
+            'Group': 'FOOD CLOSET'
         }
         partner = Partner()
         partner.builder(testDictionary)
@@ -108,73 +108,73 @@ class test_Partner(unittest.TestCase):
 
 ###############################################
 
-    def test_to_user_JSON(self):
+    def test_to_user_json(self):
         partner = Partner()
         partner.builder({
-        'AgencyName': 'EAGLES NEST MINISTRIES',
-        'Addr1': 'PO Box 129',
-        'City': 'Milton',
-        'State': 'DE',
-        'Zip': '19968'
+            'agency_name': 'EAGLES NEST MINISTRIES',
+            'Addr1': 'PO Box 129',
+            'City': 'Milton',
+            'State': 'DE',
+            'Zip': '19968'
         })
         expected = {
-        'Name': 'EAGLES NEST MINISTRIES',
-        'Type': 'Partner',
-        'Password': '1234',
-        'Username': 'EAGLES NEST MINISTRIES'
+            'Name': 'EAGLES NEST MINISTRIES',
+            'Type': 'Partner',
+            'Password': '1234',
+            'Username': 'EAGLES NEST MINISTRIES'
         }
         for key in expected.keys():
-            self.assertEqual(expected[key], partner.to_user_JSON()[key])
+            self.assertEqual(expected[key], partner.to_user_json()[key])
 
-    def test_to_user_JSON_incomplete(self):
+    def test_to_user_json_incomplete(self):
         partner = Partner()
         partner.builder({
-        'AgencyName': '',
-        'Addr1': 'PO Box 129',
-        'City': 'Milton',
-        'State': 'DE',
-        'Zip': '19968'
+            'agency_name': '',
+            'Addr1': 'PO Box 129',
+            'City': 'Milton',
+            'State': 'DE',
+            'Zip': '19968'
         })
         expected = {
-        'Name': None,
-        'Type': 'Partner',
-        'Password': '1234',
-        'Username': None
+            'Name': None,
+            'Type': 'Partner',
+            'Password': '1234',
+            'Username': None
         }
         for key in expected.keys():
-            self.assertEqual(expected[key], partner.to_user_JSON()[key])
+            self.assertEqual(expected[key], partner.to_user_json()[key])
 
-    def test_to_identification_JSON(self):
+    def test_to_identification_json(self):
         partner = Partner()
         partner.builder({
-        'AgencyName': 'EAGLES NEST MINISTRIES',
-        'Addr1': 'PO Box 129',
-        'City': 'Milton',
-        'State': 'DE',
-        'Zip': '19968'
+            'agency_name': 'EAGLES NEST MINISTRIES',
+            'Addr1': 'PO Box 129',
+            'City': 'Milton',
+            'State': 'DE',
+            'Zip': '19968'
         })
         expected = {
-        'Organization': 'EAGLES NEST MINISTRIES',
-        'Location': 'Milton, DE, 19968'
+            'Organization': 'EAGLES NEST MINISTRIES',
+            'Location': 'Milton, DE, 19968'
         }
         for key in expected.keys():
-            self.assertEqual(expected[key], partner.to_identification_JSON()[key])
+            self.assertEqual(expected[key], partner.to_identification_json()[key])
 
-    def test_to_identification_JSON_incomplete(self):
+    def test_to_identification_json_incomplete(self):
         partner = Partner()
         partner.builder({
-        'AgencyName': '',
-        'Addr1': 'PO Box 129',
-        'City': '',
-        'State': '',
-        'Zip': ''
+            'agency_name': '',
+            'Addr1': 'PO Box 129',
+            'City': '',
+            'State': '',
+            'Zip': ''
         })
         expected = {
-        'Organization': None,
-        'Location': 'None, None, None'
+            'Organization': None,
+            'Location': 'None, None, None'
         }
         for key in expected.keys():
-            self.assertEqual(expected[key], partner.to_identification_JSON()[key])
+            self.assertEqual(expected[key], partner.to_identification_json()[key])
 
 if __name__ == '__main__':
     unittest.main()
