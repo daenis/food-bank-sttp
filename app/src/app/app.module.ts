@@ -17,6 +17,8 @@ import { ProductListComponent } from '../pages/product/product-list.component';
 import { ProductFilterPipe } from '../pages/product/product-filter.pipe';
 import { ProductDetailComponent } from '../pages/product/product-detail.component';
 import { ProductDetailPipe } from '../pages/product/product-detail-filter.pipe';
+import { PartnerSignUp } from '../pages/partnersignup/partnersignup';
+
 
 @NgModule({
 	declarations: [
@@ -32,7 +34,8 @@ import { ProductDetailPipe } from '../pages/product/product-detail-filter.pipe';
 		ProductListComponent,
 		ProductDetailComponent,
 		ProductFilterPipe,
-		ProductDetailPipe
+		ProductDetailPipe,
+		PartnerSignUp
 	],
 	imports: [
 		BrowserModule,
@@ -52,7 +55,8 @@ import { ProductDetailPipe } from '../pages/product/product-detail-filter.pipe';
 		ShoppingCart,
 		SignUp,
 		ProductListComponent,
-		ProductDetailComponent
+		ProductDetailComponent,
+		PartnerSignUp
 	],
 	providers: [
 		StatusBar,

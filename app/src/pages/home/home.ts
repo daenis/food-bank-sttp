@@ -7,7 +7,8 @@ import { Http, Response } from '@angular/http';
 import { environment } from '../../environments/environment';
 import { Auth } from '../../app/auth.service'
 import 'rxjs/add/operator/toPromise';
-import { User } from '../../app/user'
+import { User } from '../../app/user';
+import { PartnerSignUp } from '../partnersignup/partnersignup';
 
 @Component({
 	selector: 'page-home',
@@ -24,6 +25,10 @@ export class HomePage implements OnInit {
 
 	public goToSignUp(): void {
 		this.navCtrl.push(SignUp);
+	}
+
+	public goToPartnerSignUp(): void {
+		this.navCtrl.push(PartnerSignUp);
 	}
 
 	public ngOnInit(): void {

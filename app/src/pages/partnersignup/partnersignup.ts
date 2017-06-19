@@ -9,7 +9,7 @@ import 'rxjs/add/operator/toPromise';
 	selector: 'partner-signup',
 	templateUrl: 'partnersignup.html'
 })
-export class PartnerSignup implements OnInit {
+export class PartnerSignUp implements OnInit {
 	private form: FormGroup;
 
 	constructor(public navCtrl: NavController,
