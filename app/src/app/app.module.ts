@@ -7,32 +7,24 @@ import { FoodItem } from '../pages/fooditem/fooditem';
 import { HomePage } from '../pages/home/home';
 import { MyApp } from './app.component';
 import { OrderForm } from '../pages/orderform/orderform';
-import { OrderSummary } from '../pages/ordersummary/ordersummary';
 import { PartnerProfile } from '../pages/partnerprofile/partnerprofile';
 import { VolunteerProfile } from '../pages/volunteerprofile/volunteerprofile';
-import { ShoppingCart } from '../pages/shoppingcart/shoppingcart';
 import { SignUp } from '../pages/signup/signup';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { ProductListComponent } from '../pages/product/product-list.component';
-import { ProductFilterPipe } from '../pages/product/product-filter.pipe';
 import { ProductDetailComponent } from '../pages/product/product-detail.component';
-import { ProductDetailPipe } from '../pages/product/product-detail-filter.pipe';
 
 @NgModule({
 	declarations: [
 		MyApp,
 		HomePage,
 		OrderForm,
-		OrderSummary,
 		PartnerProfile,
 		VolunteerProfile,
 		FoodItem,
-		ShoppingCart,
 		SignUp,
 		ProductListComponent,
-		ProductDetailComponent,
-		ProductFilterPipe,
-		ProductDetailPipe
+		ProductDetailComponent
 	],
 	imports: [
 		BrowserModule,
@@ -45,11 +37,9 @@ import { ProductDetailPipe } from '../pages/product/product-detail-filter.pipe';
 		MyApp,
 		HomePage,
 		OrderForm,
-		OrderSummary,
 		PartnerProfile,
 		VolunteerProfile,
 		FoodItem,
-		ShoppingCart,
 		SignUp,
 		ProductListComponent,
 		ProductDetailComponent

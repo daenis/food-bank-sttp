@@ -10,7 +10,7 @@ import { Product } from './product';
 
 @Injectable()
 export class ProductService {
-		private _productUrl = environment.uri + 'api/categories/';
+		private _productUrl = environment.uri + 'api/item/category';
 
 		constructor(private _http: Http) {}
 

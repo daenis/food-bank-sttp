@@ -3,7 +3,8 @@ import { NavController, NavParams } from 'ionic-angular';
 import { Product } from '../product/product';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs/Observable';
-import { Http, Response } from '@angular/http';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { OrderForm } from '../orderform/orderform';
 
 @Component({
 	selector: 'food-item',
@@ -12,46 +13,62 @@ import { Http, Response } from '@angular/http';
 
 export class FoodItem implements OnInit {
 
-		private products: Product[];
-		private uri: string = environment.uri + "api/categories/"
-		private item: String;
+	private products: Product[];
+	private uri: string = environment.uri + 'api/item/category/';
+	private item: String;
 
-		constructor(
-				private http: Http,
-				private navController: NavController,
-				private navParams: NavParams
-			) {}
+	constructor(
+		private http: Http,
+		private navController: NavController,
+		private navParams: NavParams
+	) { }
 
-		public ngOnInit(): void {
-			console.log('Happening')
-			this.item = this.navParams.get("category")
-			console.log(this.item);
-			this.populateFootItems()
-						.subscribe(products => this.products = products);
-		}
+	public ngOnInit(): void {
+		this.item = this.navParams.get("category")
+		this.populateFoodItems()
+			.subscribe(products => this.products = products);
+	}
 
-		private populateFootItems(): Observable<Product[]> {
-			return this.http.get(this.uri + this.item)
-									.map((response: Response) => {
-										return <Product[]> this.generateFoodItemList(response.json());
-									})
-		}
+	private populateFoodItems(): Observable<Product[]> {
+		return this.http.get(this.uri + this.item)
+			.map((response: Response) => {
+				return <Product[]>this.generateFoodItemList(response.json());
+			})
+	}
 
-		private generateFoodItemList(json: Object): Product[] {
-			const list: Product[] = json["categories"].map(item => new Product(item));
-			return list;
-		}
+	public addSelectedProductToOrder(product) {
+		return this.http.put(environment.uri + 'api/order/', product);
+	}
+	// Adds item to shopping cart on-click of "Add to cart"
+	public addToOrder(product) {
+		this.addSelectedProductToOrder(product).subscribe(
+			data => {
+				this.getFoodProducts();
+				return true;
+			}
+		);
 
-		public getProductCategory(): String {
-			return this.item;
-		}
+	}
 
-		public goBack() {
-			this.navController.pop();
-		}
+	private generateFoodItemList(json: Object): Product[] {
+		const list: Product[] = json["categories"].map(item => new Product(item));
+		return list;
+	}
 
-		public getFoodProducts(): Product[] {
-			return this.products;
-		}
+	public getProductCategory(): String {
+		return this.item;
+	}
+
+	public goBack() {
+		this.navController.pop();
+	}
+
+	public goToOrderForm() {
+		this.navController.push(OrderForm);
+	}
+
+	public getFoodProducts(): Product[] {
+		return this.products;
+	}
 
 }

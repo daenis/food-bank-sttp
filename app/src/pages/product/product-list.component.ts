@@ -10,10 +10,9 @@ import { FoodItem } from '../fooditem/fooditem'
 		providers: [ProductService]
 })
 export class ProductListComponent implements OnInit {
-		public pageTitle: string = 'Categories';
-		public listFilter: string;
-		public errorMessage: string;
-		public products: String[];
+		private pageTitle: string = 'Categories';
+		private errorMessage: string;
+		private products: String[];
 
 		constructor(
 			private _productService: ProductService,

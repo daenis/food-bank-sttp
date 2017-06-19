@@ -49,6 +49,12 @@ function server () {
     res.sendStatus(200)
   })
 
+  this.server.delete('/api/order', (req, res) => {
+    const value = db.order.indexOf(req.body.referenceNumber)
+    db.order.splice(value, 1)
+    res.sendStatus(200)
+  })
+
   this.server.listen(6700, () => {
     console.log('JSON Server is running')
   })

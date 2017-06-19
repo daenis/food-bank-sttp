@@ -1,0 +1,18 @@
+<ion-content>
+  <div class="wrapper">
+  <h2>Current Items in cart: </h2>
+  <ion-list>
+    <ion-item *ngFor="let product of products">
+      {{product.description}} 
+      {{product.price | currency:'USD':true:'1.2-2'}}
+      <button ion-button small (click)="deleteFromOrder()">X</button>
+    </ion-item>
+    <h2>  Total: {{ productsTotal }}  </h2>
+    
+  </ion-list>
+
+  
+
+  <button ion-button full (click)="goBack()">Go Back</button>
+  </div>
+</ion-content>
