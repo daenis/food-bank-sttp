@@ -3,7 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { Product } from '../product/product';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs/Observable';
-import { Http, Response } from '@angular/http';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { OrderForm } from '../orderform/orderform';
 
 @Component({
@@ -37,6 +37,20 @@ export class FoodItem implements OnInit {
 									})
 		}
 
+		public addSelectedProductToOrder(product) {
+   			return this.http.put(environment.uri + 'api/order/', product)
+		}
+		
+		public addToOrder(product) {
+			this.addSelectedProductToOrder(product).subscribe(
+				data=> {
+					this.getFoodProducts();
+					return true;
+				}
+			);
+
+		}
+
 		private generateFoodItemList(json: Object): Product[] {
 			const list: Product[] = json["categories"].map(item => new Product(item));
 			return list;
@@ -48,11 +62,6 @@ export class FoodItem implements OnInit {
 
 		public goBack() {
 			this.navController.pop();
-		}
-
-		public addToOrder(product){
-			console.log(this.cartItems);
-			this.cartItems.push(product);
 		}
 
 		public goToOrderForm(item: string){
