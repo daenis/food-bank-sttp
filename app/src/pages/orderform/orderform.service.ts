@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers } from '@angular/http';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
@@ -10,8 +10,8 @@ import { Product } from '../product/product';
 
 @Injectable()
 export class OrderFormService {
-		private _productUrl = environment.uri + 'api/order';
 
+		private _productUrl = environment.uri + 'api/order';
 		constructor(private _http: Http) {}
 
 		public getOrders(): Observable<Product[]> {
@@ -20,10 +20,10 @@ export class OrderFormService {
 				.catch(this.handleError);
 		}
 
-		public delete(referenceNumber: number): Observable<Product[]> {
-			return this._http.delete(this._productUrl, referenceNumber)
-			.map((response: Response) => response.json())
-			.catch(this.handleError);
+		public removeFromOrder(referenceNumber: number) {
+			return this._http.delete(this._productUrl, new RequestOptions({
+				body: { referenceNumber }
+			})).toPromise().then(e => console.log("Done"))
 		}
 
 		private handleError(error: Response) {

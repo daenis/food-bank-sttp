@@ -26,10 +26,6 @@ export class OrderForm implements OnInit {
     private orderFormService: OrderFormService) { }
 
   public ngOnInit(): void {
-    // this.orderFormService.getOrders()
-    //   .subscribe(products => this.products = products,
-    //   error => this.errorMessage = <any>error);
-    // PROMISE VERSION                    
     this.orderFormService.getOrdersPromise()
       .then(products => this.products = products,
       error => this.errorMessage = <any>error)
@@ -46,14 +42,10 @@ export class OrderForm implements OnInit {
       this.productsTotal += products[i].price;
     }
     return this.productsTotal;
-
   }
-
   // Remove product from cart
   public deleteFromOrder(referenceNumber: number) {
-    this.orderFormService.delete(referenceNumber)
-      .subscribe(products => this.products = products,
-      error => this.errorMessage = <any>error);
+    this.orderFormService.removeFromOrder(referenceNumber);
   }
 
   public goBack() {

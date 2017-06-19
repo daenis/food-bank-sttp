@@ -51,6 +51,7 @@ function server () {
 
   this.server.delete('/api/order', (req, res) => {
     const value = db.order.indexOf(req.body.referenceNumber)
+    console.log(value)
     db.order.splice(value, 1)
     res.sendStatus(200)
   })
