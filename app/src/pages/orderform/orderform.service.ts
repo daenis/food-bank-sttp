@@ -25,4 +25,12 @@ export class OrderFormService {
 				return Observable.throw(error.json().error || 'Server error');
 		}
 
+		public getOrdersPromise(): Promise<any> {
+			return new Promise(resolve => { 
+				this._http.get(this._productUrl)
+				.map((res => res.json()))
+				.subscribe(data => {resolve(data)});
+			})
+		}
+
 }

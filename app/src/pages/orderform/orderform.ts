@@ -19,16 +19,38 @@ import { OrderFormService } from './orderform.service';
 export class OrderForm implements OnInit {
   	private errorMessage: string;
 		private products: Product[];
+    private productsTotal: number;
 
 	  constructor(private http: Http,
     private navController: NavController,
     private OrderFormService: OrderFormService) {}
 
 		public ngOnInit(): void {
-				this.OrderFormService.getOrders()
-								.subscribe(products => this.products = products,
-														error => this.errorMessage = <any> error);
+				// this.OrderFormService.getOrders()
+				// 				.subscribe(products => this.products = products,
+				// 										error => this.errorMessage = <any> error);
+        this.OrderFormService.getOrdersPromise()
+        .then(products => this.products = products,
+        error => this.errorMessage = <any> error)
+        .then(() => {
+          console.log(this.products)
+          this.getOrderTotal()
+        })              
 		}
+
+    public ionViewDidLoad() {
+      this.getOrderTotal();
+    }
+
+    public getOrderTotal() {
+      this.productsTotal = 0;
+      var products = this.products["items"];
+      for (var i = 0; i < this.products.length; i++) {
+        this.productsTotal += products[i].price;
+      }
+
+    }
+
 	  public goBack() {
 		  this.navController.pop();
 	  }

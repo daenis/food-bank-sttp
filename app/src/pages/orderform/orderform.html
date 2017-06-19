@@ -3,9 +3,13 @@
   <h2>Current Items in cart: </h2>
   <ion-list>
     <ion-item *ngFor="let product of products">
-      {{product["description"]}}
+      {{product.description}} 
+      {{product.price | currency:'USD':true:'1.2-2'}}
     </ion-item>
+    Total:  {{ productsTotal }}
   </ion-list>
+
+  
 
   <button ion-button full (click)="goBack()">Go Back</button>
   </div>
