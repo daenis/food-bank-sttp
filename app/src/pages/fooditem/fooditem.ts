@@ -16,7 +16,6 @@ export class FoodItem implements OnInit {
 		private products: Product[];
 		private uri: string = environment.uri + 'api/item/category/';
 		private item: String;
-		private cartItems: Product[] = [];
 
 		constructor(
 				private http: Http,
@@ -64,8 +63,8 @@ export class FoodItem implements OnInit {
 			this.navController.pop();
 		}
 
-		public goToOrderForm(item: string){
-			this.navController.push(OrderForm, this.cartItems);
+		public goToOrderForm(){
+			this.navController.push(OrderForm);
 		}
 
 		public getFoodProducts(): Product[] {

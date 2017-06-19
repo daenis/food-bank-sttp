@@ -7,7 +7,6 @@ import { FoodItem } from '../pages/fooditem/fooditem';
 import { HomePage } from '../pages/home/home';
 import { MyApp } from './app.component';
 import { OrderForm } from '../pages/orderform/orderform';
-import { OrderSummary } from '../pages/ordersummary/ordersummary';
 import { PartnerProfile } from '../pages/partnerprofile/partnerprofile';
 import { VolunteerProfile } from '../pages/volunteerprofile/volunteerprofile';
 import { SignUp } from '../pages/signup/signup';
@@ -20,7 +19,6 @@ import { ProductDetailComponent } from '../pages/product/product-detail.componen
 		MyApp,
 		HomePage,
 		OrderForm,
-		OrderSummary,
 		PartnerProfile,
 		VolunteerProfile,
 		FoodItem,
@@ -39,7 +37,6 @@ import { ProductDetailComponent } from '../pages/product/product-detail.componen
 		MyApp,
 		HomePage,
 		OrderForm,
-		OrderSummary,
 		PartnerProfile,
 		VolunteerProfile,
 		FoodItem,
