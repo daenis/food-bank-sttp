@@ -50,7 +50,8 @@ function server () {
   })
 
   this.server.delete('/api/order', (req, res) => {
-    db.order.delete(req.body);
+    const value = db.order.indexOf(req.body.referenceNumber)
+    db.order.splice(value, 1)
     res.sendStatus(200)
   })
 

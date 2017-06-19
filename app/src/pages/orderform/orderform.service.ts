@@ -15,9 +15,15 @@ export class OrderFormService {
 		constructor(private _http: Http) {}
 
 		public getOrders(): Observable<Product[]> {
-				return this._http.get(this._productUrl)
-						.map((response: Response) => <Product[]> response.json()["items"])
-						.catch(this.handleError);
+			return this._http.get(this._productUrl)
+				.map((response: Response) => <Product[]>response.json()["items"])
+				.catch(this.handleError);
+		}
+
+		public delete(referenceNumber: number): Observable<Product[]> {
+			return this._http.delete(this._productUrl, referenceNumber)
+			.map((response: Response) => response.json())
+			.catch(this.handleError);
 		}
 
 		private handleError(error: Response) {
@@ -25,20 +31,13 @@ export class OrderFormService {
 				return Observable.throw(error.json().error || 'Server error');
 		}
 
-		public delete(product): Promise<void> {
-			return this._http.delete(this._productUrl, product)
-			.toPromise()
-			.then(() => null)
-			.catch(this.handleError);
+		public getOrdersPromise(): Promise<any> {
+			return new Promise(resolve => { 
+				this._http.get(this._productUrl)
+				.map((res => res.json()))
+				.subscribe(data => {resolve(data.items)});
+			})
 		}
-
-		// public getOrdersPromise(): Promise<any> {
-		// 	return new Promise(resolve => { 
-		// 		this._http.get(this._productUrl)
-		// 		.map((res => res.json()))
-		// 		.subscribe(data => {resolve(data)});
-		// 	})
-		// }
 		
 
 }

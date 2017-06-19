@@ -26,41 +26,35 @@ export class OrderForm implements OnInit {
     private orderFormService: OrderFormService) { }
 
   public ngOnInit(): void {
-    this.orderFormService.getOrders()
-      .subscribe(products => this.products = products,
-      error => this.errorMessage = <any>error);
+    // this.orderFormService.getOrders()
+    //   .subscribe(products => this.products = products,
+    //   error => this.errorMessage = <any>error);
     // PROMISE VERSION                    
-    // this.OrderFormService.getOrdersPromise()
-    //   .then(products => this.products = products,
-    //   error => this.errorMessage = <any>error)
-    //   .then(() => {
-    //     console.log(this.products)
-    //     this.getOrderTotal()
-    //   })              
+    this.orderFormService.getOrdersPromise()
+      .then(products => this.products = products,
+      error => this.errorMessage = <any>error)
+      .then(() => {
+        console.log(this.products)
+        this.getOrderTotal()
+      })              
   }
 
-  // public ionViewDidLoad() {
-  //   this.getOrderTotal();
-  // }
+  public getOrderTotal(): number {
+    this.productsTotal = 0;
+    let products = this.products;
+    for (var i = 0; i < this.products.length; i++) {
+      this.productsTotal += products[i].price;
+    }
+    return this.productsTotal;
 
-  // public getOrderTotal(): number {
-  //   this.productsTotal = 0;
-  //   let products = this.products["items"];
-  //   for (var i = 0; i < this.products.length; i++) {
-  //     this.productsTotal += products[i].price;
-  //   }
-  //   return this.productsTotal;
-
-  // }
+  }
 
   // Remove product from cart
-  public delete(product : Product): void {
-		this.orderFormService
-    .delete(product.referenceNumber)
-    .then(() => {
-      this.products = this.products.filter(p => p !== product)
-    })
-	}
+  public deleteFromOrder(referenceNumber: number) {
+    this.orderFormService.delete(referenceNumber)
+      .subscribe(products => this.products = products,
+      error => this.errorMessage = <any>error);
+  }
 
   public goBack() {
     this.navController.pop();
