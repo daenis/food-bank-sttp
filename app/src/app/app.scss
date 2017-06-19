@@ -1,8 +1,8 @@
 // http://ionicframework.com/docs/v2/theming/
 
 * {
-    font-family: 'Varela Round', sans-serif;
-    font-variant: small-caps;
+    font-family: 'PT Serif', sans-serif;
+    // font-variant: small-caps;
     font-weight: 300;
     text-shadow: .5px 1px;
 }
@@ -51,7 +51,7 @@ input, textarea {
 h1 {
     font-size: 20px;
     font-weight: 600;
-    text-shadow: 2px 2px 5px darkcyan;
+    // text-shadow: 2px 2px 5px darkcyan;
 }
 
 img {
@@ -77,18 +77,19 @@ ion-title {
 
 .card-background-page {
 
-//   ion-card {
-//     position: relative;
-//     text-align: center;
-//   }
+  ion-card {
+    position: relative;
+    text-align: center;
+  }
 
   .card-title {
-    position: relative;
-    top: 36%;
-    font-size: 3.0em;
+    position: absolute;
     text-align: center;
+    top: 36%;
+    font-size: 2.0em;
+    width: 100%;
     font-weight: bold;
-    color:black;
+    color: #fff;
   }
 
   .card-subtitle {
@@ -96,7 +97,7 @@ ion-title {
     position: absolute;
     top: 52%;
     width: 100%;
-    color:black;
+    color: #fff;
   }
 
 }
@@ -110,8 +111,5 @@ ion-title {
 //   margin: -100px 0 0 -150px;
 }
 
-#PlaceOrderPicture {
-    opacity: 0.5
-}
 
 
