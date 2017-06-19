@@ -83,11 +83,10 @@ ion-title {
 //   }
 
   .card-title {
-    position: absolute;
-    text-align: center;
+    position: relative;
     top: 36%;
     font-size: 3.0em;
-    width: 100%;
+    text-align: center;
     font-weight: bold;
     color:black;
   }
@@ -95,7 +94,6 @@ ion-title {
   .card-subtitle {
     font-size: 1.0em;
     position: absolute;
-    text-align: center;
     top: 52%;
     width: 100%;
     color:black;
@@ -110,6 +108,10 @@ ion-title {
 //   z-index: 15;
   top:10%;
 //   margin: -100px 0 0 -150px;
+}
+
+#PlaceOrderPicture {
+    opacity: 0.5
 }
 
 
