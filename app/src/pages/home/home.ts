@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { PartnerProfile } from '../partnerprofile/partnerprofile';
+import { VolunteerProfile } from '../volunteerprofile/volunteerprofile';
 import { SignUp } from '../signup/signup';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Response } from '@angular/http';
@@ -38,14 +39,19 @@ export class HomePage implements OnInit {
 		})
 	}
 
-	private goToProfile(): void {
+	private goToProfile(user: User): void {
 		if (this.auth.isLoggedIn()) {
-			this.navCtrl.push(PartnerProfile);
+			if (user.type === 'partner') {
+				this.navCtrl.push(PartnerProfile);
+			}
+			if (user.type === 'volunteer') {
+				this.navCtrl.push(VolunteerProfile);
+			}
 		}
 	}
 
 	private formatUserAuthDetails(authDetails: Object) {
-		return new User(authDetails[0]['id'], authDetails[0]['org']);
+		return new User(authDetails[0]['id'], authDetails[0]['type'], authDetails[0]['org']);
 	}
 
 	public authenticate(): void {
@@ -56,7 +62,7 @@ export class HomePage implements OnInit {
 			.then((result: Response) => result.json())
 			.then((json: Object) => this.formatUserAuthDetails(json))
 			.then((user: User) => this.auth.addUser(user))
-			.then(() => this.goToProfile())
+			.then(() => this.goToProfile(this.auth.getUser()))
 			.catch(e => console.log(e))
 		}
 	}

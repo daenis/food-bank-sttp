@@ -21,4 +21,8 @@ export class Auth {
 		return this.loggedIn;
 	}
 
+	public getUser(): User {
+		return this.user;
+	}
+
 }

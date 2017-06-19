@@ -8,7 +8,7 @@
             "preferredlocation": "Marshallton",
             "username": "aaronl",
             "password": "12345",
-            "type": "volunteers",
+            "type": "volunteer",
             "org": "c318f209-454f-47eb-bc20-16088d10abbd"
         },
         {
@@ -19,7 +19,7 @@
             "preferredlocation": "Lake Forest High School",
             "username": "jarryds",
             "password": "12345",
-            "type": "volunteers",
+            "type": "volunteer",
             "org": "d6c4912d-ac35-438d-b503-dd470ca2cef9"
         },
         {
@@ -30,7 +30,7 @@
             "preferredlocation": "Lake Forest High School",
             "username": "dennisk",
             "password": "12345",
-            "type": "volunteers",
+            "type": "volunteer",
             "org": "85adefed-315a-45d5-843c-baaefe0ef482"
         },
         {
@@ -41,37 +41,32 @@
             "preferredlocation": "Marshallton",
             "username": "markb",
             "password": "12345",
-            "type": "volunteers",
+            "type": "partner",
             "org": "1d2b1a33-1939-4e90-83c1-bf99e0614c56"
         }
     ],
     "partners": [
         {
-            "id": "1",
             "UUID": "c318f209-454f-47eb-bc20-16088d10abbd",
             "Organization": "CHILD INC-HOPE I-Sparrow Run 1",
             "Location": "NEWARK, DE, 19702"
         },
         {
-            "id": "2",
             "UUID": "f8696b21-2be0-40db-b67a-6ed61f642527",
             "Organization": "CHILD INC. - HOPE II Sparrow Run 2",
             "Location": "NEWARK, DE, 19702"
         },
         {
-            "id": "3",
             "UUID": "d6c4912d-ac35-438d-b503-dd470ca2cef9",
             "Organization": "CC-Thrift Center -Hope ",
             "Location": "Wilmington , DE, 19802"
         },
         {
-            "id": "4",
             "UUID": "1d2b1a33-1939-4e90-83c1-bf99e0614c56",
             "Organization": "LIFE Tree of Life",
             "Location": "Odessa, DE, 19730"
         },
         {
-            "id": "5",
             "UUID": "85adefed-315a-45d5-843c-baaefe0ef482",
             "Organization": "LCS-New Calvary Baptist Church Hope Club",
             "Location": "Wilmington, DE, 19801"
