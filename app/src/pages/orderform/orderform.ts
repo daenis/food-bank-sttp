@@ -14,45 +14,56 @@ import { OrderFormService } from './orderform.service';
 @Component({
   selector: 'page-orderform',
   templateUrl: 'orderform.html',
-  providers:[OrderFormService]
+  providers: [OrderFormService]
 })
 export class OrderForm implements OnInit {
-  	private errorMessage: string;
-		private products: Product[];
-    private productsTotal: number;
+  private errorMessage: string;
+  private products: Product[];
+  private productsTotal: number;
 
-	  constructor(private http: Http,
+  constructor(private http: Http,
     private navController: NavController,
-    private OrderFormService: OrderFormService) {}
+    private orderFormService: OrderFormService) { }
 
-		public ngOnInit(): void {
-				// this.OrderFormService.getOrders()
-				// 				.subscribe(products => this.products = products,
-				// 										error => this.errorMessage = <any> error);
-        this.OrderFormService.getOrdersPromise()
-        .then(products => this.products = products,
-        error => this.errorMessage = <any> error)
-        .then(() => {
-          console.log(this.products)
-          this.getOrderTotal()
-        })              
-		}
+  public ngOnInit(): void {
+    this.orderFormService.getOrders()
+      .subscribe(products => this.products = products,
+      error => this.errorMessage = <any>error);
+    // PROMISE VERSION                    
+    // this.OrderFormService.getOrdersPromise()
+    //   .then(products => this.products = products,
+    //   error => this.errorMessage = <any>error)
+    //   .then(() => {
+    //     console.log(this.products)
+    //     this.getOrderTotal()
+    //   })              
+  }
 
-    public ionViewDidLoad() {
-      this.getOrderTotal();
-    }
+  // public ionViewDidLoad() {
+  //   this.getOrderTotal();
+  // }
 
-    public getOrderTotal() {
-      this.productsTotal = 0;
-      var products = this.products["items"];
-      for (var i = 0; i < this.products.length; i++) {
-        this.productsTotal += products[i].price;
-      }
+  // public getOrderTotal(): number {
+  //   this.productsTotal = 0;
+  //   let products = this.products["items"];
+  //   for (var i = 0; i < this.products.length; i++) {
+  //     this.productsTotal += products[i].price;
+  //   }
+  //   return this.productsTotal;
 
-    }
+  // }
 
-	  public goBack() {
-		  this.navController.pop();
-	  }
+  // Remove product from cart
+  public delete(product : Product): void {
+		this.orderFormService
+    .delete(product.referenceNumber)
+    .then(() => {
+      this.products = this.products.filter(p => p !== product)
+    })
+	}
+
+  public goBack() {
+    this.navController.pop();
+  }
 
 }

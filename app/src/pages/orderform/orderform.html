@@ -5,8 +5,9 @@
     <ion-item *ngFor="let product of products">
       {{product.description}} 
       {{product.price | currency:'USD':true:'1.2-2'}}
+      <button ion-button small (click)="delete(product)">X</button>
     </ion-item>
-    Total:  {{ productsTotal }}
+
   </ion-list>
 
   

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
@@ -25,12 +25,20 @@ export class OrderFormService {
 				return Observable.throw(error.json().error || 'Server error');
 		}
 
-		public getOrdersPromise(): Promise<any> {
-			return new Promise(resolve => { 
-				this._http.get(this._productUrl)
-				.map((res => res.json()))
-				.subscribe(data => {resolve(data)});
-			})
+		public delete(product): Promise<void> {
+			return this._http.delete(this._productUrl, product)
+			.toPromise()
+			.then(() => null)
+			.catch(this.handleError);
 		}
+
+		// public getOrdersPromise(): Promise<any> {
+		// 	return new Promise(resolve => { 
+		// 		this._http.get(this._productUrl)
+		// 		.map((res => res.json()))
+		// 		.subscribe(data => {resolve(data)});
+		// 	})
+		// }
+		
 
 }

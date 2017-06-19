@@ -49,6 +49,11 @@ function server () {
     res.sendStatus(200)
   })
 
+  this.server.delete('/api/order', (req, res) => {
+    db.order.delete(req.body);
+    res.sendStatus(200)
+  })
+
   this.server.listen(6700, () => {
     console.log('JSON Server is running')
   })
