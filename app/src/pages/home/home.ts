@@ -47,6 +47,9 @@ export class HomePage implements OnInit {
 			if (user.type === 'volunteer') {
 				this.navCtrl.push(VolunteerProfile);
 			}
+			if (user.type === 'representative') {
+				console.log("Not Yet!")
+			}
 		}
 	}
 
