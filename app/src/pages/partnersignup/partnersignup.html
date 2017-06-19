@@ -11,9 +11,10 @@
             <input type="text" formControlName="validationCode" placeholder="Validation Code" />
 		</form>
         <div class="pure-controls">
-				<button ion-button id="signup" (click)="submit()" type="submit" class="pure-button pure-button-primary">Start making a difference today!</button>
+				<button ion-button id="signup" (click)="submit()" type="submit" class="pure-button pure-button-primary">Make a difference today!</button>
                 <button ion-button (click)="goBack()" type="submit" class="pure-button pure-button-primary">Back</button>
 		</div>
+        <div *ngIf {{form.valid}}>Invalid Submission</div>
 	    <div>  
             <img class="pure-img" src="assets/img/alt-logo.png"/>
         </div>
