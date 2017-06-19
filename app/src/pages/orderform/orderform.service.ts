@@ -22,8 +22,8 @@ export class OrderFormService {
 
 		public removeFromOrder(referenceNumber: number) {
 			return this._http.delete(this._productUrl, new RequestOptions({
-				body: referenceNumber
-			}))
+				body: { referenceNumber }
+			})).toPromise().then(e => console.log("Done"))
 		}
 
 		private handleError(error: Response) {

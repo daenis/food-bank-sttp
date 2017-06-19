@@ -46,7 +46,6 @@ export class OrderForm implements OnInit {
   // Remove product from cart
   public deleteFromOrder(referenceNumber: number) {
     this.orderFormService.removeFromOrder(referenceNumber);
-    console.log(referenceNumber);
   }
 
   public goBack() {
