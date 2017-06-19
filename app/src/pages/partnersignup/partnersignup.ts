@@ -6,25 +6,24 @@ import { environment } from '../../environments/environment'
 import 'rxjs/add/operator/toPromise';
 
 @Component({
-	selector: 'page-signup',
-	templateUrl: 'signup.html'
+	selector: 'partner-signup',
+	templateUrl: 'partnersignup.html'
 })
-export class SignUp implements OnInit {
+export class PartnerSignUp implements OnInit {
 	private form: FormGroup;
 
 	constructor(public navCtrl: NavController,
 				private fb: FormBuilder,
 				private http: Http) {}
-
 	public ngOnInit() {
 		this.form = this.fb.group({
-			name: ['', Validators.minLength(2)],
-			userName: ['', Validators.minLength(5)],
-			email: ['',
+			organizationName: ['', Validators.minLength(2)],
+			organizationUserName: ['', Validators.minLength(5)],
+			organizationEmail: ['',
 				Validators.required],
-			password: ['', Validators.required],
-			phoneNumber: ['', Validators.required],
-			address: ['']
+			organizationPassword: ['', Validators.required],
+			organizationPhoneNumber: ['', Validators.required],
+			organizationAddress: ['', Validators.required], validationCode: ['', Validators.required]
 		})
 	}
 
@@ -35,7 +34,7 @@ export class SignUp implements OnInit {
 	public submit(): void {
 		if (this.form.valid) {
 			const result = this.parseForm(this.form.getRawValue());
-			const uri = environment.uri + 'data/users/';
+			const uri = environment.uri + 'data/partners/';
 			this.http.post(uri, result).toPromise()
 			.then(e => this.goBack())
 			.catch(e => console.warn(e))
@@ -44,13 +43,12 @@ export class SignUp implements OnInit {
 
 	private parseForm(form: Object): Object {
 		return ({
-			name: form['name'],
-			username: form['userName'],
-			address: form['address'],
-			email: form['email'],
-			password: form['password'],
-			phone: form['phoneNumber'],
-			type: 'volunteer'
+			partnerName: form['organizationName'],
+			partnerUsername: form['organizationUserName'],
+			partnerAddress: form['organizationAddress'],
+			partnerEmail: form['organizationEmail'],
+			partnerPassword: form['organizationPassword'],
+			partnerPhone: form['organizationPhoneNumber'], partnerCode: form['validationCode']
 		})
 	}
 }

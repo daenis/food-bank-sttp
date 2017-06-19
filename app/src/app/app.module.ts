@@ -13,6 +13,7 @@ import { SignUp } from '../pages/signup/signup';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { ProductListComponent } from '../pages/product/product-list.component';
 import { ProductDetailComponent } from '../pages/product/product-detail.component';
+import { PartnerSignUp } from '../pages/partnersignup/partnersignup';
 
 @NgModule({
 	declarations: [
@@ -24,7 +25,8 @@ import { ProductDetailComponent } from '../pages/product/product-detail.componen
 		FoodItem,
 		SignUp,
 		ProductListComponent,
-		ProductDetailComponent
+		ProductDetailComponent,
+		PartnerSignUp
 	],
 	imports: [
 		BrowserModule,
@@ -42,7 +44,8 @@ import { ProductDetailComponent } from '../pages/product/product-detail.componen
 		FoodItem,
 		SignUp,
 		ProductListComponent,
-		ProductDetailComponent
+		ProductDetailComponent,
+		PartnerSignUp
 	],
 	providers: [
 		StatusBar,

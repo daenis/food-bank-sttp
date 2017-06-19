@@ -13,6 +13,10 @@ function server () {
   // this.server.use(this.routes)
   this.server.use('/data/', this.defaults)
   this.server.use('/data/', this.routes)
+
+  this.server.use('/partners/', this.defaults)
+  this.server.use('/partners/', this.routes)
+
   this.server.use(cors())
   this.server.use(bodyParser.json())
   this.server.get('/api/item/category', (req, res) => {

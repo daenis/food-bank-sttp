@@ -1,0 +1,22 @@
+<ion-title>Partner Sign up</ion-title>
+<ion-content>
+	<div class="sign-up">
+		<form [formGroup]="form" class="pure-form pure-form-stacked pure-form-aligned">
+			<input type="text" formControlName="organizationName" placeholder="Organization Name" />
+			<input type="text" formControlName="organizationUserName" placeholder="Organization User Name" />
+			<input formControlName="organizationPassword" placeholder="Organization Password" type="password" />
+			<input type="email" formControlName="organizationEmail" placeholder="Organization Email"/>
+			<input type="text" formControlName="organizationAddress" placeholder="Organization Address" />
+			<input type="text" formControlName="organizationPhoneNumber" placeholder="Organization Phone Number" />
+            <input type="text" formControlName="validationCode" placeholder="Validation Code" />
+		</form>
+        <div class="pure-controls">
+				<button ion-button id="signup" (click)="submit()" type="submit" class="pure-button pure-button-primary">Make a difference today!</button>
+                <button ion-button (click)="goBack()" type="submit" class="pure-button pure-button-primary">Back</button>
+		</div>
+        <div *ngIf {{form.valid}}>Invalid Submission</div>
+	    <div>  
+            <img class="pure-img" src="assets/img/alt-logo.png"/>
+        </div>
+	</div>
+</ion-content>
