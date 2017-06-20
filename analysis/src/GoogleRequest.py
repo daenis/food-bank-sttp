@@ -2,17 +2,21 @@ import os
 import requests
 from Partner import Partner
 from Establishment import Establishment
+#dotenv -> denniskalaygian/python-env/food-bank/bin/dotenv
 from dotenv import load_dotenv
 
 DOTENV_PATH = os.getcwd() + '/.env'
 #print(DOTENV_PATH)
 load_dotenv(DOTENV_PATH)
 GOOGLE_API = os.environ.get("GOOGLE_API")
-GOOGLE_URL = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurants+"
+#Search for a Restaurant within one mile (1609 meters) of the specified City
+GOOGLE_URI = """https://maps.googleapis.com/maps/api/place/textsearch/json?
+query=restaurants+"""
 
 class GoogleRequest:
     def __init__(self, partner):
-        self.url = GOOGLE_URL + "{}&key={}".format(partner.zip(), GOOGLE_API)
+        #Searching based on city in this URL
+        self.url = GOOGLE_URI + "{}&key={}".format(partner.zip(), GOOGLE_API)
         #print(self.url)
         self.json = requests.get(self.url).json()
         #print(self.json)
@@ -72,7 +76,5 @@ class GoogleRequest:
         """
         for item in list_queue:
             restaurants = GoogleRequest(item)
-            return restaurants.make_distributors()
+            yield restaurants.make_distributors()
 
-#if __name__ == '__main__':
-    #main()
