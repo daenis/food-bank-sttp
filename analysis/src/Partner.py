@@ -4,15 +4,15 @@ import uuid
 class Partner(Organization):
 
     def _assert_fields(self, dictionary):
-        required_fields = ['agency_name', 'Addr1', 'City', 'Zip']
+        required_fields = ['AgencyName', 'Addr1', 'City', 'Zip']
         for field in required_fields:
             if dictionary[field] is None or dictionary[field] == '':
                 return False
         return True
 
     def agency_name(self):
-        """Return the value of the 'agency_name' key if it exists"""
-        return self._assert_defined('agency_name')
+        """Return the value of the 'AgencyName' key if it exists"""
+        return self._assert_defined('AgencyName')
 
     def addr1(self):
         """Return the value of the 'Addr1' key if it exists"""

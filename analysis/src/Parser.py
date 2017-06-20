@@ -1,7 +1,7 @@
 import os
 import csv
 #import json
-from analysis.src.Partner import Partner
+from Partner import Partner
 
 CWD = os.getcwd()
 
@@ -20,6 +20,3 @@ class Parser:
                 array_of_partners.append(partner)
 
         return array_of_partners
-
-if __name__ == '__main__':
-    Parser().parse_csv()

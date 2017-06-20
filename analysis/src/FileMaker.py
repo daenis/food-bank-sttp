@@ -1,36 +1,33 @@
 import os
 import json
+import shutil
 
 class FileMaker:
     def __init__(self, file_name):
-        self.file = None
+        #self.file = None
         self._dict = {}
+        file_path = os.getcwd() + '/analysis/output'
         try:
-            if not os.path.exists(os.getcwd() + '/output'):
-                os.makedirs(os.getcwd() + '/output')
-            self.file_name = os.getcwd() + '/output/' + file_name + '.json'
-            #os.ßmakedirs(os.path.dirname(file_name), exist_ok=True)
-            #print(self.file_name)
-            self.file = open(self.file_name, 'a+')
+            if not os.path.exists(file_path):
+                os.makedirs(file_path)
+            self.file_name = file_path + '/' + file_name + '.json'
+            self.file = open(self.file_name, 'w+')
         except (OSError, IOError) as err:
-            print err
+            print(err)
 
     def __del__(self):
-        if self.file != None:
-            self.write_json()
-            self.file.close()
+        self.write_json()
+        self.file.close()
 
     def write_json(self):
-        #dict_as_json = json.dumps(dictionary, separators=(',',':'), indent=2)
-        #print(prop)
-        #Convert to a string to write it?
+        #
+        # Convert to a string to write it?
+        #print(json.dumps(self._dict))
         self.file.write(json.dumps(self._dict, separators=(',', ':'), indent=2))
+        #self.file.write(json.dumps(self._dict)
 
     def add_to_dict(self, dictionary):
-        #dict_as_json = json.dumps(dictionary, separators=(',',':'), indent=2)
-        prop = {dictionary['UUID']: dictionary}
         self._dict[dictionary['UUID']] = dictionary
-        print prop
         #Maybe open file?
         #Convert to a string to write it?
         #self.file.write(json.dumps(prop, indent=2))

@@ -8,11 +8,11 @@ def main():
     # Create file named 'partner' in '/output'
     partner_json = FileMaker('partner')
     # Create file named 'distributor' in '/output'
-    distributor_json = FileMaker('distributor')
+    distributor_json = FileMaker('restaurants')
     # Return an array of partners to this variable via the partners.csv
     partners_queue = Parser().parse_csv()
     # Return array of distributors to this variable
-    establishment_queue = [e for e in GoogleRequest.pull_restaurants(partners_queue)] 
+    establishment_queue = [e for e in GoogleRequest.pull_restaurants(partners_queue)]
     #print(establishment_queue)
     # For every partner in the partners queue array
     for partner in partners_queue:
@@ -29,7 +29,7 @@ def main():
     #partner_json(partners_queue)
 
     # Create a json using the array of establishments
-    #distributor_json(establishment_queue)
+    distributor_json.generate(establishment_queue)
 
 if __name__ == '__main__':
     main()
