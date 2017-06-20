@@ -1,19 +1,35 @@
 <ion-title>Volunteer Sign up</ion-title>
 <ion-content>
 	<div class="sign-up">
-		<p>Please fill out all applicable fields before submitting</p>
 		<form [formGroup]="form" class="pure-form pure-form-stacked pure-form-aligned">
-			<input type="text" formControlName="name" placeholder="name" />
-			<input type="text" formControlName="userName" placeholder="User Name" />
-			<input formControlName="password" placeholder="Password" type="password" />
-			<input type="email" formControlName="email" placeholder="Email"/>
-			<input type="text" formControlName="address" placeholder="Address" />
-			<input type="text" formControlName="phoneNumber" placeholder="Phone Number" />
+			<fieldset>
+				<div class="pure-control-group">
+                	<input formControlName="name" type="text" placeholder="Full Name">
+            	</div>
+				<div class="pure-control-group">
+                	<input formControlName="userName" type="text" placeholder="User Name">
+            	</div>
+				<div class="pure-control-group">
+                	<input formControlName="password" type="password" placeholder="Password">
+            	</div>
+				<div class="pure-control-group">
+                	<input formControlName="email" type="email" placeholder="Personal Email">
+            	</div>
+				<div class="pure-control-group">
+                	<input formControlName="address" type="text" placeholder="Personal Address">
+            	</div>
+				<div class="pure-control-group">
+                	<input formControlName="phoneNumber" type="text" placeholder="Phone Number (with Area Code)">
+            	</div>
+				<div class="pure-control-group">
+                	<input formControlName="code" type="text" placeholder="Confirmation Code">
+            	</div>
+
 			<div class="pure-controls">
-				<button ion-button id="signup" (click)="submit()" type="submit" class="pure-button pure-button-primary">Start making a difference today!</button>
-				<img src="assets/img/alt-logo.png"/>
-				<button ion-button full (click)="goBack()" type="submit" class="pure-button pure-button-primary">Back</button>
+				<button ion-button round (click)="submit()" type="submit" class="pure-button pure-button-primary">MAKE A DIFFERENCE TODAY!</button>
+				<button ion-button round (click)="goBack()" type="submit" class="pure-button pure-button-primary">BACK</button>
 			</div>
+			</fieldset>
 		</form>
 	</div>
 </ion-content>
