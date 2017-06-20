@@ -15,7 +15,7 @@ query=restaurants+"""
 
 class GoogleRequest:
     def __init__(self, partner):
-        #Searching based on city in this URL
+        #Searching based on the zip of the Partner in this URL
         self.url = GOOGLE_URI + "{}&key={}".format(partner.zip(), GOOGLE_API)
         #print(self.url)
         self.json = requests.get(self.url).json()
@@ -72,7 +72,7 @@ class GoogleRequest:
     @staticmethod
     def pull_restaurants(list_queue):
         """
-        Create a list
+        Create a list of restaurants
         """
         for item in list_queue:
             restaurants = GoogleRequest(item)

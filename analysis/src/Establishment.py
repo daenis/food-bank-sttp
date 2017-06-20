@@ -26,16 +26,16 @@ class Establishment(Organization):
 
     def to_user_json(self):
         return {
-          'UUID': self.id,
-          'Name': self.name(),
-          'Type': 'Establishment',
-          'Password': '1234',
-          'Username': self.name()
+            'UUID': self.id,
+            'Name': self.name(),
+            'Type': 'Establishment',
+            'Password': '1234',
+            'Username': self.name()
         }
 
     def to_identification_json(self):
         return {
-          'UUID': self.id,
-          'Establishment': self.name(),
-          'Location': "{}, {}, {}".format(self.city(), self.state(), self.zip())
+            'UUID': self.id,
+            'Establishment': self.name(),
+            'Location': "{}, {}, {}".format(self.city(), self.state(), self.zip())
         }
