@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { ProductService } from '../product/product.service';
-import { Injectable } from '@angular/core';
+import { Injectable, ChangeDetectorRef } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
@@ -27,12 +27,16 @@ export class OrderForm implements OnInit {
 
   public ngOnInit(): void {
     this.orderFormService.getOrdersPromise()
-      .then(products => this.products = products,
+      .then(products => this.updateProduct(products),
       error => this.errorMessage = <any>error)
       .then(() => {
         console.log(this.products)
         this.getOrderTotal()
       })              
+  }
+
+  private updateProduct(data: Product[]) {
+    this.products = data
   }
 
   public getOrderTotal(): number {
@@ -45,7 +49,9 @@ export class OrderForm implements OnInit {
   }
   // Remove product from cart
   public deleteFromOrder(referenceNumber: number) {
-    this.orderFormService.removeFromOrder(referenceNumber);
+    this.orderFormService.removeFromOrder(referenceNumber)
+                            .then(e => this.orderFormService.getOrdersPromise())
+                            .then(products => this.updateProduct(products))
   }
 
   public goBack() {
