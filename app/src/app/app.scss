@@ -1,22 +1,25 @@
 // http://ionicframework.com/docs/v2/theming/
 
 * {
-    font-family: 'PT Serif', sans-serif;
-    font-variant: small-caps;
+    font-family: 'Times';
     font-weight: 300;
     text-shadow: .5px 1px;
 }
 .scroll-content{
-    background-color: darkgoldenrod;
-    opacity: .9;
+    background-image: url('/assets/img/alt-background.png');
+    opacity: 1.0;
     background-size: cover;
 }
 .button {
     background-color: darkcyan;
+    font-family: 'Times';
     font-weight: 700;
     font-size: 16px;
+
 }
 p {
+    font-family: 'Times';
+    font-weight: 300;
     font-size: 20px;
     font-weight: 800;
 }
@@ -48,6 +51,8 @@ input, textarea {
     background: transparent;
     background-color : #d1d1d1; 
     width: 100%;
+    font-family: 'Times';
+    font-weight: 300;
 }
 
 h1 {
@@ -101,4 +106,36 @@ ion-title {
     color:white;
   }
 
+}
+
+.home-image {
+    padding-bottom: 80px;
+    align-content: center
+}
+
+.pure-controls {
+    text-align: center;
+}
+
+.pure-control-group {
+    text-align: center;
+    align-content: center;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+.sign-up {
+    padding-top: 20%;
+
+    div {
+        padding-top: 0.1%;
+        padding-bottom: 0.1%;
+    }
+
+    input {
+        background-color: white;
+    }
+}
+
+.organization {
+    background-color: white;
 }

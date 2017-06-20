@@ -23,8 +23,9 @@ export class SignUp implements OnInit {
 			email: ['',
 				Validators.required],
 			password: ['', Validators.required],
-			phoneNumber: ['', Validators.required],
-			address: ['']
+			phoneNumber: ['', Validators.pattern(/\d{10}/)],
+			address: [''],
+			code: ['']
 		})
 	}
 
@@ -50,7 +51,7 @@ export class SignUp implements OnInit {
 			email: form['email'],
 			password: form['password'],
 			phone: form['phoneNumber'],
-			type: 'volunteer'
+			type: 'partner'
 		})
 	}
 }

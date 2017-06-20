@@ -12,7 +12,7 @@ describe('SignUp', () => {
 	beforeEach(async(() => TestUtils.beforeEachCompiler([SignUp]).then(compiled => {
 		fixture = compiled.fixture;
 		instance = compiled.instance;
-		button = fixture.debugElement.query(By.css('#signup'))
+		button = fixture.debugElement.query(By.css('.sign-up'))
 	})));
 
 	it('should be able to load', () => {
