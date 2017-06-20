@@ -14,16 +14,10 @@ export class OrderFormService {
 		private _productUrl = environment.uri + 'api/order';
 		constructor(private _http: Http) {}
 
-		public getOrders(): Observable<Product[]> {
-			return this._http.get(this._productUrl)
-				.map((response: Response) => <Product[]>response.json()["items"])
-				.catch(this.handleError);
-		}
-
 		public removeFromOrder(referenceNumber: number) {
 			return this._http.delete(this._productUrl, new RequestOptions({
 				body: { referenceNumber }
-			})).toPromise().then(e => console.log("Done"))
+			})).toPromise()
 		}
 
 		private handleError(error: Response) {
