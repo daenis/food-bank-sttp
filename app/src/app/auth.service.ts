@@ -15,7 +15,6 @@ export class Auth {
 	public addUser(user: User) {
 		this.user = user;
 		this.refreshTime = new Date();
-		console.log(this.refreshTime)
 		this.loggedIn = true;
 	}
 
@@ -30,7 +29,6 @@ export class Auth {
 	public logout(): void {
 		this.user = undefined;
 		this.logoutTime = new Date();
-		console.log(this.logoutTime)
 		this.loggedIn = false;
 	}
 
