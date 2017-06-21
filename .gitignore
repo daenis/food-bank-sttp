@@ -36,3 +36,14 @@ package-lock.json
 __pycache__
 *.pyc
 output/
+
+# Intellij
+.idea/
+*.iml
+*.iws
+
+# Maven
+log/
+target/
+
+.editorconfig

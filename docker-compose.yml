@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  java-bean:
+    env_file: .env
+    build: ./server
+    command: mvn package
+    command: mvn spring-boot:run
+    volumes:
+     - "./server:/usr/src/server"
+    ports:
+      - "5000:8080"
+  db:
+    image: mysql:5.7.18
+    env_file: .env
+    ports: 
+      - "5050:3306"
