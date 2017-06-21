@@ -52,6 +52,7 @@ export class OrderForm implements OnInit {
     this.orderFormService.removeFromOrder(referenceNumber)
                             .then(e => this.orderFormService.getOrdersPromise())
                             .then(products => this.updateProduct(products))
+                            .then(e => this.getOrderTotal())
   }
 
   public goBack() {
