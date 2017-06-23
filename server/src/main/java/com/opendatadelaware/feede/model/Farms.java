@@ -4,8 +4,11 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.util.UUID;
 
@@ -24,6 +27,9 @@ public class Farms {
   @Column(name = "name")
   private String name;
 
+  @Column(name = "phone")
+  private String phone;
+
   @Column(name = "street_address")
   private String streetAddress;
 
@@ -32,6 +38,10 @@ public class Farms {
 
   @Column(name = "state")
   private String zip;
+
+  @OneToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "owner", referencedColumnName = "uuid")
+  private Users user;
 
   public String getName() {
     return name;

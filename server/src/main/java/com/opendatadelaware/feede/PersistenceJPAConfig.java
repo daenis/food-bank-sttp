@@ -73,7 +73,7 @@ public class PersistenceJPAConfig {
   /* https://docs.jboss.org/hibernate/orm/5.0/manual/en-US/html/ch03.html#d5e1655 */
   Properties additionalProperties() {
     Properties properties = new Properties();
-    properties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
+    properties.setProperty("hibernate.hbm2ddl.auto", "update");
     properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
     return properties;
   }
