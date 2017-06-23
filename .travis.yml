@@ -1,15 +1,10 @@
-sudo: required  
 dist: trusty
 language: node_js
 node_js: 7.10.0
-addons: 
-  chrome: stable
-before_install:
-  - export CHROME_BIN=/usr/bin/google-chrome
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
-  - sudo apt-get 
 cache:
   directories:
     - "app/node_modules"
-script: cd app && npm install && npm test
+    - "$HOME/.m2"
+script:
+  - cd app && npm install && npm test
+  - cd ../server && mvn test
