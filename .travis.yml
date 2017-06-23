@@ -10,6 +10,7 @@ before_install:
 cache:
   directories:
     - "app/node_modules"
+    - $HOME/.m2
 script:
   - cd app && npm install && npm test
   - cd ../server && mvn test
