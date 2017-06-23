@@ -28,9 +28,6 @@ public class FarmersMarket {
   @JoinColumn(name = "contact", referencedColumnName = "uuid")
   private Users contact;
 
-  @Column(name = "address")
-  private String address;
-
   @Column(name = "email")
   private String email;
 
@@ -40,20 +37,21 @@ public class FarmersMarket {
   @Column(name = "phone")
   private String phone;
 
+  @Column(name = "street_address")
+  private String streetAddress;
+
+  @Column(name = "city")
+  private String city;
+
+  @Column(name = "state")
+  private String zip;
+
   public Users getContact() {
     return contact;
   }
 
   public void setContact(Users contact) {
     this.contact = contact;
-  }
-
-  public String getAddress() {
-    return address;
-  }
-
-  public void setAddress(String address) {
-    this.address = address;
   }
 
   public String getEmail() {
