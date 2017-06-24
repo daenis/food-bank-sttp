@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams, ToastController } from 'ionic-angular';
 import { Product } from './product';
 import { ProductService } from './product.service';
-//import { ProductDetailComponent } from './product-detail.component';
 import { FoodItem } from '../fooditem/fooditem';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http } from '@angular/http';
@@ -33,19 +32,23 @@ export class ProductListComponent implements OnInit {
 	}
 
 	private postToPickUpBoard(): void {
+		if (this.form.valid) {
 		const result = this.parseForm(this.form.getRawValue());
 		const uri = environment.uri + 'api/order';
 		this.http.put(uri, result).toPromise()
 			.catch(e => console.warn(e))
 		this.confirmPostToPickUpBoard();
 		this.clearForm();
+		} else {
+			this.notifyInvalidEntry();
+		}
 	}
 
 	private clearForm(): void {
 		this.form.reset();
 	}
 
-	private confirmPostToPickUpBoard() {
+	private confirmPostToPickUpBoard(): void {
 		let toast = this.toastCtrl.create({
 			message: 'Request has been posted',
 			duration: 2000,
@@ -54,20 +57,29 @@ export class ProductListComponent implements OnInit {
 		toast.present();
 	}
 
+	private notifyInvalidEntry(): void {
+		let toast = this.toastCtrl.create({
+			message: 'All fields are required. Please complete all fields',
+			duration: 2000,
+			position: 'middle'
+		});
+		toast.present();
+	}
+
 	private getForm() {
 		this.form = this.fb.group({
-			category: [''],
-			description: [''],
-			quantity: ['']
+			category: ['', Validators.required],
+			description: ['', Validators.required],
+			quantity: ['', Validators.required]
 		})
 	}
 
 	private parseForm(form: Object): Object {
-		return ({
-			category: form['category'],
-			description: form['description'],
-			quantity: form['quantity']
-		})
+			return ({
+				category: form['category'],
+				description: form['description'],
+				quantity: form['quantity']
+			})
 	}
 
 	private goBack(): void {

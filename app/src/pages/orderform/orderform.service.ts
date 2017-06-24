@@ -11,27 +11,26 @@ import { Product } from '../product/product';
 @Injectable()
 export class OrderFormService {
 
-		private _productUrl = environment.uri + 'api/order';
-		constructor(private _http: Http) {}
+	private _productUrl = environment.uri + 'api/order';
+	constructor(private _http: Http) { }
 
-		public removeFromOrder(referenceNumber: number) {
-			return this._http.delete(this._productUrl, new RequestOptions({
-				body: { referenceNumber }
-			})).toPromise()
-		}
+	public removeFromPickUpBoard(category: string) {
+		return this._http.delete(this._productUrl, new RequestOptions({
+			body: { category }
+		})).toPromise()
+	}
 
-		private handleError(error: Response) {
-				console.error(error);
-				return Observable.throw(error.json().error || 'Server error');
-		}
-
-		public getOrdersPromise(): Promise<any> {
-			return new Promise(resolve => { 
-				this._http.get(this._productUrl)
+	public getOrdersPromise(): Promise<any> {
+		return new Promise(resolve => {
+			this._http.get(this._productUrl)
 				.map((res => res.json()))
-				.subscribe(data => {resolve(data.items)});
-			})
-		}
-		
+				.subscribe(data => { resolve(data.items) });
+		})
+	}
+	private handleError(error: Response) {
+		console.error(error);
+		return Observable.throw(error.json().error || 'Server error');
+	}
+
 
 }

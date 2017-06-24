@@ -35,9 +35,9 @@ export class OrderForm implements OnInit {
   private updateProduct(data: Product[]) {
     this.products = data
   }
-  // Remove product from cart
-  public deleteFromOrder(referenceNumber: number) {
-    this.orderFormService.removeFromOrder(referenceNumber)
+  // Remove posted order
+  public deletePickUpRequest(category: string) {
+    this.orderFormService.removeFromPickUpBoard(category)
                             .then(e => this.orderFormService.getOrdersPromise())
                             .then(products => this.updateProduct(products))
   }
