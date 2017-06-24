@@ -1,10 +1,12 @@
 <ion-content>
   <div class="wrapper">
-  <h2>Current Items in cart: </h2>
+  <h2>Donations Awaiting pick up: </h2>
   <ion-list>
     <ion-item *ngFor="let product of products">
 
-      {{product}} 
+      {{product.category}} <br />
+      {{product.description}} <br />
+      {{product.quantity}} <br />
       
     </ion-item>
     

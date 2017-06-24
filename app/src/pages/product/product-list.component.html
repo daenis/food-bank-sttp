@@ -1,14 +1,10 @@
 <ion-content>
-    <ion-item>
-        <ion-label>Choose a category</ion-label>
-        <ion-select [(ngModel)]="product">
-            <ion-option *ngFor="let product of products" [value] = "product">{{product}}</ion-option>
-        </ion-select>
-    </ion-item>
-            <button ion-button full (click)="goToProductDetail(product)">Continue</button>
 <div class="pick-up">
 		<form [formGroup]="form" class="pure-form pure-form-stacked pure-form-aligned">
 			<fieldset>
+				<div class="pure-control-group">
+                	<input formControlName="category" type="text" placeholder="Category">
+            	</div>
 				<div class="pure-control-group">
                 	<input formControlName="description" type="text" placeholder="Description">
             	</div>
@@ -16,6 +12,8 @@
                 	<input formControlName="quantity" type="text" placeholder="Quantity">
             	</div>
 			<div class="pure-controls">
+				<button ion-button round (click)="goToOrderForm()" type="submit" class="pure-button pure-button-primary">View Post</button>
+				<button ion-button round (click)="submit()" type="submit" class="pure-button pure-button-primary">Post</button>
 				<button ion-button round (click)="goBack()" type="submit" class="pure-button pure-button-primary">BACK</button>
 			</div>
 			</fieldset>
