@@ -31,9 +31,10 @@ export class ProductListComponent implements OnInit {
 	}
 
 	public goToProductDetail(category: string) {
-		const formData = this.parseForm(this.form.getRawValue());
+		const form = this.parseForm(this.form.getRawValue());
+		console.log(form)
 		console.log(category)
-		this.navCtrl.push(FoodItem, { category }, formData);
+		this.navCtrl.push(FoodItem, { category }, form);
 	}
 
 	public getForm() {

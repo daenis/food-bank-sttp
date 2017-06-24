@@ -3,9 +3,9 @@
   <h2>Current Items in cart: </h2>
   <ion-list>
     <ion-item *ngFor="let product of products">
-      {{product.description}} 
+
+      {{product}} 
       
-      <button ion-button small (click)="deleteFromOrder(product.referenceNumber)">X</button>
     </ion-item>
     
   </ion-list>
