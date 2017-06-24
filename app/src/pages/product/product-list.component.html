@@ -1,16 +1,4 @@
 <ion-content>
-    <!--<div class='panel-heading'>
-        {{pageTitle}}
-    </div>
-    <div>
-    <ion-list>
-        <ion-item *ngFor="let product of products">
-            <button ion-button full (click)="goToProductDetail(product)">
-                {{product}}
-            </button>
-        </ion-item>
-    </ion-list>
-    </div>-->
     <ion-item>
         <ion-label>Choose a category</ion-label>
         <ion-select [(ngModel)]="product">
@@ -18,17 +6,21 @@
         </ion-select>
     </ion-item>
             <button ion-button full (click)="goToProductDetail(product)">Continue</button>
-    <!--<ion-item>
-  <ion-label>Toppings</ion-label>
-  <ion-select [(ngModel)]="toppings" multiple="true">
-    <ion-option>Bacon</ion-option>
-    <ion-option>Black Olives</ion-option>
-    <ion-option>Extra Cheese</ion-option>
-    <ion-option>Mushrooms</ion-option>
-    <ion-option>Pepperoni</ion-option>
-    <ion-option>Sausage</ion-option>
-  </ion-select>
-</ion-item>-->
+<div class="pick-up">
+		<form [formGroup]="form" class="pure-form pure-form-stacked pure-form-aligned">
+			<fieldset>
+				<div class="pure-control-group">
+                	<input formControlName="description" type="text" placeholder="Description">
+            	</div>
+				<div class="pure-control-group">
+                	<input formControlName="quantity" type="text" placeholder="Quantity">
+            	</div>
+			<div class="pure-controls">
+				<button ion-button round (click)="goBack()" type="submit" class="pure-button pure-button-primary">BACK</button>
+			</div>
+			</fieldset>
+		</form>
+	</div>
 </ion-content>
     
 
