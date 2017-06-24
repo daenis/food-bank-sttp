@@ -14,4 +14,12 @@ describe('OrderForm', () => {
 		const orderform = fixture.debugElement.componentInstance;
 		expect(orderform).toBeTruthy();
 	}));
+
+	it('should do something async', (done) => {
+		setTimeout(() => {
+			expect(true).toBe(true);
+			done();
+		}, 2000);
+	});
+	
 })
