@@ -3,11 +3,9 @@
   <h2>Donations Awaiting pick up: </h2>
   <ion-list>
     <ion-item *ngFor="let product of products">
-
       {{product.category}} <br />
       {{product.description}} <br />
       {{product.quantity}} <br />
-      Time posted: {{dte | date:'MM dd, yyyy'}}
     </ion-item>
     
   </ion-list>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ToastController } from 'ionic-angular';
 import { Product } from './product';
 import { ProductService } from './product.service';
 //import { ProductDetailComponent } from './product-detail.component';
@@ -24,30 +24,37 @@ export class ProductListComponent implements OnInit {
 		private navCtrl: NavController,
 		private navParams: NavParams,
 		private fb: FormBuilder,
-		private http: Http) {
+		private http: Http,
+		private toastCtrl: ToastController) {
 	}
 
 	public ngOnInit(): void {
 		this.getForm();
-		// this._productService.getProducts()
-		// 	.subscribe(products => this.products = products,
-		// 	error => this.errorMessage = <any>error);
 	}
 
-	// public goToProductDetail(category: string) {
-	// 	const form = this.parseForm(this.form.getRawValue());
-	// 	console.log(form)
-	// 	console.log(category)
-	// 	this.navCtrl.push(FoodItem, { category }, form);
-	// }
-	public submit(): void {
-			const result = this.parseForm(this.form.getRawValue());
-			const uri = environment.uri + 'api/order';
-			this.http.put(uri, result).toPromise()
-				.catch(e => console.warn(e))
+	private postToPickUpBoard(): void {
+		const result = this.parseForm(this.form.getRawValue());
+		const uri = environment.uri + 'api/order';
+		this.http.put(uri, result).toPromise()
+			.catch(e => console.warn(e))
+		this.confirmPostToPickUpBoard();
+		this.clearForm();
 	}
 
-	public getForm() {
+	private clearForm(): void {
+		this.form.reset();
+	}
+
+	private confirmPostToPickUpBoard() {
+		let toast = this.toastCtrl.create({
+			message: 'Request has been posted',
+			duration: 2000,
+			position: 'middle'
+		});
+		toast.present();
+	}
+
+	private getForm() {
 		this.form = this.fb.group({
 			category: [''],
 			description: [''],
@@ -63,11 +70,11 @@ export class ProductListComponent implements OnInit {
 		})
 	}
 
-	public goBack(): void {
+	private goBack(): void {
 		this.navCtrl.pop();
 	}
 
-	public goToOrderForm() {
+	private goToOrderForm() {
 		this.navCtrl.push(OrderForm);
 	}
 
