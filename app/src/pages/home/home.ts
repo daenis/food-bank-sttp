@@ -41,7 +41,7 @@ export class HomePage implements OnInit {
 
 	private goToProfile(user: User): void {
 		if (this.auth.isLoggedIn()) {
-			if (user.type === 'partner') {
+			if (user.type === 'farmrep') {
 				this.navCtrl.push(PartnerProfile);
 			}
 			if (user.type === 'volunteer') {
