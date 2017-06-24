@@ -1,5 +1,5 @@
 <ion-content>
-    <div class='panel-heading'>
+    <!--<div class='panel-heading'>
         {{pageTitle}}
     </div>
     <div>
@@ -10,7 +10,25 @@
             </button>
         </ion-item>
     </ion-list>
-    </div>
+    </div>-->
+    <ion-item>
+        <ion-label>Choose a category</ion-label>
+        <ion-select [(ngModel)]="product">
+            <ion-option *ngFor="let product of products" [value] = "product">{{product}}</ion-option>
+        </ion-select>
+    </ion-item>
+            <button ion-button full (click)="goToProductDetail(product)">Continue</button>
+    <!--<ion-item>
+  <ion-label>Toppings</ion-label>
+  <ion-select [(ngModel)]="toppings" multiple="true">
+    <ion-option>Bacon</ion-option>
+    <ion-option>Black Olives</ion-option>
+    <ion-option>Extra Cheese</ion-option>
+    <ion-option>Mushrooms</ion-option>
+    <ion-option>Pepperoni</ion-option>
+    <ion-option>Sausage</ion-option>
+  </ion-select>
+</ion-item>-->
 </ion-content>
     
 
