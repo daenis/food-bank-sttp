@@ -17,6 +17,9 @@ export class ProductListComponent implements OnInit {
 	private errorMessage: string;
 	private products: String[];
 	private form: FormGroup;
+	private hideCategoryHelp: boolean = true;
+	private hideDescriptionHelp: boolean = true;
+	private hideQuantityHelp: boolean = true;
 
 	constructor(
 		private _productService: ProductService,
@@ -80,6 +83,18 @@ export class ProductListComponent implements OnInit {
 				description: form['description'],
 				quantity: form['quantity']
 			})
+	}
+	
+	private showCategoryHelp(): void {
+		this.hideCategoryHelp = false;
+	}
+
+	private showDescriptionHelp(): void {
+		this.hideDescriptionHelp = false;
+	}
+
+	private showQuantityHelp(): void {
+		this.hideQuantityHelp = false;
 	}
 
 	private goBack(): void {

@@ -20,7 +20,6 @@ export class OrderForm implements OnInit {
   private errorMessage: string;
   private products: Product[];
   private productsTotal: number;
-  private location = {};
 
   constructor(private http: Http,
     private navController: NavController,

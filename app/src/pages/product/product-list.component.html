@@ -3,25 +3,40 @@
 		<form [formGroup]="form" class="pure-form pure-form-stacked pure-form-aligned">
 			<fieldset>
 				<div class="pure-control-group">
+					<h1>Please enter a category:</h1>
                 	<input formControlName="category" type="text" placeholder="Category">
+					<button ion-button small (click)="showCategoryHelp()">Help?</button>
+						<div *ngIf="!hideCategoryHelp" class="alert alert-success box-msg" role="alert">
+							Some example Categories:
+							Fruit, Vegtables, Meat, Dairy, Non-Food Product 
+						</div>
             	</div>
 				<div class="pure-control-group">
+					<h1> Please Describe The Type Of Donation:</h1>
                 	<input formControlName="description" type="text" placeholder="Description">
+					<button ion-button small (click)="showDescriptionHelp()">Help?</button>
+						<div *ngIf="!hideDescriptionHelp" class="alert alert-success box-msg" role="alert">
+							Briefly describe the products being donated, 
+							include Perishable or Non-Perishable
+						</div>
             	</div>
 				<div class="pure-control-group">
+					<h1>Please Let Us Know How Much You Are Donating:</h1>
                 	<input formControlName="quantity" type="text" placeholder="Quantity">
+					<button ion-button small (click)="showQuantityHelp()">Help?</button>
+						<div *ngIf="!hideQuantityHelp" class="alert alert-success box-msg" role="alert">
+							Quantity can be related to weight, amount of boxes, or bushels
+							We use this information to make sure the proper vehicle is sent
+							For the Pick-Up
+						</div>
             	</div>
 			<div class="pure-controls">
-				<button ion-button round (click)="goToOrderForm()" type="submit" class="pure-button pure-button-primary">View Post</button>
+				<button ion-button round (click)="goToOrderForm()" type="submit" class="pure-button pure-button-primary">View Current Postings</button>
 				<button ion-button round (click)="postToPickUpBoard()" type="submit" class="pure-button pure-button-primary">Post</button>
-				<button ion-button round (click)="goBack()" type="submit" class="pure-button pure-button-primary">BACK</button>
+				<button ion-button full round (click)="goBack()" type="submit" class="pure-button pure-button-primary">Back</button>
 			</div>
 			</fieldset>
 		</form>
 	</div>
 </ion-content>
-    
-
-    
-    
     
