@@ -8,21 +8,17 @@ import { OrderForm } from '../orderform/orderform';
   templateUrl: 'volunteerprofile.html'
 })
 export class VolunteerProfile {
-  
-  public isVolunteer: boolean = true;
 
   constructor(public navCtrl: NavController,
   public navParams: NavParams) {
   }
-  
 
   public goToMenu(): void  {
     this.navCtrl.setRoot(HomePage);
   }
 
-  public goToOrderForm(isVolunteer): void {
-
-    this.navCtrl.push(OrderForm, isVolunteer );
+  public goToOrderForm(): void {
+    this.navCtrl.push(OrderForm);
   }
 
 

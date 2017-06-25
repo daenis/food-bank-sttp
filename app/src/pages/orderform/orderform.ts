@@ -30,11 +30,12 @@ export class OrderForm implements OnInit {
       .then(products => this.updateProduct(products),
       error => this.errorMessage = <any>error)   
   }
-
+  // Refreshes the Product array -- makes it so that when a pick-up
+  // is deleted, the page UI updates
   private updateProduct(data: Product[]) {
     this.products = data
   }
-  // Remove posted order
+  // Removes the posted pick-up request
   public deletePickUpRequest(category: string) {
     this.orderFormService.removeFromPickUpBoard(category)
                             .then(e => this.orderFormService.getOrdersPromise())

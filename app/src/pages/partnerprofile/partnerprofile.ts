@@ -12,7 +12,6 @@ import { User } from '../../app/user';
 export class PartnerProfile {
 
 		private user: User;
-		public isVolunteer: boolean = false;
 		
 		constructor(public navCtrl: NavController, public authService: Auth) {}
 
@@ -25,8 +24,8 @@ export class PartnerProfile {
 			this.navCtrl.setRoot(HomePage);
 		}
 
-		public goToOrderForm(isVolunteer) {
-			this.navCtrl.push(ProductListComponent, isVolunteer );
+		public goToOrderForm() {
+			this.navCtrl.push(ProductListComponent);
 		}
 
 }
