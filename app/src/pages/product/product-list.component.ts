@@ -10,7 +10,7 @@ import { OrderForm } from '../orderform/orderform';
 
 @Component({
 	templateUrl: './product-list.component.html',
-	providers: [ProductService]
+	providers: [ProductService, ToastController]
 })
 export class ProductListComponent implements OnInit {
 	private pageTitle: string = 'Categories';

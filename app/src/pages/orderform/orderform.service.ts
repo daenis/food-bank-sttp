@@ -27,6 +27,12 @@ export class OrderFormService {
 				.subscribe(data => { resolve(data.items) });
 		})
 	}
+
+	public getOrders(): Observable<String[]> {
+		return this._http.get(this._productUrl)
+			.map((response: Response) => <String[]>response.json())
+			.catch(this.handleError);
+	}
 	private handleError(error: Response) {
 		console.error(error);
 		return Observable.throw(error.json().error || 'Server error');
