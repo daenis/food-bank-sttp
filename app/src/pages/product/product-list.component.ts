@@ -20,6 +20,12 @@ export class ProductListComponent implements OnInit {
 	private hideCategoryHelp: boolean = true;
 	private hideDescriptionHelp: boolean = true;
 	private hideQuantityHelp: boolean = true;
+	private categoryHelp: string = 
+	"Use a general Category such as : Fruit, Vegtables, Meat, Dairy, Non-Food Product";
+	private descriptionHelp: string = 
+	"Briefly describe the donation type, include details like Perishable or Non-Perishable";	
+	private quantityHelp: string = 
+	"Related to the weight, amount of boxes, or bushels";			
 
 	constructor(
 		private _productService: ProductService,
@@ -87,14 +93,20 @@ export class ProductListComponent implements OnInit {
 	
 	private showCategoryHelp(): void {
 		this.hideCategoryHelp = false;
+		this.hideDescriptionHelp = true;
+		this.hideQuantityHelp = true;
 	}
 
 	private showDescriptionHelp(): void {
 		this.hideDescriptionHelp = false;
+		this.hideCategoryHelp = true;
+		this.hideQuantityHelp = true;
 	}
 
 	private showQuantityHelp(): void {
 		this.hideQuantityHelp = false;
+		this.hideDescriptionHelp = true;
+		this.hideCategoryHelp = true;
 	}
 
 	private goBack(): void {

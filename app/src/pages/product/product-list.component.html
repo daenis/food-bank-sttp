@@ -5,29 +5,25 @@
 				<div class="pure-control-group">
 					<h1>Please enter a category:</h1>
                 	<input formControlName="category" type="text" placeholder="Category">
-					<button ion-button small (click)="showCategoryHelp()">Help?</button>
-						<div *ngIf="!hideCategoryHelp" class="alert alert-success box-msg" role="alert">
-							Some example Categories:
-							Fruit, Vegtables, Meat, Dairy, Non-Food Product 
+					<button ion-button round (click)="showCategoryHelp()">Help?</button>
+						<div *ngIf="!hideCategoryHelp">
+							{{categoryHelp}}
 						</div>
             	</div>
 				<div class="pure-control-group">
 					<h1> Please Describe The Type Of Donation:</h1>
                 	<input formControlName="description" type="text" placeholder="Description">
-					<button ion-button small (click)="showDescriptionHelp()">Help?</button>
-						<div *ngIf="!hideDescriptionHelp" class="alert alert-success box-msg" role="alert">
-							Briefly describe the products being donated, 
-							include Perishable or Non-Perishable
+					<button ion-button round (click)="showDescriptionHelp()">Help?</button>
+						<div *ngIf="!hideDescriptionHelp">
+							{{descriptionHelp}}
 						</div>
             	</div>
 				<div class="pure-control-group">
 					<h1>Please Let Us Know How Much You Are Donating:</h1>
                 	<input formControlName="quantity" type="text" placeholder="Quantity">
-					<button ion-button small (click)="showQuantityHelp()">Help?</button>
-						<div *ngIf="!hideQuantityHelp" class="alert alert-success box-msg" role="alert">
-							Quantity can be related to weight, amount of boxes, or bushels
-							We use this information to make sure the proper vehicle is sent
-							For the Pick-Up
+					<button ion-button round (click)="showQuantityHelp()">Help?</button>
+						<div *ngIf="!hideQuantityHelp">
+							{{quantityHelp}}
 						</div>
             	</div>
 			<div class="pure-controls">

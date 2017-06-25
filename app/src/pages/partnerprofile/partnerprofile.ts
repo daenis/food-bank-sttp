@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { ProductListComponent } from '../product/product-list.component';
 import { Auth } from '../../app/auth.service';
@@ -12,7 +12,8 @@ import { User } from '../../app/user';
 export class PartnerProfile {
 
 		private user: User;
-
+		public isVolunteer: boolean = false;
+		
 		constructor(public navCtrl: NavController, public authService: Auth) {}
 
 		public getUser(): string {
@@ -24,8 +25,8 @@ export class PartnerProfile {
 			this.navCtrl.setRoot(HomePage);
 		}
 
-		public goToOrderForm() {
-			this.navCtrl.push(ProductListComponent);
+		public goToOrderForm(isVolunteer) {
+			this.navCtrl.push(ProductListComponent, isVolunteer );
 		}
 
 }
