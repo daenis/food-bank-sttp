@@ -20,6 +20,11 @@ export class OrderFormService {
 		})).toPromise()
 	}
 
+	public deleteOrder(category: string) {
+		return this._http.delete(this._productUrl, category)
+		.catch(this.handleError);
+	}
+
 	public getOrdersPromise(): Promise<any> {
 		return new Promise(resolve => {
 			this._http.get(this._productUrl)

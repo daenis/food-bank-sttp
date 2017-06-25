@@ -83,4 +83,33 @@ describe('OrderFormService', () => {
       });
     })));
 
+    it('should delete orders', done => {
+    let orderFormService: OrderFormService;
+
+    getTestBed().compileComponents().then(() => {
+      mockBackend.connections.subscribe(
+        (connection: MockConnection) => {
+          connection.mockRespond(new Response(
+            new ResponseOptions({
+                body: [
+                  {
+                    category: 'Stuff',
+                    description: 'Some Good Stuff',
+                    quantity: 'Lots of stuff'
+                  }]
+              }
+            )));
+        });
+
+        orderFormService = getTestBed().get(OrderFormService);
+        expect(OrderFormService).toBeDefined();
+
+        orderFormService.deleteOrder("Stuff").subscribe((data) => {
+            expect(data.length).toBeUndefined();
+            done();
+        });
+    });
+  });
+
+
 });
