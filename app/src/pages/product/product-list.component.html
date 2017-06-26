@@ -1,19 +1,38 @@
 <ion-content>
-    <div class='panel-heading'>
-        {{pageTitle}}
-    </div>
-    <div>
-    <ion-list>
-        <ion-item *ngFor="let product of products">
-            <button ion-button full (click)="goToProductDetail(product)">
-                {{product}}
-            </button>
-        </ion-item>
-    </ion-list>
-    </div>
+<div class="pick-up">
+		<form [formGroup]="form" class="pure-form pure-form-stacked pure-form-aligned">
+			<fieldset>
+				<div class="pure-control-group">
+					<h1>Please enter a category:</h1>
+                	<input formControlName="category" type="text" placeholder="Category">
+					<button ion-button round (click)="showCategoryHelp()">Help?</button>
+						<div *ngIf="!hideCategoryHelp">
+							{{categoryHelp}}
+						</div>
+            	</div>
+				<div class="pure-control-group">
+					<h1> Please Describe The Type Of Donation:</h1>
+                	<input formControlName="description" type="text" placeholder="Description">
+					<button ion-button round (click)="showDescriptionHelp()">Help?</button>
+						<div *ngIf="!hideDescriptionHelp">
+							{{descriptionHelp}}
+						</div>
+            	</div>
+				<div class="pure-control-group">
+					<h1>Please Let Us Know How Much You Are Donating:</h1>
+                	<input formControlName="quantity" type="text" placeholder="Quantity">
+					<button ion-button round (click)="showQuantityHelp()">Help?</button>
+						<div *ngIf="!hideQuantityHelp">
+							{{quantityHelp}}
+						</div>
+            	</div>
+			<div class="pure-controls">
+				<button ion-button round (click)="goToOrderForm()" type="submit" class="pure-button pure-button-primary">View Current Postings</button>
+				<button ion-button round (click)="postToPickUpBoard()" type="submit" class="pure-button pure-button-primary">Post</button>
+				<button ion-button full round (click)="goBack()" type="submit" class="pure-button pure-button-primary">Back</button>
+			</div>
+			</fieldset>
+		</form>
+	</div>
 </ion-content>
-    
-
-    
-    
     

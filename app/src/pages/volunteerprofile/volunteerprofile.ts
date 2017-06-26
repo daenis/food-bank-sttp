@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { HomePage } from  '../home/home';
+import { OrderForm } from '../orderform/orderform';
 
 @Component({
   selector: 'page-volunteerprofile',
@@ -8,12 +9,17 @@ import { HomePage } from  '../home/home';
 })
 export class VolunteerProfile {
 
-  constructor(public navCtrl: NavController) {
-
+  constructor(public navCtrl: NavController,
+  public navParams: NavParams) {
   }
 
-  goToMenu() {
+  public goToMenu(): void  {
     this.navCtrl.setRoot(HomePage);
   }
+
+  public goToOrderForm(): void {
+    this.navCtrl.push(OrderForm);
+  }
+
 
 }

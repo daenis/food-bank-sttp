@@ -3,9 +3,7 @@
   <h2>{{getProductCategory()}}</h2>
   <ion-list>
     <ion-item *ngFor="let product of getFoodProducts()">
-      {{product.description}} <br />
-      Price: {{product.price | currency:'USD':true:'1.2-2'}}
-      <button ion-button right (click)="addToOrder(product)">Add To Cart</button>
+      {{product}} <br />
     </ion-item>
   </ion-list>
 
