@@ -28,31 +28,18 @@ export class OrderForm implements OnInit {
   public ngOnInit(): void {
     this.orderFormService.getOrdersPromise()
       .then(products => this.updateProduct(products),
-      error => this.errorMessage = <any>error)
-      .then(() => {
-        console.log(this.products)
-        this.getOrderTotal()
-      })              
+      error => this.errorMessage = <any>error)   
   }
-
+  // Refreshes the Product array -- makes it so that when a pick-up
+  // is deleted, the page UI updates
   private updateProduct(data: Product[]) {
     this.products = data
   }
-
-  public getOrderTotal(): number {
-    this.productsTotal = 0;
-    let products = this.products;
-    for (var i = 0; i < this.products.length; i++) {
-      this.productsTotal += products[i].price;
-    }
-    return this.productsTotal;
-  }
-  // Remove product from cart
-  public deleteFromOrder(referenceNumber: number) {
-    this.orderFormService.removeFromOrder(referenceNumber)
+  // Removes the posted pick-up request
+  public deletePickUpRequest(category: string) {
+    this.orderFormService.removeFromPickUpBoard(category)
                             .then(e => this.orderFormService.getOrdersPromise())
                             .then(products => this.updateProduct(products))
-                            .then(e => this.getOrderTotal())
   }
 
   public goBack() {

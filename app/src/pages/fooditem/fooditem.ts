@@ -47,7 +47,6 @@ export class FoodItem implements OnInit {
 				return true;
 			}
 		);
-
 	}
 
 	private generateFoodItemList(json: Object): Product[] {

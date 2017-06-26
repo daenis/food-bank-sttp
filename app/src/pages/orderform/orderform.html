@@ -1,13 +1,15 @@
 <ion-content>
   <div class="wrapper">
-  <h2>Current Items in cart: </h2>
+  <h2>Donations Awaiting pick up: </h2>
   <ion-list>
     <ion-item *ngFor="let product of products">
-      {{product.description}} 
-      {{product.price | currency:'USD':true:'1.2-2'}}
-      <button ion-button small (click)="deleteFromOrder(product.referenceNumber)">X</button>
+      {{product.category}} <br />
+      {{product.description}} <br />
+      {{product.quantity}} <br />
+      <div *ngIf= "!isVolunteer">
+        <button ion-button round (click)="deletePickUpRequest(product.category)">X</button>
+      </div>
     </ion-item>
-    <h2>  Total: {{ productsTotal | currency:'USD':true:'1.2-2'}}  </h2>
     
   </ion-list>
 
