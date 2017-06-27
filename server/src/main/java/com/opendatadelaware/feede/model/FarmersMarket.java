@@ -24,9 +24,8 @@ public class FarmersMarket {
   @Column(name = "uuid", columnDefinition = "BINARY(16)", updatable = false, nullable = false)
   private UUID uuid;
 
-  @OneToOne(fetch= FetchType.EAGER)
-  @JoinColumn(name = "contact", referencedColumnName = "uuid")
-  private Users contact;
+  @Column(name = "name")
+  private String name;
 
   @Column(name = "email")
   private String email;
@@ -44,14 +43,21 @@ public class FarmersMarket {
   private String city;
 
   @Column(name = "state")
+  private String state;
+
+  @Column(name = "zip")
   private String zip;
 
-  public Users getContact() {
-    return contact;
+  @OneToOne(fetch= FetchType.EAGER)
+  @JoinColumn(name = "contact", referencedColumnName = "uuid")
+  private Users contact;
+
+  public String getName() {
+    return name;
   }
 
-  public void setContact(Users contact) {
-    this.contact = contact;
+  public void setName(String name) {
+    this.name = name;
   }
 
   public String getEmail() {
@@ -76,5 +82,45 @@ public class FarmersMarket {
 
   public void setPhone(String phone) {
     this.phone = phone;
+  }
+
+  public String getStreetAddress() {
+    return streetAddress;
+  }
+
+  public void setStreetAddress(String streetAddress) {
+    this.streetAddress = streetAddress;
+  }
+
+  public String getCity() {
+    return city;
+  }
+
+  public void setCity(String city) {
+    this.city = city;
+  }
+
+  public String getState() {
+    return state;
+  }
+
+  public void setState(String state) {
+    this.state = state;
+  }
+
+  public String getZip() {
+    return zip;
+  }
+
+  public void setZip(String zip) {
+    this.zip = zip;
+  }
+
+  public Users getContact() {
+    return contact;
+  }
+
+  public void setContact(Users contact) {
+    this.contact = contact;
   }
 }
