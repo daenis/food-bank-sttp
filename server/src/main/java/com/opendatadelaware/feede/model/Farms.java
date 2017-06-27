@@ -27,6 +27,9 @@ public class Farms {
   @Column(name = "name")
   private String name;
 
+  @Column(name = "website")
+  private String website;
+
   @Column(name = "phone")
   private String phone;
 
@@ -37,6 +40,9 @@ public class Farms {
   private String city;
 
   @Column(name = "state")
+  private String state;
+
+  @Column(name = "zip")
   private String zip;
 
   @OneToOne(fetch = FetchType.EAGER)
@@ -49,6 +55,22 @@ public class Farms {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public String getWebsite() {
+    return website;
+  }
+
+  public void setWebsite(String website) {
+    this.website = website;
+  }
+
+  public String getPhone() {
+    return phone;
+  }
+
+  public void setPhone(String phone) {
+    this.phone = phone;
   }
 
   public String getStreetAddress() {
@@ -67,11 +89,27 @@ public class Farms {
     this.city = city;
   }
 
+  public String getState() {
+    return state;
+  }
+
+  public void setState(String state) {
+    this.state = state;
+  }
+
   public String getZip() {
     return zip;
   }
 
   public void setZip(String zip) {
     this.zip = zip;
+  }
+
+  public Users getUser() {
+    return user;
+  }
+
+  public void setUser(Users user) {
+    this.user = user;
   }
 }
