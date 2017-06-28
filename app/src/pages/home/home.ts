@@ -22,7 +22,7 @@ export class HomePage implements OnInit {
 	constructor(public navCtrl: NavController,
 				private fb: FormBuilder,
 				private http: Http,
-				private auth: Auth) {}
+				public auth: Auth) {}
 
 	public goToSignUp(): void {
 		this.navCtrl.push(SignUp);
