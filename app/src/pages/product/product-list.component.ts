@@ -17,15 +17,11 @@ export class ProductListComponent implements OnInit {
 	private errorMessage: string;
 	private products: String[];
 	private form: FormGroup;
-	private hideCategoryHelp: boolean = true;
-	private hideDescriptionHelp: boolean = true;
-	private hideQuantityHelp: boolean = true;
-	private categoryHelp: string = 
-	"Use a general Category such as : Fruit, Vegtables, Meat, Dairy, Non-Food Product";
-	private descriptionHelp: string = 
-	"Briefly describe the donation type, include details like Perishable or Non-Perishable";	
-	private quantityHelp: string = 
-	"Related to the weight, amount of boxes, or bushels";			
+	private hideHelp: boolean = true;
+	private help: string =
+	"Use a general category such as : Fruit, Vegtables, Meat, Dairy, Non-Food Product." +
+	"Briefly describe the donation type, include details like Perishable or Non-Perishable. \r" +
+	"Related to the weight, amount of boxes, or bushels.";
 
 	constructor(
 		private _productService: ProductService,
@@ -39,7 +35,7 @@ export class ProductListComponent implements OnInit {
 	public ngOnInit(): void {
 		this.getForm();
 	}
-	// Sends input from fields to order endpoint 
+	// Sends input from fields to order endpoint
 	// only if fields have value, can be anything as long
 	// as it is not empty
 	private postToPickUpBoard(): void {
@@ -94,24 +90,23 @@ export class ProductListComponent implements OnInit {
 				quantity: form['quantity']
 			})
 	}
-	// Displays category Help text, removes others 
-	private showCategoryHelp(): void {
-		this.hideCategoryHelp = false;
-		this.hideDescriptionHelp = true;
-		this.hideQuantityHelp = true;
+
+	private showOrHideHelp(): void {
+		if (this.hideHelp === true) {
+			this.hideHelp = false;
+		} else {
+			this.hideHelp = true;
+		}
 	}
-	// Displays description Help text, removes others 
-	private showDescriptionHelp(): void {
-		this.hideDescriptionHelp = false;
-		this.hideCategoryHelp = true;
-		this.hideQuantityHelp = true;
+
+	private isHelpOn(): boolean {
+		if (this.hideHelp === true) {
+			return false;
+		} else {
+			return true;
+		}
 	}
-	// Displays quantity Help text, removes others 
-	private showQuantityHelp(): void {
-		this.hideQuantityHelp = false;
-		this.hideDescriptionHelp = true;
-		this.hideCategoryHelp = true;
-	}
+
 	// Pops off stack, goes back a page
 	private goBack(): void {
 		this.navCtrl.pop();

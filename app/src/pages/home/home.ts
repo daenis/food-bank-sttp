@@ -22,7 +22,7 @@ export class HomePage implements OnInit {
 	constructor(public navCtrl: NavController,
 				private fb: FormBuilder,
 				private http: Http,
-				private auth: Auth) {}
+				public auth: Auth) {}
 
 	public goToSignUp(): void {
 		this.navCtrl.push(SignUp);
@@ -41,7 +41,7 @@ export class HomePage implements OnInit {
 
 	private goToProfile(user: User): void {
 		if (this.auth.isLoggedIn()) {
-			if (user.type === 'partner') {
+			if (user.type === 'farmrep') {
 				this.navCtrl.push(PartnerProfile);
 			}
 			if (user.type === 'volunteer') {
@@ -65,6 +65,7 @@ export class HomePage implements OnInit {
 			.then((result: Response) => result.json())
 			.then((json: Object) => this.formatUserAuthDetails(json))
 			.then((user: User) => this.auth.addUser(user))
+			.then(() => console.log(this.auth.getUserType()))
 			.then(() => this.goToProfile(this.auth.getUser()))
 			.catch(e => console.log(e))
 		}

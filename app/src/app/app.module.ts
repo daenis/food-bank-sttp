@@ -14,6 +14,7 @@ import { HttpModule, JsonpModule } from '@angular/http';
 import { ProductListComponent } from '../pages/product/product-list.component';
 import { ProductDetailComponent } from '../pages/product/product-detail.component';
 import { PartnerSignUp } from '../pages/partnersignup/partnersignup';
+import { Auth } from './auth.service';
 
 @NgModule({
 	declarations: [
@@ -50,6 +51,7 @@ import { PartnerSignUp } from '../pages/partnersignup/partnersignup';
 	providers: [
 		StatusBar,
 		SplashScreen,
+		Auth,
 		{provide: ErrorHandler, useClass: IonicErrorHandler},
 		ToastController
 	]

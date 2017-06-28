@@ -6,7 +6,7 @@
       {{product.category}} <br />
       {{product.description}} <br />
       {{product.quantity}} <br />
-      <div *ngIf= "!isVolunteer">
+      <div *ngIf= "isUserAFarmRep()">
         <button ion-button round (click)="deletePickUpRequest(product.category)">X</button>
       </div>
     </ion-item>

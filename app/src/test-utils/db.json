@@ -1,48 +1,48 @@
 {
     "users": [
         {
-            "id": "1",
+            "uuid": "1",
             "name": "Aaron Long",
             "phone": "123456789",
             "address": "A A Ron St. NJ",
             "preferredlocation": "Marshallton",
+            "org": "c318f209-454f-47eb-bc20-16088d10abbd",
             "username": "aaronl",
             "password": "12345",
-            "type": "volunteer",
-            "org": "c318f209-454f-47eb-bc20-16088d10abbd"
+            "type": "volunteer"
         },
         {
-            "id": "2",
+            "uuid": "2",
             "name": "Jarryd Stamatelos",
             "phone": "234567890",
             "address": "Somewhere in Voorhees NJ",
             "preferredlocation": "Lake Forest High School",
+            "org": "d6c4912d-ac35-438d-b503-dd470ca2cef9",
             "username": "jarryds",
             "password": "12345",
-            "type": "volunteer",
-            "org": "d6c4912d-ac35-438d-b503-dd470ca2cef9"
+            "type": "volunteer"
         },
         {
-            "id": "3",
+            "uuid": "3",
             "name": "Dennis Kalaygian",
             "phone": "3456789101",
             "address": "Somewhere in Milford DE",
             "preferredlocation": "Lake Forest High School",
+            "org": "85adefed-315a-45d5-843c-baaefe0ef482",
             "username": "dennisk",
             "password": "12345",
-            "type": "volunteer",
-            "org": "85adefed-315a-45d5-843c-baaefe0ef482"
+            "type": "farmrep"
         },
         {
-            "id": "4",
+            "uuid": "4",
             "name": "Mark Brown",
             "phone": "4567891012",
             "address": "Wilmington DE",
             "preferredlocation": "Marshallton",
+            "org": "1d2b1a33-1939-4e90-83c1-bf99e0614c56",
             "username": "markb",
             "password": "12345",
-            "type": "partner",
-            "org": "1d2b1a33-1939-4e90-83c1-bf99e0614c56"
+            "type": "farmrep"
         }
     ],
     "partners": [
