@@ -6,10 +6,11 @@ import { SignUp } from '../signup/signup';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http, Response } from '@angular/http';
 import { environment } from '../../environments/environment';
-import { Auth } from '../../app/auth.service'
-import 'rxjs/add/operator/toPromise';
+import { Auth } from '../../app/auth.service';
 import { User } from '../../app/user';
-import { PartnerSignUp } from '../partnersignup/partnersignup';
+
+import 'rxjs/add/operator/toPromise';
+
 
 @Component({
 	selector: 'page-home',
@@ -28,10 +29,6 @@ export class HomePage implements OnInit {
 		this.navCtrl.push(SignUp);
 	}
 
-	public goToPartnerSignUp(): void {
-		this.navCtrl.push(PartnerSignUp);
-	}
-
 	public ngOnInit(): void {
 		this.login = this.fb.group({
 			username: ['', Validators.required],
@@ -46,9 +43,6 @@ export class HomePage implements OnInit {
 			}
 			if (user.type === 'volunteer') {
 				this.navCtrl.push(VolunteerProfile);
-			}
-			if (user.type === 'representative') {
-				console.log("Not Yet!")
 			}
 		}
 	}
@@ -65,7 +59,6 @@ export class HomePage implements OnInit {
 			.then((result: Response) => result.json())
 			.then((json: Object) => this.formatUserAuthDetails(json))
 			.then((user: User) => this.auth.addUser(user))
-			.then(() => console.log(this.auth.getUserType()))
 			.then(() => this.goToProfile(this.auth.getUser()))
 			.catch(e => console.log(e))
 		}

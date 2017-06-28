@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { HomePage } from  '../home/home';
-import { OrderForm } from '../orderform/orderform';
+import { PostBoard } from '../post-board/post-board';
 
 @Component({
   selector: 'page-volunteerprofile',
@@ -13,12 +13,12 @@ export class VolunteerProfile {
   public navParams: NavParams) {
   }
 
+  public goToOrderForm(): void {
+    this.navCtrl.push(PostBoard);
+  }  
+  
   public goToMenu(): void  {
     this.navCtrl.setRoot(HomePage);
-  }
-
-  public goToOrderForm(): void {
-    this.navCtrl.push(OrderForm);
   }
 
 

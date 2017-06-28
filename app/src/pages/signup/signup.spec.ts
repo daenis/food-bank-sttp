@@ -6,9 +6,11 @@ import { SignUp } from './signup';
 import { TestUtils } from '../../test';
 
 describe('SignUp', () => {
+
 	let fixture: any;
 	let instance: any;
 	let button: DebugElement;
+	
 	beforeEach(async(() => TestUtils.beforeEachCompiler([SignUp]).then(compiled => {
 		fixture = compiled.fixture;
 		instance = compiled.instance;
