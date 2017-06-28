@@ -3,7 +3,6 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule, ToastController } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-import { FoodItem } from '../pages/fooditem/fooditem';
 import { HomePage } from '../pages/home/home';
 import { MyApp } from './app.component';
 import { OrderForm } from '../pages/orderform/orderform';
@@ -23,7 +22,6 @@ import { Auth } from './auth.service';
 		OrderForm,
 		PartnerProfile,
 		VolunteerProfile,
-		FoodItem,
 		SignUp,
 		ProductListComponent,
 		ProductDetailComponent,
@@ -42,7 +40,6 @@ import { Auth } from './auth.service';
 		OrderForm,
 		PartnerProfile,
 		VolunteerProfile,
-		FoodItem,
 		SignUp,
 		ProductListComponent,
 		ProductDetailComponent,

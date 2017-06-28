@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams, ToastController } from 'ionic-angular';
 import { Product } from './product';
 import { ProductService } from './product.service';
-import { FoodItem } from '../fooditem/fooditem';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http } from '@angular/http';
 import { environment } from '../../environments/environment'
