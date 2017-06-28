@@ -4,8 +4,10 @@ import { User } from './user'
 @Injectable()
 export class Auth {
 	private user: User;
+	private userType: string;
 	private refreshTime: Date;
 	private loggedIn: boolean;
+	private logoutTime: Date;
 
 	constructor() {
 		this.loggedIn = false;
@@ -13,6 +15,7 @@ export class Auth {
 
 	public addUser(user: User) {
 		this.user = user;
+		this.userType = user["type"];
 		this.refreshTime = new Date();
 		this.loggedIn = true;
 	}
@@ -23,6 +26,17 @@ export class Auth {
 
 	public getUser(): User {
 		return this.user;
+	}
+
+	public getUserType(): string {
+		console.log(this.user);
+		return this.userType;
+	}
+
+	public logout(): void {
+		this.user = undefined;
+		this.logoutTime = new Date();
+		this.loggedIn = false;
 	}
 
 }

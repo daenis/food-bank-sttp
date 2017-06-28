@@ -20,7 +20,8 @@ export class PartnerProfile {
 			return this.user.name;
 		}
 
-		public goToMenu() {
+		public logout() {
+			this.authService.logout();
 			this.navCtrl.setRoot(HomePage);
 		}
 
