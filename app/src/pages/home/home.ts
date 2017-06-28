@@ -65,6 +65,7 @@ export class HomePage implements OnInit {
 			.then((result: Response) => result.json())
 			.then((json: Object) => this.formatUserAuthDetails(json))
 			.then((user: User) => this.auth.addUser(user))
+			.then(() => console.log(this.auth.getUserType()))
 			.then(() => this.goToProfile(this.auth.getUser()))
 			.catch(e => console.log(e))
 		}
