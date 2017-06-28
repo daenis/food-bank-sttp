@@ -11,4 +11,8 @@ import java.util.UUID;
 @Repository
 public class UsersDao extends AbstractDao<Users, UUID> {
 
+  public UsersDao () {
+    setDaoClass(Users.class);
+  }
+
 }
