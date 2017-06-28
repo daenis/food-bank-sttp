@@ -1,20 +1,25 @@
 <ion-content>
+
   <div class="wrapper">
+
   <h2>Donations Awaiting pick up: </h2>
+
   <ion-list>
     <ion-item *ngFor="let product of products">
+
       {{product.category}} <br />
       {{product.description}} <br />
       {{product.quantity}} <br />
-      <div *ngIf= "isUserAFarmRep()">
+
+      <div *ngIf= "determineView()">
         <button ion-button round (click)="deletePickUpRequest(product.category)">X</button>
       </div>
+
     </ion-item>
-    
   </ion-list>
 
-  
-
   <button ion-button full (click)="goBack()">Go Back</button>
+
   </div>
+
 </ion-content>

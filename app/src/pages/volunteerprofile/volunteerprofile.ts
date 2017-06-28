@@ -13,12 +13,12 @@ export class VolunteerProfile {
   public navParams: NavParams) {
   }
 
-  public goToMenu(): void  {
-    this.navCtrl.setRoot(HomePage);
-  }
-
   public goToOrderForm(): void {
     this.navCtrl.push(OrderForm);
+  }  
+  
+  public goToMenu(): void  {
+    this.navCtrl.setRoot(HomePage);
   }
 
 

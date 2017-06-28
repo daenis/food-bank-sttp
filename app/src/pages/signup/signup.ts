@@ -10,6 +10,7 @@ import 'rxjs/add/operator/toPromise';
 	templateUrl: 'signup.html'
 })
 export class SignUp implements OnInit {
+
 	private form: FormGroup;
 
 	constructor(public navCtrl: NavController,
@@ -29,8 +30,16 @@ export class SignUp implements OnInit {
 		})
 	}
 
-	public goBack(): void {
-		this.navCtrl.pop();
+	private parseForm(form: Object): Object {
+		return ({
+			name: form['name'],
+			username: form['userName'],
+			address: form['address'],
+			email: form['email'],
+			password: form['password'],
+			phone: form['phoneNumber'],
+			type: 'partner' // <-- Should this be declared here?
+		})
 	}
 
 	public submit(): void {
@@ -43,15 +52,7 @@ export class SignUp implements OnInit {
 		}
 	}
 
-	private parseForm(form: Object): Object {
-		return ({
-			name: form['name'],
-			username: form['userName'],
-			address: form['address'],
-			email: form['email'],
-			password: form['password'],
-			phone: form['phoneNumber'],
-			type: 'partner'
-		})
+	public goBack(): void {
+		this.navCtrl.pop();
 	}
 }

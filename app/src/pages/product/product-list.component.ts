@@ -34,27 +34,27 @@ export class ProductListComponent implements OnInit {
 	public ngOnInit(): void {
 		this.getForm();
 	}
-	// Sends input from fields to order endpoint
-	// only if fields have value, can be anything as long
-	// as it is not empty
-	private postToPickUpBoard(): void {
-		if (this.form.valid) {
-		const result = this.parseForm(this.form.getRawValue());
-		const uri = environment.uri + 'api/order';
-		this.http.put(uri, result).toPromise()
-			.catch(e => console.warn(e))
-		this.confirmPostToPickUpBoard();
-		this.clearForm();
-		} else {
-			this.notifyInvalidEntry();
-		}
+
+	private getForm() {
+		this.form = this.fb.group({
+			category: ['', Validators.required],
+			description: ['', Validators.required],
+			quantity: ['', Validators.required]
+		})
 	}
-	// Resets forms to empty
-	// fires off when post is clicked
+
 	private clearForm(): void {
 		this.form.reset();
 	}
-	// Pop up notification when post is sent
+
+	private parseForm(form: Object): Object {
+			return ({
+				category: form['category'],
+				description: form['description'],
+				quantity: form['quantity']
+			})
+	}
+
 	private confirmPostToPickUpBoard(): void {
 		let toast = this.toastCtrl.create({
 			message: 'Request has been posted',
@@ -63,7 +63,7 @@ export class ProductListComponent implements OnInit {
 		});
 		toast.present();
 	}
-	// Pop up notification when fields are invalid
+
 	private notifyInvalidEntry(): void {
 		let toast = this.toastCtrl.create({
 			message: 'All fields are required. Please complete all fields',
@@ -71,23 +71,6 @@ export class ProductListComponent implements OnInit {
 			position: 'middle'
 		});
 		toast.present();
-	}
-	// Retrieves the field information that is 
-	// put into the text boxes - all fields require input
-	private getForm() {
-		this.form = this.fb.group({
-			category: ['', Validators.required],
-			description: ['', Validators.required],
-			quantity: ['', Validators.required]
-		})
-	}
-	// Parses input into object format to send
-	private parseForm(form: Object): Object {
-			return ({
-				category: form['category'],
-				description: form['description'],
-				quantity: form['quantity']
-			})
 	}
 
 	private showOrHideHelp(): void {
@@ -106,11 +89,23 @@ export class ProductListComponent implements OnInit {
 		}
 	}
 
-	// Pops off stack, goes back a page
+	private postToPickUpBoard(): void {
+		if (this.form.valid) {
+		const result = this.parseForm(this.form.getRawValue());
+		const uri = environment.uri + 'api/order';
+		this.http.put(uri, result).toPromise()
+			.catch(e => console.warn(e))
+		this.confirmPostToPickUpBoard();
+		this.clearForm();
+		} else {
+			this.notifyInvalidEntry();
+		}
+	}
+
 	private goBack(): void {
 		this.navCtrl.pop();
 	}
-	// Pushes on stack, goes to orderform
+
 	private goToOrderForm() {
 		this.navCtrl.push(OrderForm);
 	}
