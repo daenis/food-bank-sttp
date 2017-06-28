@@ -5,7 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { HomePage } from '../pages/home/home';
 import { MyApp } from './app.component';
-import { OrderForm } from '../pages/orderform/orderform';
+import { PostBoard } from '../pages/post-board/post-board';
 import { PartnerProfile } from '../pages/partnerprofile/partnerprofile';
 import { VolunteerProfile } from '../pages/volunteerprofile/volunteerprofile';
 import { SignUp } from '../pages/signup/signup';
@@ -17,7 +17,7 @@ import { Auth } from './auth.service';
 	declarations: [
 		MyApp,
 		HomePage,
-		OrderForm,
+		PostBoard,
 		PartnerProfile,
 		VolunteerProfile,
 		SignUp,
@@ -33,7 +33,7 @@ import { Auth } from './auth.service';
 	entryComponents: [
 		MyApp,
 		HomePage,
-		OrderForm,
+		PostBoard,
 		PartnerProfile,
 		VolunteerProfile,
 		SignUp,

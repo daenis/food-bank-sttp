@@ -4,7 +4,7 @@ import { Product } from './product';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http } from '@angular/http';
 import { environment } from '../../environments/environment'
-import { OrderForm } from '../orderform/orderform';
+import { PostBoard } from '../post-board/post-board';
 
 @Component({
 	templateUrl: './product-list.component.html',
@@ -53,7 +53,7 @@ export class ProductListComponent implements OnInit {
 			})
 	}
 
-	private confirmPostToPickUpBoard(): void {
+	private confirmPostToPostBoard(): void {
 		let toast = this.toastCtrl.create({
 			message: 'Request has been posted',
 			duration: 2000,
@@ -87,13 +87,13 @@ export class ProductListComponent implements OnInit {
 		}
 	}
 
-	private postToPickUpBoard(): void {
+	private postToPostBoard(): void {
 		if (this.form.valid) {
 		const result = this.parseForm(this.form.getRawValue());
 		const uri = environment.uri + 'api/order';
 		this.http.put(uri, result).toPromise()
 			.catch(e => console.warn(e))
-		this.confirmPostToPickUpBoard();
+		this.confirmPostToPostBoard();
 		this.clearForm();
 		} else {
 			this.notifyInvalidEntry();
@@ -104,8 +104,8 @@ export class ProductListComponent implements OnInit {
 		this.navCtrl.pop();
 	}
 
-	private goToOrderForm() {
-		this.navCtrl.push(OrderForm);
+	private goToPostBoard() {
+		this.navCtrl.push(PostBoard);
 	}
 
 }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
-import { OrderForm } from './orderform';
+import { PostBoard } from './post-board';
 import { Product } from '../product/product';
 
 import 'rxjs/add/operator/catch';
@@ -11,7 +11,7 @@ import 'rxjs/add/operator/map';
 
 
 @Injectable()
-export class OrderFormService {
+export class PostBoardService {
 
 	private _productUrl = environment.uri + 'api/order';
 	constructor(private _http: Http) { }

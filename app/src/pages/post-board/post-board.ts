@@ -5,7 +5,7 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
 import { Product } from '../product/product';
-import { OrderFormService } from './orderform.service';
+import { PostBoardService } from './post-board.service';
 import { Auth } from '../../app/auth.service';
 
 import 'rxjs/add/operator/catch';
@@ -13,11 +13,11 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
 
 @Component({
-	selector: 'page-orderform',
-	templateUrl: 'orderform.html',
-	providers: [OrderFormService]
+	selector: 'page-postboard',
+	templateUrl: 'post-board.html',
+	providers: [PostBoardService]
 })
-export class OrderForm implements OnInit {
+export class PostBoard implements OnInit {
 	
 	private errorMessage: string;
 	private products: Product[];
@@ -26,11 +26,11 @@ export class OrderForm implements OnInit {
 
 	constructor(private http: Http,
 		private navController: NavController,
-		private orderFormService: OrderFormService,
+		private postBoardService: PostBoardService,
 		public auth: Auth) { }
 
 	public ngOnInit(): void {
-		this.orderFormService.getOrdersPromise()
+		this.postBoardService.getOrdersPromise()
 			.then(products => this.updateProduct(products),
 			error => this.errorMessage = <any> error)
 	}
@@ -40,8 +40,8 @@ export class OrderForm implements OnInit {
 	}
 
 	public deletePickUpRequest(category: string) {
-		this.orderFormService.removeFromPickUpBoard(category)
-			.then(e => this.orderFormService.getOrdersPromise())
+		this.postBoardService.removeFromPickUpBoard(category)
+			.then(e => this.postBoardService.getOrdersPromise())
 			.then(products => this.updateProduct(products))
 	}
 
