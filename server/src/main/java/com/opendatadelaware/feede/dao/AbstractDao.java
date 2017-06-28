@@ -9,11 +9,26 @@ import java.io.Serializable;
 /**
  * Created by aaronlong on 6/27/17.
  */
-public class AbstractDao<E extends Serializable, K> {
-  @Autowired
-  protected SessionFactory sessionFactory;
+public abstract class AbstractDao<E extends Serializable, PK extends Serializable> {
 
-  protected Session currentSession() {
-    return sessionFactory.getCurrentSession();
+  protected SessionFactory session;
+
+  private Class<E> type;
+
+  protected void setDaoClass (Class<E> daoType) {
+    type = daoType;
+  }
+
+  @Autowired
+  protected void setSession (SessionFactory sessionFactory) {
+    session = sessionFactory;
+  }
+
+  protected Session getSession () {
+    return session.getCurrentSession();
+  }
+
+  public E get (PK id) {
+    return session.getCurrentSession().get(type, id);
   }
 }
