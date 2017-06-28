@@ -11,7 +11,6 @@ import { VolunteerProfile } from '../pages/volunteerprofile/volunteerprofile';
 import { SignUp } from '../pages/signup/signup';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { ProductListComponent } from '../pages/product/product-list.component';
-import { ProductDetailComponent } from '../pages/product/product-detail.component';
 import { Auth } from './auth.service';
 
 @NgModule({
@@ -22,8 +21,7 @@ import { Auth } from './auth.service';
 		PartnerProfile,
 		VolunteerProfile,
 		SignUp,
-		ProductListComponent,
-		ProductDetailComponent
+		ProductListComponent
 	],
 	imports: [
 		BrowserModule,
@@ -39,8 +37,7 @@ import { Auth } from './auth.service';
 		PartnerProfile,
 		VolunteerProfile,
 		SignUp,
-		ProductListComponent,
-		ProductDetailComponent
+		ProductListComponent
 	],
 	providers: [
 		StatusBar,

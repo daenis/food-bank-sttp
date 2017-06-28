@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams, ToastController } from 'ionic-angular';
 import { Product } from './product';
-import { ProductService } from './product.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http } from '@angular/http';
 import { environment } from '../../environments/environment'
@@ -9,7 +8,7 @@ import { OrderForm } from '../orderform/orderform';
 
 @Component({
 	templateUrl: './product-list.component.html',
-	providers: [ProductService, ToastController]
+	providers: [ToastController]
 })
 export class ProductListComponent implements OnInit {
 	private pageTitle: string = 'Categories';
@@ -23,7 +22,6 @@ export class ProductListComponent implements OnInit {
 	"Related to the weight, amount of boxes, or bushels.";
 
 	constructor(
-		private _productService: ProductService,
 		private navCtrl: NavController,
 		private navParams: NavParams,
 		private fb: FormBuilder,
