@@ -29,7 +29,6 @@ export class Auth {
 	}
 
 	public getUserType(): string {
-		console.log(this.user);
 		return this.userType;
 	}
 

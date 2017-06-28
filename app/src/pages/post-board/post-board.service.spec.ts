@@ -2,17 +2,15 @@ import { TestBed, getTestBed, async, inject } from '@angular/core/testing';
 import { Headers, BaseRequestOptions, Response, HttpModule, Http, XHRBackend, RequestMethod } from '@angular/http';
 import { ResponseOptions } from '@angular/http';
 import { MockBackend, MockConnection } from '@angular/http/testing';
-import { OrderForm } from './orderform';
-import { OrderFormService } from './orderform.service';
+import { PostBoard } from './post-board';
+import { PostBoardService } from './post-board.service';
 
-describe('OrderFormService', () => {
+describe('PostBoardService', () => {
   let mockBackend: MockBackend;
-  // This before each set up is uber-important, this took ages to tweak
-  // Please for the love of all that is holy, leave this as it is
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       providers: [
-        OrderFormService,
+        PostBoardService,
         MockBackend,
         BaseRequestOptions,
         {
@@ -32,7 +30,7 @@ describe('OrderFormService', () => {
   }));
 
   it('should get orders', done => {
-    let orderFormService: OrderFormService;
+    let orderFormService: PostBoardService;
 
     getTestBed().compileComponents().then(() => {
       mockBackend.connections.subscribe(
@@ -49,8 +47,8 @@ describe('OrderFormService', () => {
             )));
         });
 
-        orderFormService = getTestBed().get(OrderFormService);
-        expect(OrderFormService).toBeDefined();
+        orderFormService = getTestBed().get(PostBoardService);
+        expect(PostBoardService).toBeDefined();
 
         orderFormService.getOrders().subscribe((data) => {
             expect(data.length).toBeDefined();
@@ -61,7 +59,7 @@ describe('OrderFormService', () => {
   });
 
   it('should get orders async',
-    async(inject([OrderFormService], (orderFormService) => {
+    async(inject([PostBoardService], (orderFormService) => {
       mockBackend.connections.subscribe(
         (connection: MockConnection) => {
           connection.mockRespond(new Response(
@@ -85,7 +83,7 @@ describe('OrderFormService', () => {
     })));
 
     it('should delete orders', done => {
-    let orderFormService: OrderFormService;
+    let orderFormService: PostBoardService;
 
     getTestBed().compileComponents().then(() => {
       mockBackend.connections.subscribe(
@@ -102,8 +100,8 @@ describe('OrderFormService', () => {
             )));
         });
 
-        orderFormService = getTestBed().get(OrderFormService);
-        expect(OrderFormService).toBeDefined();
+        orderFormService = getTestBed().get(PostBoardService);
+        expect(PostBoardService).toBeDefined();
 
         orderFormService.deleteOrder("Stuff").subscribe((data) => {
             expect(data.length).toBeUndefined();

@@ -1,18 +1,18 @@
 import { async } from '@angular/core/testing';
-import { OrderForm } from './orderform';
+import { PostBoard } from './post-board';
 import { TestUtils } from '../../test';
 
-describe('OrderForm', () => {
+describe('PostBoard', () => {
 	let fixture: any;
 	let instance: any;
-	beforeEach(async(() => TestUtils.beforeEachCompiler([OrderForm]).then(compiled => {
+	beforeEach(async(() => TestUtils.beforeEachCompiler([PostBoard]).then(compiled => {
 		fixture = compiled.fixture;
 		instance = compiled.instance;
 	})));
 
 	it('should be able to load', async(() => {
-		const orderform = fixture.debugElement.componentInstance;
-		expect(orderform).toBeTruthy();
+		const postboard = fixture.debugElement.componentInstance;
+		expect(postboard).toBeTruthy();
 	}));
 
 	it('should do something async', (done) => {
