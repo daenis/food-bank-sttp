@@ -2,6 +2,7 @@ package com.opendatadelaware.feede.controller;
 
 import com.opendatadelaware.feede.dao.UsersDao;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
@@ -15,6 +16,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 /**
  * Created by jarrydstamatelos on 6/30/17.
  */
+
 @RunWith(SpringRunner.class)
 public class TestItemsController {
     private static final Logger LOGGER = LoggerFactory.getLogger(TestItemsController.class);
@@ -31,6 +33,13 @@ public class TestItemsController {
     public void init() {
         MockitoAnnotations.initMocks(this);
         mvc = MockMvcBuilders.standaloneSetup(controller).build();
+    }
+    @Test
+    public void testRemoveItemByUUID() {
+        // Given
+
+        // When
+        // Then
     }
 
 }
