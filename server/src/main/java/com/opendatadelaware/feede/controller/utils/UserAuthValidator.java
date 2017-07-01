@@ -27,7 +27,7 @@ public class UserAuthValidator {
 
     @NotNull(message="Phone number cannot be null")
     @Pattern(regexp="(^$|[0-9]{10})")
-    private String phoneNumber;
+    private String phone;
 
     @NotNull(message ="Street cannot be null")
     private String street;
@@ -44,19 +44,28 @@ public class UserAuthValidator {
     @NotNull(message="Type cannot be null")
     private String type;
 
+    public UserAuthValidator() {}
+
     public UserAuthValidator(String firstName, String lastName, String email, String password,
-                             String phoneNumber, String street, String city, String state, String zip, String type)
-    {
+                             String phoneNumber, String street, String city, String state, String zip, String type) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.phoneNumber = phoneNumber;
+        this.phone = phoneNumber;
         this.street = street;
-        this.street = city;
-        this.street = state;
-        this.street = zip;
+        this.city = city;
+        this.state = state;
+        this.zip = zip;
         this.type = type;
+    }
+
+    public boolean isValid() {
+      if (this.firstName == null) return false;
+      if (this.lastName == null) return false;
+      if (this.email == null) return false;
+      if (this.password == null) return false;
+      return true;
     }
 
     public String getFirstName() {
@@ -91,12 +100,12 @@ public class UserAuthValidator {
         this.password = password;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPhone(String phoneNumber) {
+        this.phone = phoneNumber;
     }
 
     public String getStreet() {
@@ -137,5 +146,10 @@ public class UserAuthValidator {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    @Override
+    public String toString() {
+      return String.format("[first_name=%s, last_name=%s, email=%s]", this.firstName, this.lastName, this.email);
     }
 }
