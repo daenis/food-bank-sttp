@@ -9,5 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/orders/{uuid}/items/{uuid}")
 public class ItemsController {
+    // HHTP METHODS
+    // Delete by uuid
 
 }
