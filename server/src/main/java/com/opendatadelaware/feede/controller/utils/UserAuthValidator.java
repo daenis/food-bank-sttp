@@ -55,20 +55,6 @@ public class UserAuthValidator {
 
     public UserAuthValidator() {}
 
-    public UserAuthValidator(String firstName, String lastName, String email, String password,
-                             String phoneNumber, String street, String city, String state, String zip, String type) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.phone = phoneNumber;
-        this.street = street;
-        this.city = city;
-        this.state = state;
-        this.zip = zip;
-        this.type = type;
-    }
-
     public boolean isValid() {
       return validator.validate(this).size() == 1;
     }
