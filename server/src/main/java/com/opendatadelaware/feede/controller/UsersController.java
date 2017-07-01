@@ -35,7 +35,7 @@ public class UsersController {
   public ResponseEntity<?> addUser(@RequestBody Map<String, String> userSubmission) {
     if (userSubmission.containsKey("auth")) {
         byte[] jsonRepresentation = Base64.decode(userSubmission.get("auth"));
-        return new ResponseEntity<>(jsonRepresentation, HttpStatus.CREATED);
+        return new ResponseEntity<>(jsonRepresentation, HttpStatus.BAD_REQUEST);
     }
     return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
   }
