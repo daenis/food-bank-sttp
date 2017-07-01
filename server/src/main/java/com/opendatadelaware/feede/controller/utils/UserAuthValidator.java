@@ -26,7 +26,7 @@ public class UserAuthValidator {
     private String password;
 
     @NotNull(message="Phone number cannot be null")
-    @Pattern(regexp="(^$|[0-9]{10})")
+    @Pattern(regexp="(^$|(\\(?[0-9]{3}\\)?-?[0-9]{3}-?[0-9]{4})|(\\(?1\\)?-?\\(?[0-9]{3}\\)?-?[0-9]{3}-?[0-9]{4}))")
     private String phone;
 
     @NotNull(message ="Street cannot be null")

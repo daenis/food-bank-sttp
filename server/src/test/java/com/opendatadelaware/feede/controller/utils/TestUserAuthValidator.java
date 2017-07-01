@@ -52,4 +52,33 @@ public class TestUserAuthValidator {
             Assert.assertTrue("Testing to see if object is valid", userAuthValidator.get().isValid());
         } else testErrorLogger();
     }
+
+    @Test
+    public void testIsValidInvalid() {
+        UserAuthValidator user = new UserAuthValidator(null, "Doe", "johnDoe",
+                                                       "12345", "3023333333",
+                                                       "111 This Street","Milford", "DE",
+                                                       "19963", "Farm");
+
+        Assert.assertTrue("Checking to see if the isValid function responds correctly",
+                          user.isValid() == false);
+    }
+
+    /*@Test
+    public void testInvalidPhoneNumber() {
+        UserAuthValidator user = new UserAuthValidator("John", "Doe", "johnDoe",
+                                                       "12345", "(302)--333-3333",
+                                                       "111 This Street","Milford", "DE",
+                                                       "19963", "Farm");
+        Assert.assertFalse("Checking to see if the phone number is ruled invalid", user.isValid());
+    }
+
+    @Test
+    public void testValidPhoneNumber() {
+        UserAuthValidator user = new UserAuthValidator(null, "Doe", "johnDoe",
+                "12345", "(302)--333-3333",
+                "111 This Street","Milford", "DE",
+                "19963", "Farm");
+        Assert.assertTrue("Checking to see if the phone number is ruled as valid", user.isValid());
+    }*/
 }
