@@ -2,23 +2,20 @@ package com.opendatadelaware.feede.controller.utils;
 
 import org.hibernate.validator.constraints.Email;
 
-import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-import java.util.Set;
 
 /**
  * Created by denniskalaygian on 6/30/17.
  */
 
 public class UserAuthValidator {
-    private static Validator validator;
+    private static final Validator VALIDATOR;
 
     static {
-      validator = Validation.buildDefaultValidatorFactory().getValidator();
+      VALIDATOR = Validation.buildDefaultValidatorFactory().getValidator();
     }
 
     @NotNull(message="First name cannot be null")
@@ -56,7 +53,7 @@ public class UserAuthValidator {
     public UserAuthValidator() {}
 
     public boolean isValid() {
-      return validator.validate(this).size() == 1;
+      return VALIDATOR.validate(this).size() == 0;
     }
 
     public String getFirstName() {

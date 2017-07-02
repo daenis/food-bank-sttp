@@ -37,49 +37,147 @@ public class TestUserAuthValidator {
     }
 
     @Test
-    public void testUserAuthValidatorInvalid() {
+    public void testIsValidBadInputJson() {
         Optional<UserAuthValidator> userAuthValidator = configure("/json/BadUserInput.json");
-        if (userAuthValidator.isPresent()) {
-            // Then
-            Assert.assertFalse("Testing to see if object is invalid", userAuthValidator.get().isValid());
-        } else testErrorLogger();
+        Boolean result = userAuthValidator.get().isValid();
+        if (userAuthValidator.isPresent()) Assert.assertFalse("The object exists and it shouldn't", result);
+        else testErrorLogger();
     }
 
     @Test
-    public void testUserAuthValidatorValid() {
+    public void testIsValidGoodInputJson() {
         Optional<UserAuthValidator> userAuthValidator = configure("/json/GoodUserInput.json");
-        if (userAuthValidator.isPresent()) {
-            Assert.assertTrue("Testing to see if object is valid", userAuthValidator.get().isValid());
-        } else testErrorLogger();
+        Boolean result = userAuthValidator.get().isValid();
+        if (userAuthValidator.isPresent()) Assert.assertTrue("The object doesn't exist", result);
+        else testErrorLogger();
     }
 
     @Test
-    public void testIsValidInvalid() {
-        UserAuthValidator user = new UserAuthValidator().setFirstName(null).setLastName("Doe")
-                                         .setEmail("johnDoe").setPassword("12345").setPhone("3023333333")
-                                         .setStreet("111 This Street").setCity("Milford").setState("DE")
-                                         .setZip("19963").setType("Farm");
-
-        Assert.assertFalse("Checking to see if the isValid function responds correctly",
-                          user.isValid());
-    }
-
-    @Test
-    public void testInvalidPhoneNumber() {
+    public void testInvalidPhoneNumberNotEnoughDigits() {
         UserAuthValidator user = new UserAuthValidator().setFirstName("John")
-                                         .setLastName("Doe").setEmail("johnDoe")
-                                         .setPassword("12345").setPhone("(302)--333-3333")
-                                         .setStreet("111 This Street").setCity("Milford").setStreet("DE")
-                                         .setZip("19963").setType("Farm");
-        Assert.assertFalse("Checking to see if the phone number is ruled invalid", user.isValid());
+                .setLastName("Doe").setEmail("johnDoe@gmail.com")
+                .setPassword("12345").setPhone("3023333")
+                .setStreet("111 This Street").setCity("Milford").setStreet("DE")
+                .setZip("19963").setType("Farm");
+        Assert.assertFalse("The phone number doesn't have enough digits", user.isValid());
     }
 
     @Test
-    public void testValidPhoneNumber() {
-        UserAuthValidator user = new UserAuthValidator().setFirstName("Jane").setLastName("Doe")
-                                         .setEmail("johnDoe").setPassword("12345").setPhone("(302)--333-3333")
-                                         .setState("111 This Street").setCity("Milford").setState("DE")
-                                         .setZip("19963").setType("Farm");
-        Assert.assertFalse("Checking to see if the phone number is ruled as valid", user.isValid());
+    public void testInvalidPhoneNumberTooManyDigits() {
+        UserAuthValidator user = new UserAuthValidator().setFirstName("John")
+                .setLastName("Doe").setEmail("johnDoe@gmail.com")
+                .setPassword("12345").setPhone("3023321333333")
+                .setStreet("111 This Street").setCity("Milford").setStreet("DE")
+                .setZip("19963").setType("Farm");
+        Assert.assertFalse("The phone number has too many digits", user.isValid());
     }
+
+    @Test
+    public void testValidPhoneNumberTenDigits() {
+        UserAuthValidator user = new UserAuthValidator().setFirstName("Jane").setLastName("Doe")
+                .setEmail("johnDoe@gmail.com").setPassword("12345").setPhone("3023833333")
+                .setStreet("111 This Street").setCity("Milford").setState("DE")
+                .setZip("19963").setType("Farm");
+        Assert.assertTrue("The ten digit phone number isn't valid", user.isValid());
+    }
+
+    @Test
+    public void testValidPhoneNumberElevenDigits() {
+        UserAuthValidator user = new UserAuthValidator().setFirstName("Jane").setLastName("Doe")
+                .setEmail("johnDoe@gmail.com").setPassword("12345").setPhone("13023833333")
+                .setStreet("111 This Street").setCity("Milford").setState("DE")
+                .setZip("19963").setType("Farm");
+        Assert.assertTrue("The eleven digit phone number isn't valid", user.isValid());
+    }
+
+    @Test
+    public void testInvalidPhoneNumberLetter() {
+        UserAuthValidator user = new UserAuthValidator().setFirstName("Jane").setLastName("Doe")
+                .setEmail("johnDoe@gmail.com").setPassword("12345").setPhone("30233a3333")
+                .setState("111 This Street").setCity("Milford").setState("DE")
+                .setZip("19963").setType("Farm");
+        Assert.assertFalse("The phone number contains a letter", user.isValid());
+    }
+
+    @Test
+    public void testInvalidPhoneNumberParenthesis() {
+        UserAuthValidator user = new UserAuthValidator().setFirstName("Jane").setLastName("Doe")
+                .setEmail("johnDoe@gmail.com").setPassword("12345").setPhone("(302-383-3)333")
+                .setStreet("111 This Street").setCity("Milford").setState("DE")
+                .setZip("19963").setType("Farm");
+        Assert.assertFalse("The phone number has invalid parenthesis", user.isValid());
+    }
+
+    @Test
+    public void testValidPhoneNumberParenthesis() {
+        UserAuthValidator user = new UserAuthValidator().setFirstName("Jane").setLastName("Doe")
+                .setEmail("johnDoe@gmail.com").setPassword("12345").setPhone("(302)-383-3333")
+                .setStreet("111 This Street").setCity("Milford").setState("DE")
+                .setZip("19963").setType("Farm");
+        Assert.assertTrue("The phone number with parenthesis isn't valid", user.isValid());
+    }
+
+    @Test
+    public void testInvalidPhoneNumberTooManyDashes() {
+        UserAuthValidator user = new UserAuthValidator().setFirstName("John")
+                .setLastName("Doe").setEmail("johnDoe@gmail.com")
+                .setPassword("12345").setPhone("302--333-3333")
+                .setStreet("111 This Street").setCity("Milford").setStreet("DE")
+                .setZip("19963").setType("Farm");
+        Assert.assertFalse("The phone number has too many dashes", user.isValid());
+    }
+
+    @Test
+    public void testValidPhoneNumberDashes() {
+        UserAuthValidator user = new UserAuthValidator().setFirstName("Jane").setLastName("Doe")
+                .setEmail("johnDoe@gmail.com").setPassword("12345").setPhone("302-383-3333")
+                .setStreet("111 This Street").setCity("Milford").setState("DE")
+                .setZip("19963").setType("Farm");
+        Assert.assertTrue("The phone number with dashes isn't valid", user.isValid());
+    }
+
+    @Test
+    public void testInvalidEmailNoCommercialAt() {
+        UserAuthValidator user = new UserAuthValidator().setFirstName("Jane").setLastName("Doe")
+                .setEmail("johnDoe.com").setPassword("12345").setPhone("(302)--33a-3333")
+                .setState("111 This Street").setCity("Milford").setState("DE")
+                .setZip("19963").setType("Farm");
+        Assert.assertFalse("The email is missing the commercial at", user.isValid());
+    }
+
+    @Test
+    public void testInvalidEmailNoTopLevelDomain() {
+        UserAuthValidator user = new UserAuthValidator().setFirstName("Jane").setLastName("Doe")
+                .setEmail("johnDoe@gmail").setPassword("12345").setPhone("(302)--33a-3333")
+                .setState("111 This Street").setCity("Milford").setState("DE")
+                .setZip("19963").setType("Farm");
+        Assert.assertFalse("The email is missing a top level domain", user.isValid());
+    }
+
+    @Test
+    public void testInvalidEmailNoMailbox() {
+        UserAuthValidator user = new UserAuthValidator().setFirstName("Jane").setLastName("Doe")
+                .setEmail("@gmail.com").setPassword("12345").setPhone("(302)--33a-3333")
+                .setState("111 This Street").setCity("Milford").setState("DE")
+                .setZip("19963").setType("Farm");
+        Assert.assertFalse("The email has no mailbox", user.isValid());
+    }
+
+    @Test
+    public void testValidEmail() {
+        UserAuthValidator user = new UserAuthValidator().setFirstName("Jane").setLastName("Doe")
+                .setEmail("johnDoe@gmail.com").setPassword("12345").setPhone("(302)-383-3333")
+                .setStreet("111 This Street").setCity("Milford").setState("DE")
+                .setZip("19963").setType("Farm");
+        Assert.assertTrue("The email isn't valid", user.isValid());
+    }
+
+    @Test
+    public void testToString() {
+        Optional<UserAuthValidator> userAuthValidator = configure("/json/GoodUserInput.json");
+        String result = userAuthValidator.get().toString();
+        String expected = "[first_name=John, last_name=Doe, email=JohnDoe@gmail.com]";
+        Assert.assertTrue("The wrong string is being returned", expected.equals(result));
+    }
+
 }
