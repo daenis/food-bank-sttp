@@ -1,5 +1,7 @@
 package com.opendatadelaware.feede.controller;
 
+import com.opendatadelaware.feede.controller.utils.RequestBodyMapper;
+import com.opendatadelaware.feede.controller.utils.UserAuthValidator;
 import com.opendatadelaware.feede.service.UsersService;
 import org.bouncycastle.util.encoders.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +37,8 @@ public class UsersController {
   public ResponseEntity<?> addUser(@RequestBody Map<String, String> userSubmission) {
     if (userSubmission.containsKey("auth")) {
         byte[] jsonRepresentation = Base64.decode(userSubmission.get("auth"));
-        return new ResponseEntity<>(jsonRepresentation, HttpStatus.BAD_REQUEST);
+        RequestBodyMapper<UserAuthValidator> auth = RequestBodyMapper.factory(jsonRepresentation, UserAuthValidator.class);
+        return new ResponseEntity<>("", HttpStatus.BAD_REQUEST);
     }
     return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
   }
