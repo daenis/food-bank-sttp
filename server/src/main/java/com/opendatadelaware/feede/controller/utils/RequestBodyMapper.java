@@ -25,8 +25,12 @@ public class RequestBodyMapper <T> {
     }
   }
 
-  public Optional<T> get() {
-    return value;
+  public boolean doesExist() {
+    return value.isPresent();
+  }
+
+  public T get() {
+    return value.get();
   }
 
   public static <T> RequestBodyMapper factory(byte[] json, Class<T> tClass) {
