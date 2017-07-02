@@ -15,20 +15,32 @@ public abstract class AbstractDao<E extends Serializable, PK extends Serializabl
 
   private Class<E> type;
 
-  public AbstractDao (Class<E> daoType) {
+  public AbstractDao(Class<E> daoType) {
     type = daoType;
   }
 
   @Autowired
-  protected void setSession (SessionFactory sessionFactory) {
+  protected void setSession(SessionFactory sessionFactory) {
     session = sessionFactory;
   }
 
-  protected Session getSession () {
+  protected Session getSession() {
     return session.getCurrentSession();
   }
 
-  public E get (PK id) {
+  public E read(PK id) {
     return session.getCurrentSession().get(type, id);
+  }
+
+  public PK create(E o) {
+    return (PK) getSession().save(o);
+  }
+
+  public void update(E o) {
+    getSession().update(o);
+  }
+
+  public void delete(E o) {
+    getSession().delete(o);
   }
 }
