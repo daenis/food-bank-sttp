@@ -55,30 +55,31 @@ public class TestUserAuthValidator {
 
     @Test
     public void testIsValidInvalid() {
-        UserAuthValidator user = new UserAuthValidator(null, "Doe", "johnDoe",
-                                                       "12345", "3023333333",
-                                                       "111 This Street","Milford", "DE",
-                                                       "19963", "Farm");
+        UserAuthValidator user = new UserAuthValidator().setFirstName(null).setLastName("Doe")
+                                         .setEmail("johnDoe").setPassword("12345").setPhone("3023333333")
+                                         .setStreet("111 This Street").setCity("Milford").setState("DE")
+                                         .setZip("19963").setType("Farm");
 
-        Assert.assertTrue("Checking to see if the isValid function responds correctly",
-                          user.isValid() == false);
+        Assert.assertFalse("Checking to see if the isValid function responds correctly",
+                          user.isValid());
     }
 
-    /*@Test
+    @Test
     public void testInvalidPhoneNumber() {
-        UserAuthValidator user = new UserAuthValidator("John", "Doe", "johnDoe",
-                                                       "12345", "(302)--333-3333",
-                                                       "111 This Street","Milford", "DE",
-                                                       "19963", "Farm");
+        UserAuthValidator user = new UserAuthValidator().setFirstName("John")
+                                         .setLastName("Doe").setEmail("johnDoe")
+                                         .setPassword("12345").setPhone("(302)--333-3333")
+                                         .setStreet("111 This Street").setCity("Milford").setStreet("DE")
+                                         .setZip("19963").setType("Farm");
         Assert.assertFalse("Checking to see if the phone number is ruled invalid", user.isValid());
     }
 
     @Test
     public void testValidPhoneNumber() {
-        UserAuthValidator user = new UserAuthValidator(null, "Doe", "johnDoe",
-                "12345", "(302)--333-3333",
-                "111 This Street","Milford", "DE",
-                "19963", "Farm");
-        Assert.assertTrue("Checking to see if the phone number is ruled as valid", user.isValid());
-    }*/
+        UserAuthValidator user = new UserAuthValidator().setFirstName("Jane").setLastName("Doe")
+                                         .setEmail("johnDoe").setPassword("12345").setPhone("(302)--333-3333")
+                                         .setState("111 This Street").setCity("Milford").setState("DE")
+                                         .setZip("19963").setType("Farm");
+        Assert.assertFalse("Checking to see if the phone number is ruled as valid", user.isValid());
+    }
 }

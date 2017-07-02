@@ -2,15 +2,24 @@ package com.opendatadelaware.feede.controller.utils;
 
 import org.hibernate.validator.constraints.Email;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 /**
  * Created by denniskalaygian on 6/30/17.
  */
 
 public class UserAuthValidator {
+    private static Validator validator;
+
+    static {
+      validator = Validation.buildDefaultValidatorFactory().getValidator();
+    }
 
     @NotNull(message="First name cannot be null")
     private String firstName;
@@ -46,106 +55,98 @@ public class UserAuthValidator {
 
     public UserAuthValidator() {}
 
-    public UserAuthValidator(String firstName, String lastName, String email, String password,
-                             String phoneNumber, String street, String city, String state, String zip, String type) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.phone = phoneNumber;
-        this.street = street;
-        this.city = city;
-        this.state = state;
-        this.zip = zip;
-        this.type = type;
-    }
-
     public boolean isValid() {
-      if (this.firstName == null) return false;
-      if (this.lastName == null) return false;
-      if (this.email == null) return false;
-      if (this.password == null) return false;
-      return true;
+      return validator.validate(this).size() == 1;
     }
 
     public String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
+    public UserAuthValidator setFirstName(String firstName) {
         this.firstName = firstName;
+        return this;
     }
 
     public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
+    public UserAuthValidator setLastName(String lastName) {
         this.lastName = lastName;
+        return this;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public UserAuthValidator setEmail(String email) {
         this.email = email;
+        return this;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public UserAuthValidator setPassword(String password) {
         this.password = password;
+        return this;
     }
 
     public String getPhone() {
         return phone;
     }
 
-    public void setPhone(String phoneNumber) {
+    public UserAuthValidator setPhone(String phoneNumber) {
         this.phone = phoneNumber;
+        return this;
     }
 
     public String getStreet() {
         return street;
     }
 
-    public void setStreet(String street) {
+    public UserAuthValidator setStreet(String street) {
         this.street = street;
+        return this;
     }
 
     public String getCity() {
         return city;
     }
 
-    public void setCity(String city) {
+    public UserAuthValidator setCity(String city) {
         this.city = city;
+        return this;
     }
 
     public String getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public UserAuthValidator setState(String state) {
         this.state = state;
+        return this;
     }
 
     public String getZip() {
         return zip;
     }
 
-    public void setZip(String zip) {
+    public UserAuthValidator setZip(String zip) {
         this.zip = zip;
+        return this;
     }
 
     public String getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public UserAuthValidator setType(String type) {
         this.type = type;
+        return this;
     }
 
     @Override
