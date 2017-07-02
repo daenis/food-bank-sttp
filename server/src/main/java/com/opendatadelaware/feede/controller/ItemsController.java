@@ -1,5 +1,6 @@
 package com.opendatadelaware.feede.controller;
 
+import com.opendatadelaware.feede.dao.ItemsDao;
 import com.opendatadelaware.feede.service.ItemsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -44,6 +45,5 @@ public class ItemsController {
 
         return new ResponseEntity<Object>(HttpStatus.OK);
     }
-
 
 }
