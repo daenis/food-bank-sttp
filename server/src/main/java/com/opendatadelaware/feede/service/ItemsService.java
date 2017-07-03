@@ -6,11 +6,16 @@ import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
+
 /**
  * Created by jarrydstamatelos on 6/30/17.
  */
 @Service
 public class ItemsService extends AbstractService<ItemsDao> {
     private ItemsDao itemsDao;
+
+    public void delete(UUID o) {
+        itemsDao.delete(o);
+    }
 
 }

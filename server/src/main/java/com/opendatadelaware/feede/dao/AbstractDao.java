@@ -43,4 +43,5 @@ public abstract class AbstractDao<E extends Serializable, PK extends Serializabl
   public void delete(E o) {
     getSession().delete(o);
   }
+
 }

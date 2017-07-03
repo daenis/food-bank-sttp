@@ -1,6 +1,7 @@
 package com.opendatadelaware.feede.controller;
 
 import com.opendatadelaware.feede.dao.ItemsDao;
+import com.opendatadelaware.feede.model.Items;
 import com.opendatadelaware.feede.service.ItemsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * Created by jarrydstamatelos on 6/30/17.
@@ -40,9 +42,9 @@ public class ItemsController {
 
     // Only request allowed by the item controller - delete individual item by uuid
     @RequestMapping(method = RequestMethod.DELETE)
-    public ResponseEntity<?> deleteItemByUUID(@PathVariable Long uuid) {
-        
-        return new ResponseEntity<Object>(HttpStatus.OK);
+    public ResponseEntity<?> deleteItemByUUID(@PathVariable UUID uuid) {
+        service.delete(uuid);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }
