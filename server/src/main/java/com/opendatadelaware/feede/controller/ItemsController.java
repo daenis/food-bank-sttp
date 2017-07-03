@@ -18,7 +18,6 @@ public class ItemsController {
 
     private ItemsService service;
 
-
     @Autowired
     public void setItemsService(ItemsService aService) {
         service = aService;
@@ -42,7 +41,7 @@ public class ItemsController {
     // Only request allowed by the item controller - delete individual item by uuid
     @RequestMapping(method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteItemByUUID(@PathVariable Long uuid) {
-
+        
         return new ResponseEntity<Object>(HttpStatus.OK);
     }
 

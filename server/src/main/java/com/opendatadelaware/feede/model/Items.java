@@ -19,6 +19,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "ITEMS")
 public class Items implements Serializable {
+
   @Id
   @GeneratedValue(generator = "uuid2")
   @GenericGenerator(name = "uuid2", strategy = "uuid2")
@@ -69,4 +70,9 @@ public class Items implements Serializable {
   public void setOrderNumber(Orders orderNumber) {
     this.orderNumber = orderNumber;
   }
+
+  public UUID getUuid() {
+    return uuid;
+  }
+
 }
