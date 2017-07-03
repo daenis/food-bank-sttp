@@ -15,4 +15,8 @@ public class ItemsDao extends AbstractDao<Items, UUID> {
         super(Items.class);
     }
 
+    public void delete(Items uuid) {
+        getSession().delete(uuid);
+    }
+
 }

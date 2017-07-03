@@ -27,6 +27,12 @@ public class ItemsController {
         service.setDao(itemsDao);
     }
 
+    @RequestMapping(method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteItemByUUID(@PathVariable Items uuid) {
+        itemsDao.delete(uuid);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
+
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<?> getItems() {
         return new ResponseEntity<Object>("Forbidden Action", HttpStatus.FORBIDDEN);
@@ -40,12 +46,6 @@ public class ItemsController {
     @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity<?> updateItems(@RequestBody Map<String, String> s) {
         return new ResponseEntity<Object>("Forbidden Action", HttpStatus.FORBIDDEN);
-    }
-
-    // Only request allowed by the item controller - delete individual item by uuid
-    @RequestMapping(method = RequestMethod.DELETE)
-    public ResponseEntity<?> deleteItemByUUID(@PathVariable UUID uuid) {
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

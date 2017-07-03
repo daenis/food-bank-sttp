@@ -1,6 +1,8 @@
 package com.opendatadelaware.feede.controller;
 
+import com.opendatadelaware.feede.dao.ItemsDao;
 import com.opendatadelaware.feede.dao.UsersDao;
+import com.opendatadelaware.feede.model.Items;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,22 +26,20 @@ public class TestItemsController {
     private MockMvc mvc;
 
     @MockBean
-    private UsersDao dao;
+    private ItemsDao dao;
 
     @InjectMocks
-    private UsersController controller;
+    private ItemsController controller;
 
     @Before
     public void init() {
         MockitoAnnotations.initMocks(this);
         mvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
+
     @Test
     public void testRemoveItemByUUID() {
-        // Given
 
-        // When
-        // Then
     }
 
 }
