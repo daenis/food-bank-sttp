@@ -19,10 +19,12 @@ import java.util.UUID;
 public class ItemsController {
 
     private ItemsService service;
+    private ItemsDao itemsDao;
 
     @Autowired
     public void setItemsService(ItemsService aService) {
         service = aService;
+        service.setDao(itemsDao);
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -43,7 +45,6 @@ public class ItemsController {
     // Only request allowed by the item controller - delete individual item by uuid
     @RequestMapping(method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteItemByUUID(@PathVariable UUID uuid) {
-        service.delete(uuid);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
