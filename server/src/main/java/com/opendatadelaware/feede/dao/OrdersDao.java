@@ -12,7 +12,9 @@ import java.util.UUID;
 public class OrdersDao extends AbstractDao<Orders, UUID> {
 
     public OrdersDao () {
-        setDaoClass(Orders.class);
+        super(Orders.class);
     }
+
+
 
 }
