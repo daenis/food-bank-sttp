@@ -20,6 +20,11 @@ public abstract class AbstractDao<E extends Serializable, PK extends Serializabl
   }
 
   @Autowired
+
+  protected Class<E> getType() {
+    return type;
+  }
+
   protected void setSession(SessionFactory sessionFactory) {
     session = sessionFactory;
   }

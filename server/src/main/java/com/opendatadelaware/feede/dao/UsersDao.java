@@ -20,7 +20,7 @@ public class UsersDao extends AbstractDao<Users, UUID> {
   }
 
   public Users getUserByUsername(String username) {
-    return getSession().get(Users.class, username);
+    return getSession().get(getType(), username);
   }
 
   public void updateUserByUsername(String username, Users user) {
