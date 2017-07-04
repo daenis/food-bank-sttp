@@ -1,4 +1,4 @@
-package com.opendatadelaware.feede.model;
+package com.opendatadelaware.feede.model.fields;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -6,12 +6,12 @@ import java.util.Optional;
 /**
  * Created by aaronlong on 7/4/17.
  */
-public enum TokenType {
+public enum TokenField {
   USER("USER");
 
   private String code;
 
-  TokenType(String tokenCode) {
+  TokenField(String tokenCode) {
     code = tokenCode;
   }
 
@@ -19,8 +19,8 @@ public enum TokenType {
     return code;
   }
 
-  public static Optional<TokenType> getTypeFromCode(String code) {
-    return Arrays.stream(TokenType.values())
+  public static Optional<TokenField> getTypeFromCode(String code) {
+    return Arrays.stream(TokenField.values())
                    .filter(t -> t.getCode().equals(code))
                    .findFirst();
   }
