@@ -32,17 +32,15 @@ public class UsersController {
 
   @RequestMapping(method = RequestMethod.GET)
   public ResponseEntity<?> getUserInfo() {
-    return new ResponseEntity<String>("Hello World", HttpStatus.OK);
+      return new ResponseEntity<String>("Hello World", HttpStatus.OK);
   }
 
   @RequestMapping(method = RequestMethod.POST)
   public ResponseEntity<? extends Response> addUser(@RequestBody Map<String, String> userSubmission) {
-    if (userSubmission.containsKey("auth")) {
-        byte[] jsonRepresentation = Base64.decode(userSubmission.get("auth"));
-        RequestBodyMapper<UserAuthValidator> auth = RequestBodyMapper.factory(jsonRepresentation, UserAuthValidator.class);
-        return service.createUser(auth);
-    }
-    return new BadRequest().makeResponse(HttpStatus.BAD_REQUEST);
+    return (userSubmission.containsKey("auth")) ?
+            service.createUser(RequestBodyMapper.factory(Base64.decode(userSubmission.get("auth")),
+                    UserAuthValidator.class)):
+            new BadRequest().makeResponse(HttpStatus.BAD_REQUEST);
   }
 
 }
