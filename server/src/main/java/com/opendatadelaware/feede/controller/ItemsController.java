@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 import java.util.UUID;
 
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 /**
  * Created by jarrydstamatelos on 6/30/17.
  */
@@ -28,24 +30,24 @@ public class ItemsController {
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
-    public ResponseEntity<?> deleteItemByUUID(@PathVariable Items uuid) {
-        itemsDao.delete(uuid);
+    public ResponseEntity<?> deleteItemByUUID(@PathVariable UUID uuid) {
+        itemsDao.deleteByUUID(uuid);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<?> getItems() {
-        return new ResponseEntity<Object>("Forbidden Action", HttpStatus.FORBIDDEN);
+    public ResponseEntity<?> getAllItems() {
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> addItems(@RequestBody Map<String, String> s) {
-        return new ResponseEntity<Object>("Forbidden Action", HttpStatus.FORBIDDEN);
+    public ResponseEntity<?> addItem(@RequestBody Map<String, String> s) {
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity<?> updateItems(@RequestBody Map<String, String> s) {
-        return new ResponseEntity<Object>("Forbidden Action", HttpStatus.FORBIDDEN);
+    public ResponseEntity<?> updateItem(@RequestBody Map<String, String> s) {
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }
