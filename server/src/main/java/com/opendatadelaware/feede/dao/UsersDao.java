@@ -15,8 +15,20 @@ public class UsersDao extends AbstractDao<Users, UUID> {
     super(Users.class);
   }
 
-  public Users read(String userName) {
-    return session.getCurrentSession().get(Users.class, userName);
+  public void addUser(Users user) {
+    getSession().save(user);
   }
-  
+
+  public Users getUserByUsername(String username) {
+    return getSession().get(Users.class, username);
+  }
+
+  public void updateUserByUsername(String username, Users user) {
+    getSession().update(username, user);
+  }
+
+  public void deleteUserByUsername(String username, Users user) {
+    getSession().delete(username, user);
+  }
+
 }
