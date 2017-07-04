@@ -15,6 +15,14 @@ public class OrdersDao extends AbstractDao<Orders, UUID> {
         super(Orders.class);
     }
 
+    public Orders getById(UUID uuid) {
+        return getSession().load(Orders.class, uuid);
+    }
 
+    public void deleteById(UUID uuid) {
+        Orders order = getSession().load(Orders.class, uuid);
+        getSession().delete(order);
+        getSession().flush();
+    }
 
 }
