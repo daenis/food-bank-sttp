@@ -75,4 +75,9 @@ public class Items implements Serializable {
     return uuid;
   }
 
+  public void setUuid(UUID uuid) {
+    this.uuid = uuid;
+  }
+
+
 }

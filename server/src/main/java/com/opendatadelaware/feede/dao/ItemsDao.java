@@ -1,6 +1,7 @@
 package com.opendatadelaware.feede.dao;
 
 import com.opendatadelaware.feede.model.Items;
+import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
@@ -28,6 +29,10 @@ public class ItemsDao extends AbstractDao<Items, UUID> {
     }
 
     public void deleteByUUID(UUID uuid) {
-        getSession().delete(uuid);
+            Items items;
+            items = getSession().load(Items.class, uuid);
+            getSession().delete(items);
+            getSession().flush();
     }
+
 }

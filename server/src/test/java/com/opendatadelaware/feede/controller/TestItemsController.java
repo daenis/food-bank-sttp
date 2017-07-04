@@ -3,6 +3,7 @@ package com.opendatadelaware.feede.controller;
 import com.opendatadelaware.feede.dao.ItemsDao;
 import com.opendatadelaware.feede.dao.UsersDao;
 import com.opendatadelaware.feede.model.Items;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +16,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.ArrayList;
+import java.util.UUID;
+
 /**
  * Created by jarrydstamatelos on 6/30/17.
  */
@@ -26,7 +30,7 @@ public class TestItemsController {
     private MockMvc mvc;
 
     @MockBean
-    private ItemsDao dao;
+    private ItemsDao itemsDao;
 
     @InjectMocks
     private ItemsController controller;
@@ -38,7 +42,19 @@ public class TestItemsController {
     }
 
     @Test
+    public void testItemsNotFound() {
+
+    }
+    @Test
     public void testRemoveItemByUUID() {
+
+    }
+    @Test
+    public void testAddItem(){
+
+    }
+    @Test
+    public void testGetItems(){
 
     }
 
