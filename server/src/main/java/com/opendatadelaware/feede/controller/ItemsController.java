@@ -36,12 +36,14 @@ public class ItemsController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<?> getAllItems() {
+    public ResponseEntity<?> getAllItems(@PathVariable UUID uuid) {
+        itemsDao.getItemByUUID(uuid);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> addItem(@RequestBody Map<String, String> s) {
+
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
