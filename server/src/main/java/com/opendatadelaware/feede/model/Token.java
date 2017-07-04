@@ -41,6 +41,6 @@ public class Token implements Serializable {
   @JoinColumn(name = "user", referencedColumnName = "uuid", nullable=false, updatable=false)
   private Users user;
 
-  @Column(name = "active", columnDefinition="tinyint(1) default 1", nullable = false)
+  @Column(name = "active", nullable = false)
   private boolean active;
 }
