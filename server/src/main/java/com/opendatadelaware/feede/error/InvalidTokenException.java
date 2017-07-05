@@ -11,4 +11,8 @@ public class InvalidTokenException extends IOException {
   public InvalidTokenException() {
     super(message);
   }
+
+  public InvalidTokenException(String message) {
+    super(message);
+  }
 }

@@ -16,7 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   public static final String JWT_TOKEN_HEADER_PARAM = "X-Authorization";
-  
+
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http.csrf().ignoringAntMatchers("/api/user");
@@ -38,6 +38,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   protected BCryptPasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
   }
-
 
 }
