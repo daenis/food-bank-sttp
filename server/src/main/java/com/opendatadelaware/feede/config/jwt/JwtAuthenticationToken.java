@@ -12,18 +12,17 @@ import java.util.Collection;
 public class JwtAuthenticationToken extends AbstractAuthenticationToken {
 
     private JwtToken jwtToken;
-    private Token token;
 
     public JwtAuthenticationToken(JwtToken unsafeToken) {
         super(null);
-        this.jwtToken = unsafeToken;
-        this.setAuthenticated(false);
+        jwtToken = unsafeToken;
+        setAuthenticated(false);
     }
 
-    public JwtAuthenticationToken(Token token, Collection<? extends GrantedAuthority> authorities) {
+    public JwtAuthenticationToken(JwtToken token, Collection<? extends GrantedAuthority> authorities) {
         super(authorities);
-        this.eraseCredentials();
-        this.token = token;
+        eraseCredentials();
+        jwtToken = token;
         super.setAuthenticated(true);
     }
 
@@ -43,13 +42,13 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
 
     @Override
     public Object getPrincipal() {
-        return this.token;
+        return jwtToken;
     }
 
     @Override
     public void eraseCredentials() {
         super.eraseCredentials();
-        this.jwtToken = null;
+        jwtToken = null;
     }
 
 }

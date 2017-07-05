@@ -7,6 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by denniskalaygian on 7/5/17.
@@ -25,6 +30,14 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
             throws AuthenticationException {
         JwtToken jwtToken = (JwtToken) authentication.getCredentials();
         Jws<Claims> claims = jwtToken.parseClaims(jwtSettings.getTokenSigningKey());
+        String subject = claims.getBody().getSubject();
+        List<String> scopes = claims.getBody().get("scopes", List.class);
+        List<GrantedAuthority> authorities = scopes.stream()
+                .map(authority -> new SimpleGrantedAuthority(authority))
+                .collect(Collectors.toList());
+
+        return new JwtAuthenticationToken(jwtToken, authorities);
+
     }
 
     @Override
