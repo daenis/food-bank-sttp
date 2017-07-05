@@ -33,7 +33,7 @@ public class OrdersController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public ResponseEntity<?> postOrder(@RequestBody Orders order) {
+    public ResponseEntity<Orders> postOrder(@RequestBody Orders order) {
         dao.create(order);
         HttpHeaders responseHeaders = new HttpHeaders();
         URI newOrderURI = ServletUriComponentsBuilder
@@ -42,7 +42,7 @@ public class OrdersController {
                 .buildAndExpand(order.getUUID())
                 .toUri();
         responseHeaders.setLocation(newOrderURI);
-        return new Success().makeResponse(HttpStatus.OK);
+        return new ResponseEntity<Orders>(HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/{uuid}/", method = RequestMethod.GET)
@@ -50,68 +50,11 @@ public class OrdersController {
         return new ResponseEntity<>(dao.read(uuid), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.DELETE)
-    public ResponseEntity<?> deleteOrder(Orders order) {
-        dao.delete(order);
-        return new Success().makeResponse(HttpStatus.OK);
-    }
-
     @RequestMapping(value = "/{uuid}/", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteOrderById(@PathVariable UUID uuid) {
         dao.deleteById(uuid);
         return new Success().makeResponse(HttpStatus.OK);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//    @Autowired
-//    OrderRepository orderRepository;
-//
-//    @RequestMapping(value = "/", method = RequestMethod.POST)
-//    public ResponseEntity<?> postOrder(@RequestBody Orders order) {
-//        return new ResponseEntity<>(orderRepository.save(order), HttpStatus.OK);
-//    }
-//
-//    @RequestMapping(value = "/{uuid}", method = RequestMethod.GET)
-//    public ResponseEntity<?> getOrder(@PathVariable UUID uuid) {
-//        return new ResponseEntity<>(orderRepository.findOne(uuid), HttpStatus.OK);
-//    }
-//
-//    @RequestMapping(value = "/{uuid}", method = RequestMethod.PUT)
-//    public ResponseEntity<?> editOrder(@RequestBody Orders order, @PathVariable UUID uuid) {
-//        return new ResponseEntity<>(orderRepository.save(order), HttpStatus.OK);
-//    }
-//
-//    @RequestMapping(value = "/{uuid}", method = RequestMethod.DELETE)
-//    public ResponseEntity<?> deleteOrder(@PathVariable UUID uuid) {
-//        return new ResponseEntity<>(orderRepository.delete(uuid), HttpStatus.OK);
-//    }
-
-
-
-
-
-
 
 
 
