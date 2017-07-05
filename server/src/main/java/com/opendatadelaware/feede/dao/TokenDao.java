@@ -28,7 +28,7 @@ public class TokenDao extends AbstractDao<Token, UUID> {
     entityManager = em;
   }
 
-  public Token getUserFromToken(String uuid) {
+  public Token getTokenFromUUID(String uuid) {
     FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
     final QueryBuilder queryBuilder = fullTextEntityManager
             .getSearchFactory()
