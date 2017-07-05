@@ -67,15 +67,17 @@ public class TestItemsController {
         UUID uuid = UUID.randomUUID();
         
         when(itemsDao.read(uuid)).thenReturn(items);
-        mvc.perform(get("/items/", uuid))
+        mvc.perform(get("/api/items/{uuid}/", uuid))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE));
     }
 
     @Test
     public void testDeleteByUUID() throws Exception {
+        Items items = new Items();
         UUID uuid = UUID.randomUUID();
-        mvc.perform(delete("api/items", uuid)
+        when(itemsDao.deleteByUUID(uuid)).thenReturn(items);
+        mvc.perform(delete("/api/items/{uuid}/", uuid)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
