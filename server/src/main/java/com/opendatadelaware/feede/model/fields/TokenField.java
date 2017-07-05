@@ -1,6 +1,7 @@
 package com.opendatadelaware.feede.model.fields;
 
 import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.Optional;
 
 /**
@@ -20,7 +21,8 @@ public enum TokenField {
   }
 
   public static Optional<TokenField> getTypeFromCode(String code) {
-    return Arrays.stream(TokenField.values())
+    return EnumSet.allOf(TokenField.class)
+                   .stream()
                    .filter(t -> t.getCode().equals(code))
                    .findFirst();
   }
