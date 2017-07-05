@@ -45,6 +45,7 @@ public class JwtTokenFilter extends AbstractAuthenticationProcessingFilter {
                                             Authentication authResult) throws IOException, ServletException {
         SecurityContext context = SecurityContextHolder.createEmptyContext();
         context.setAuthentication(authResult);
+        SecurityContextHolder.setContext(context);
         chain.doFilter(request, response);
     }
 
