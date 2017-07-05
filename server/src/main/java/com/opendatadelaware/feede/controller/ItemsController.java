@@ -31,7 +31,7 @@ public class ItemsController {
     @RequestMapping(method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteItemByUUID(@PathVariable UUID uuid) {
         itemsDao.deleteByUUID(uuid);
-        return new Success().makeResponse(HttpStatus.ACCEPTED);
+        return new Success().makeResponse(HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -39,10 +39,10 @@ public class ItemsController {
         return new ResponseEntity<>(itemsDao.read(uuid), HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity<?> addItems(@PathVariable Items items){
         itemsDao.create(items);
-        return new Success().makeResponse(HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }
