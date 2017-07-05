@@ -28,18 +28,18 @@ public class ItemsController {
         service.setDao(itemsDao);
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.DELETE)
+    @RequestMapping(method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteItemByUUID(@PathVariable UUID uuid) {
         itemsDao.deleteByUUID(uuid);
         return new Success().makeResponse(HttpStatus.ACCEPTED);
     }
 
-    @RequestMapping(value = "/{uuid}/", method = RequestMethod.GET)
-    public ResponseEntity<?> getItemByID(@PathVariable UUID uuid) {
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<Items> get(@PathVariable UUID uuid) {
         return new ResponseEntity<>(itemsDao.read(uuid), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> addItems(@PathVariable Items items){
         itemsDao.create(items);
         return new Success().makeResponse(HttpStatus.ACCEPTED);
