@@ -55,6 +55,7 @@ public class JwtToken {
         }
     }
 
-
-
+    public String getToken() {
+        return token;
+    }
 }
