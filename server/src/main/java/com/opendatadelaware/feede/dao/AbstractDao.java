@@ -1,10 +1,12 @@
 package com.opendatadelaware.feede.dao;
 
+import com.opendatadelaware.feede.model.Items;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 /**
  * Created by aaronlong on 6/27/17.
@@ -47,4 +49,5 @@ public abstract class AbstractDao<E extends Serializable, PK extends Serializabl
   public void delete(E o) {
     getSession().delete(o);
   }
+
 }

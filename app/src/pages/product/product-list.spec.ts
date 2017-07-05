@@ -25,6 +25,8 @@ describe('ProductListComponent', () => {
 		.then(response => response.json())
 		.then((json: Array<Object>) => expect(json.length).toBeUndefined());
 	});
+
+    
     
 })
 
