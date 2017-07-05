@@ -1,6 +1,7 @@
 package com.opendatadelaware.feede.config.jwt;
 
 import com.opendatadelaware.feede.error.InvalidTokenException;
+import com.opendatadelaware.feede.error.JwtExpiredTokenException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jws;
@@ -10,8 +11,10 @@ import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.AuthenticationException;
 
 
 /**
@@ -43,7 +46,7 @@ public class JwtToken {
         return new JwtToken(token);
     }
 
-    public Jws<Claims> parseClaims(String signingKey) throws InvalidTokenException {
+    public Jws<Claims> parseClaims(String signingKey) {
         try {
             return Jwts.parser().setSigningKey(signingKey).parseClaimsJws(this.token);
         } catch (UnsupportedJwtException | MalformedJwtException | IllegalArgumentException | SignatureException ex) {
@@ -51,7 +54,7 @@ public class JwtToken {
             throw new BadCredentialsException("Invalid JWT token: ", ex);
         } catch (ExpiredJwtException expiredEx) {
             LOGGER.info("JWT Token is expired", expiredEx);
-            throw new InvalidTokenException( "JWT Token expired");
+            throw new JwtExpiredTokenException( "JWT Token expired");
         }
     }
 
