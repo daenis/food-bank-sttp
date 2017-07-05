@@ -36,6 +36,7 @@ public class Orders implements Serializable {
   @JoinColumn(name = "order_number", referencedColumnName = "uuid")
   private Users user;
 
+  public UUID getUUID() { return uuid; }
 
   public Date getDateTime() {
     return dateTime;

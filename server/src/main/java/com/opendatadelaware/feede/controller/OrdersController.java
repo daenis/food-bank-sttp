@@ -1,13 +1,18 @@
 package com.opendatadelaware.feede.controller;
 
+import com.opendatadelaware.feede.controller.responses.Response;
+import com.opendatadelaware.feede.controller.responses.Success;
 import com.opendatadelaware.feede.dao.OrdersDao;
 import com.opendatadelaware.feede.model.Orders;
 import com.opendatadelaware.feede.service.OrdersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.UUID;
 
 /**
@@ -30,8 +35,38 @@ public class OrdersController {
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public ResponseEntity<?> postOrder(@RequestBody Orders order) {
         dao.create(order);
-        return new ResponseEntity<>(HttpStatus.OK);
+        HttpHeaders responseHeaders = new HttpHeaders();
+        URI newOrderURI = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{uuid}")
+                .buildAndExpand(order.getUUID())
+                .toUri();
+        responseHeaders.setLocation(newOrderURI);
+        return new Success().makeResponse(HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/{uuid}/", method = RequestMethod.GET)
+    public ResponseEntity<?> getOrderByID(@PathVariable UUID uuid) {
+        return new ResponseEntity<>(dao.read(uuid), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/", method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteOrder(Orders order) {
+        dao.delete(order);
+        return new Success().makeResponse(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/{uuid}/", method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteOrderById(@PathVariable UUID uuid) {
+        dao.deleteById(uuid);
+        return new Success().makeResponse(HttpStatus.OK);
+    }
+
+
+
+
+
+
 
 
 
