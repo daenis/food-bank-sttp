@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 /**
  * Created by aaronlong on 6/28/17.
@@ -19,6 +21,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   public static final String JWT_TOKEN_HEADER_PARAM = "X-Authorization";
+
+  private AuthenticationSuccessHandler successHandler;
+  private AuthenticationFailureHandler failureHandler;
 
   private JwtAuthenticationProvider jwtAuthenticationProvider;
 
@@ -54,4 +59,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     jwtAuthenticationProvider = theJwtAuthenticationProvider;
   }
 
+  public void setSuccessHandler(AuthenticationSuccessHandler successHandler) {
+    this.successHandler = successHandler;
+  }
+
+  public void setFailureHandler(AuthenticationFailureHandler failureHandler) {
+    this.failureHandler = failureHandler;
+  }
 }
