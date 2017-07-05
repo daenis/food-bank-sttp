@@ -24,8 +24,8 @@ public class JwtTokenFilter extends AbstractAuthenticationProcessingFilter {
                                                 HttpServletResponse httpServletResponse)
             throws AuthenticationException, IOException, ServletException {
 
-        String tokenPayload = httpServletRequest.getHeader(WebSecurityConfig.JWT_TOKEN_HEADER_PARAM);
-        JwtToken token = new JwtToken(tokenExtractor.extract(tokenPayload));
+        String tokenHeader = httpServletRequest.getHeader(WebSecurityConfig.JWT_TOKEN_HEADER_PARAM);
+        JwtToken token = JwtToken.createTokenInstanceFromHeader(tokenHeader);
         return getAuthenticationManager().authenticate(new JwtAuthenticationToken(token));
     }
 }
