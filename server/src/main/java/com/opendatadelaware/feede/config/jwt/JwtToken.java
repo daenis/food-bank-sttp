@@ -10,6 +10,7 @@ import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.BadCredentialsException;
 
 
@@ -19,6 +20,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 public class JwtToken {
 
     private static Logger LOGGER = LoggerFactory.getLogger(JwtToken.class);
+    private static String HEADER_PREFIX = "Bearer ";
     private String token;
 
     private JwtToken(String token) {
@@ -26,6 +28,18 @@ public class JwtToken {
     }
 
     public static JwtToken createTokenInstance(String token) {
+        return new JwtToken(token);
+    }
+
+    public static JwtToken createTokenInstanceFromHeader(String header) {
+        if (header == null && header.isEmpty()) {
+            throw new AuthenticationServiceException("Authorization Header cannot be blank!");
+        }
+
+        if (header.length() < HEADER_PREFIX.length()) {
+            throw new AuthenticationServiceException("Invalid authorization header size.");
+        }
+        String token = header.substring(HEADER_PREFIX.length(), header.length());
         return new JwtToken(token);
     }
 
@@ -40,5 +54,7 @@ public class JwtToken {
             throw new InvalidTokenException( "JWT Token expired");
         }
     }
+
+
 
 }

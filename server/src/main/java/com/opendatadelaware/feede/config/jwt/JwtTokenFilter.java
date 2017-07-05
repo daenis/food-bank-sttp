@@ -1,5 +1,6 @@
 package com.opendatadelaware.feede.config.jwt;
 
+import com.opendatadelaware.feede.config.WebSecurityConfig;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
@@ -19,7 +20,12 @@ public class JwtTokenFilter extends AbstractAuthenticationProcessingFilter {
     }
 
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws AuthenticationException, IOException, ServletException {
-        return null;
+    public Authentication attemptAuthentication(HttpServletRequest httpServletRequest,
+                                                HttpServletResponse httpServletResponse)
+            throws AuthenticationException, IOException, ServletException {
+
+        String tokenPayload = httpServletRequest.getHeader(WebSecurityConfig.JWT_TOKEN_HEADER_PARAM);
+        JwtToken token = new JwtToken(tokenExtractor.extract(tokenPayload));
+        return getAuthenticationManager().authenticate(new JwtAuthenticationToken(token));
     }
 }
