@@ -33,7 +33,7 @@ public class Token implements Serializable {
 
   @GeneratedValue(generator = "uuid2")
   @GenericGenerator(name = "uuid2", strategy = "uuid2")
-  @Column(name = "uuid", columnDefinition = "BINARY(16)", updatable = false, nullable = false)
+  @Column(name = "token", columnDefinition = "BINARY(16)", updatable = false, nullable = false)
   private UUID token;
 
   @Temporal(TemporalType.TIMESTAMP)

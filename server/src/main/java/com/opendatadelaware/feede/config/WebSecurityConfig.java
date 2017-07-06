@@ -62,7 +62,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   public void setSuccessHandler(AuthenticationSuccessHandler successHandler) {
     this.successHandler = successHandler;
   }
-  
+
   @Autowired
   public void setFailureHandler(AuthenticationFailureHandler failureHandler) {
     this.failureHandler = failureHandler;
