@@ -24,5 +24,7 @@ public class TokenService extends AbstractService<TokenDao> {
     return token.getEntityObject().getUser().getUuid() == user.getEntityObject().getUuid();
   }
 
-  public JwtToken createToken
+  public JwtToken createToken() {
+    return JwtToken.createTokenInstance("");
+  }
 }
