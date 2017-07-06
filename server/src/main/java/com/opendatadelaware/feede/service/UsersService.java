@@ -27,7 +27,7 @@ public class UsersService extends AbstractService<UsersDao> {
     return new BadRequest(failureMessage).makeResponse(HttpStatus.BAD_REQUEST);
   }
 
-  public Users getUserFromEmail() {
+  public Users getUserFromEmail(String email) {
 
   }
 }

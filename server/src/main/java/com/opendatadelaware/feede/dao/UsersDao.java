@@ -3,6 +3,8 @@ package com.opendatadelaware.feede.dao;
 import com.opendatadelaware.feede.model.Users;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -19,8 +21,9 @@ public class UsersDao extends AbstractDao<Users, UUID> {
     getSession().save(user);
   }
 
-  public Users getUserByEmail(String email) {
-    return getSession().get(getType(), email);
+  public Optional<Users> getUserByEmail(String email) {
+    Users result = (Users) getSession().createQuery("FROM Users WHERE email = :email").uniqueResult();
+    return result != null ? Optional.of(result) : Optional.empty();
   }
 
   public void updateUserByEmail(String email, Users user) {
