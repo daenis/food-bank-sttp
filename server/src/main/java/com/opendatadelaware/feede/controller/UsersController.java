@@ -7,7 +7,6 @@ import com.opendatadelaware.feede.controller.utils.UserAuthValidator;
 import com.opendatadelaware.feede.service.UsersService;
 import org.bouncycastle.util.encoders.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,7 +39,7 @@ public class UsersController {
     if (userSubmission.containsKey("auth")) {
         byte[] jsonRepresentation = Base64.decode(userSubmission.get("auth"));
         RequestBodyMapper<UserAuthValidator> auth = RequestBodyMapper.factory(jsonRepresentation, UserAuthValidator.class);
-        return service.createUser(auth);
+        return service.createUserFromRequest(auth);
     }
     return new BadRequest().makeResponse(HttpStatus.BAD_REQUEST);
   }

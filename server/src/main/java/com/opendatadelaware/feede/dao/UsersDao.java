@@ -19,16 +19,16 @@ public class UsersDao extends AbstractDao<Users, UUID> {
     getSession().save(user);
   }
 
-  public Users getUserByUsername(String username) {
-    return getSession().get(getType(), username);
+  public Users getUserByEmail(String email) {
+    return getSession().get(getType(), email);
   }
 
-  public void updateUserByUsername(String username, Users user) {
-    getSession().update(username, user);
+  public void updateUserByEmail(String email, Users user) {
+    getSession().update(email, user);
   }
 
-  public void deleteUserByUsername(String username, Users user) {
-    getSession().delete(username, user);
+  public void deleteUserByEmail(String email, Users user) {
+    getSession().delete(email, user);
   }
 
 }

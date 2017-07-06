@@ -24,7 +24,7 @@ public class TokenService extends AbstractService<TokenDao> {
   public Token loadTokenForUser(String jtiToken, String username) throws InvalidTokenException {
     final Token token = dao.getTokenFromUUID(jtiToken);
     UsersDao userDao = new UsersDao();
-    final Users user = userDao.getUserByUsername(username);
+    final Users user = userDao.getUserByEmail(username);
     if(user.getUuid() != token.getUser().getUuid()) {
       throw new  InvalidTokenException("Token not found for user");
     }

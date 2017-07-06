@@ -23,9 +23,9 @@ public class Users implements Serializable {
   @Column(name = "uuid", columnDefinition = "BINARY(16)", updatable = false, nullable = false)
   private UUID uuid;
 
-  @Column(name = "username")
+  @Column(name = "email")
   @NotEmpty
-  private String username;
+  private String email;
 
   @Column(name = "password")
   @NotEmpty
@@ -44,12 +44,12 @@ public class Users implements Serializable {
     return uuid;
   }
 
-  public String getUsername() {
-    return username;
+  public String getEmail() {
+    return email;
   }
 
-  public void setUsername(String username) {
-    this.username = username;
+  public void setEmail(String email) {
+    this.email = email;
   }
 
   public String getPassword() {
