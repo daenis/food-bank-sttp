@@ -6,6 +6,7 @@ import com.opendatadelaware.feede.controller.responses.Success;
 import com.opendatadelaware.feede.controller.utils.RequestBodyMapper;
 import com.opendatadelaware.feede.controller.utils.UserAuthValidator;
 import com.opendatadelaware.feede.dao.UsersDao;
+import com.opendatadelaware.feede.error.UserNotFoundException;
 import com.opendatadelaware.feede.model.Users;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,7 @@ public class UsersService extends AbstractService<UsersDao> {
     return new BadRequest(failureMessage).makeResponse(HttpStatus.BAD_REQUEST);
   }
 
-  public Users getUserFromEmail(String email) {
-
+  public EntityWrapper<Users> getUserFromEmail(String email) throws UserNotFoundException {
+    return EntityWrapper.makeWrapper(dao.getUserByEmail(email).orElseThrow(UserNotFoundException::new));
   }
 }

@@ -9,8 +9,9 @@ import org.hibernate.search.query.dsl.QueryBuilder;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 import java.util.Date;
-import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -28,17 +29,21 @@ public class TokenDao extends AbstractDao<Token, UUID> {
     entityManager = em;
   }
 
-  public Token getTokenFromUUID(String uuid) {
-    FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
-    final QueryBuilder queryBuilder = fullTextEntityManager
-            .getSearchFactory()
-            .buildQueryBuilder().forEntity(Token.class).get();
-    Query query = queryBuilder
-                          .bool()
-                            .must(queryBuilder.keyword().onField("token").matching(uuid).createQuery())
-                            .must(queryBuilder.keyword().onField("active").matching(true).createQuery())
-                            .must(queryBuilder.range().onField("expiration_date").above(new Date()).createQuery())
-                            .createQuery();
-    return (Token) fullTextEntityManager.createFullTextQuery(query).getSingleResult();
+  public Optional<Token> getTokenEntityFromJTI(String uuid) {
+    try {
+      FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
+      final QueryBuilder queryBuilder = fullTextEntityManager
+              .getSearchFactory()
+              .buildQueryBuilder().forEntity(Token.class).get();
+      Query query = queryBuilder
+              .bool()
+              .must(queryBuilder.keyword().onField("token").matching(uuid).createQuery())
+              .must(queryBuilder.keyword().onField("active").matching(true).createQuery())
+              .must(queryBuilder.range().onField("expiration_date").above(new Date()).createQuery())
+              .createQuery();
+      return Optional.of((Token) fullTextEntityManager.createFullTextQuery(query).getSingleResult());
+    } catch (PersistenceException e) {
+      return Optional.empty();
+    }
   }
 }
