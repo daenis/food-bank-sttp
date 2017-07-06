@@ -36,7 +36,6 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
         List<GrantedAuthority> authorities = scopes.stream()
                 .map(authority -> new SimpleGrantedAuthority(authority))
                 .collect(Collectors.toList());
-
         return new JwtAuthenticationToken(jwtToken, authorities);
     }
 

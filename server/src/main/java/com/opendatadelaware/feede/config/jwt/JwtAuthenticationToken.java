@@ -12,6 +12,7 @@ import java.util.Collection;
 public class JwtAuthenticationToken extends AbstractAuthenticationToken {
 
     private JwtToken jwtToken;
+    private Token tokenModel;
 
     public JwtAuthenticationToken(JwtToken unsafeToken) {
         super(null);
@@ -26,6 +27,14 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
         super.setAuthenticated(true);
     }
 
+    public JwtAuthenticationToken(JwtToken token, Token tokenModel, Collection<? extends GrantedAuthority> authorities) {
+        super(authorities);
+        eraseCredentials();
+        jwtToken = token;
+        this.tokenModel = tokenModel;
+        super.setAuthenticated(true);
+    }
+
     @Override
     public void setAuthenticated(boolean authenticated) {
         if (authenticated) {
@@ -36,13 +45,13 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
     }
 
     @Override
-    public Object getCredentials() {
+    public JwtToken getCredentials() {
         return jwtToken;
     }
 
     @Override
-    public Object getPrincipal() {
-        return jwtToken;
+    public Token getPrincipal() {
+        return tokenModel;
     }
 
     @Override
