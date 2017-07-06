@@ -12,13 +12,63 @@ import java.util.Date;
  */
 public class AuthenticationExceptionConsumer {
 
+    private String message;
+    private ErrorCodes code;
+    private static final HttpStatus status = HttpStatus.UNAUTHORIZED;
+
+    private enum ErrorCodes {
+        TOKEN_EXPIRED("Token has expired"),
+        BAD_CREDENTIALS("Invalid username or password"),
+        AUTHENTICATION("Authorization couldn't be provide");
+
+        private String error;
+
+        ErrorCodes(String theError) {
+            error = theError;
+        }
+
+        public String getError() {
+            return this.error;
+        }
+    }
+
     private AuthenticationExceptionConsumer(BadCredentialsException e) {
+        setExceptionMessage(e);
+        code = ErrorCodes.BAD_CREDENTIALS;
+
     }
 
     private AuthenticationExceptionConsumer(JwtExpiredTokenException e) {
+        setExceptionMessage(e);
+        code = ErrorCodes.TOKEN_EXPIRED;
     }
 
     private AuthenticationExceptionConsumer(AuthenticationException e) {
+        setExceptionMessage(e);
+        code = ErrorCodes.AUTHENTICATION;
+    }
+
+    private void setExceptionMessage(Exception e) {
+        message = e.getMessage();
+    }
+
+    private class ErrorResponse {
+        private final HttpStatus status;
+        private final String message;
+        private final String errorCode;
+        private final Date timestamp;
+
+        public ErrorResponse() {
+            status = AuthenticationExceptionConsumer.status;
+            message = AuthenticationExceptionConsumer.this.message;
+            errorCode = AuthenticationExceptionConsumer.this.code.getError();
+            timestamp = new Date();
+        }
+
+    }
+
+    public ErrorResponse getErrorResponse() {
+        return new ErrorResponse();
     }
 
     public static AuthenticationExceptionConsumer factory(AuthenticationException e) {
