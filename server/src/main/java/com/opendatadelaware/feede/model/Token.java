@@ -54,4 +54,22 @@ public class Token implements Serializable {
   @Convert(converter = TokenConverter.class)
   @Column(name = "token_type", nullable = false, updatable = false)
   private TokenField tokenType;
+
+  public Users getUser() {
+    return user;
+  }
+
+  public Token setUser(Users user) {
+    this.user = user;
+    return this;
+  }
+
+  public TokenField getTokenType() {
+    return tokenType;
+  }
+
+  public Token setTokenType(TokenField tokenType) {
+    this.tokenType = tokenType;
+    return this;
+  }
 }

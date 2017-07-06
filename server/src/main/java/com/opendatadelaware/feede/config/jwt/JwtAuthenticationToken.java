@@ -20,13 +20,6 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
         setAuthenticated(false);
     }
 
-    public JwtAuthenticationToken(JwtToken token, Collection<? extends GrantedAuthority> authorities) {
-        super(authorities);
-        eraseCredentials();
-        jwtToken = token;
-        super.setAuthenticated(true);
-    }
-
     public JwtAuthenticationToken(JwtToken token, Token tokenModel, Collection<? extends GrantedAuthority> authorities) {
         super(authorities);
         eraseCredentials();
