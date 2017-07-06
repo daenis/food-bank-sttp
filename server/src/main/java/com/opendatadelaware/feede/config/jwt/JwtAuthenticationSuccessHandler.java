@@ -4,12 +4,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.opendatadelaware.feede.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
@@ -33,5 +35,15 @@ public class JwtAuthenticationSuccessHandler implements AuthenticationSuccessHan
                                       Authentication authentication)
           throws IOException, ServletException {
 
+  }
+
+  protected final void clearAuthenticationAttributes(HttpServletRequest request) {
+    HttpSession session = request.getSession(false);
+
+    if (session == null) {
+      return;
+    }
+
+    session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
   }
 }
