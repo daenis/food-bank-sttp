@@ -40,6 +40,10 @@ public class Users implements Serializable {
   @Column(name = "type")
   private String type;
 
+  public UUID getUuid() {
+    return uuid;
+  }
+
   public String getUsername() {
     return username;
   }
