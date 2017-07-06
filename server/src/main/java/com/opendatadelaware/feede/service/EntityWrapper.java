@@ -1,7 +1,7 @@
 package com.opendatadelaware.feede.service;
 
-import javax.swing.text.html.parser.Entity;
 import java.io.Serializable;
+import java.util.Optional;
 
 /**
  * Created by aaronlong on 7/6/17.
@@ -10,8 +10,11 @@ public class EntityWrapper<T extends Serializable> {
 
   private T entityObject;
   private boolean populated;
-  private EntityWrapper(T entity) {
-    entityObject = entity;
+  private EntityWrapper(Optional<T> entity) {
+    populated = entity.isPresent();
+    if (populated) {
+      entityObject = entity.get();
+    }
   }
 
   public T getEntityObject() {
@@ -22,7 +25,7 @@ public class EntityWrapper<T extends Serializable> {
     return populated;
   }
 
-  public static <T extends Serializable> EntityWrapper<T> makeWrapper(T entity) {
+  public static <T extends Serializable> EntityWrapper<T> makeWrapper(Optional<T> entity) {
     return new EntityWrapper<>(entity);
   }
 }

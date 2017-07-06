@@ -1,5 +1,6 @@
 package com.opendatadelaware.feede.service;
 
+import com.opendatadelaware.feede.config.jwt.JwtToken;
 import com.opendatadelaware.feede.dao.TokenDao;
 import com.opendatadelaware.feede.error.InvalidTokenException;
 import com.opendatadelaware.feede.model.Token;
@@ -14,12 +15,14 @@ import java.util.Optional;
 @Service
 public class TokenService extends AbstractService<TokenDao> {
 
-  private EntityWrapper<Token> loadTokenTableFromJtiToken(String jtiToken) {
+  public EntityWrapper<Token> getTokenTableFromJtiToken(String jtiToken) {
     Optional<Token> token = dao.getTokenEntityFromJTI(jtiToken);
-    return token.isPresent() ? EntityWrapper.makeWrapper();
+    return EntityWrapper.makeWrapper(token);
   }
 
-  public boolean validateUserFromToken(String jtiToken, EntityWrapper<Users> user) {
-
+  public boolean validateUserFromToken(EntityWrapper<Token> token, EntityWrapper<Users> user) {
+    return token.getEntityObject().getUser().getUuid() == user.getEntityObject().getUuid();
   }
+
+  public JwtToken createToken
 }
