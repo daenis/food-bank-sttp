@@ -33,7 +33,7 @@ public class Items implements Serializable {
   private String description;
 
   @Column(name = "quantity")
-  private Double quantity;
+  private String quantity;
 
   @ManyToOne(fetch= FetchType.EAGER)
   @JoinColumn(name = "order_number", referencedColumnName = "uuid")
@@ -57,11 +57,11 @@ public class Items implements Serializable {
     return this;
   }
 
-  public Double getQuantity() {
+  public String getQuantity() {
     return quantity;
   }
 
-  public Items setQuantity(Double quantity) {
+  public Items setQuantity(String quantity) {
     this.quantity = quantity;
     return this;
   }

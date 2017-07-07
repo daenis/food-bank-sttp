@@ -23,18 +23,16 @@ import java.util.UUID;
 @RestController
 public class OrdersController {
 
-    private OrdersDao dao;
     private OrdersService service;
 
     @Autowired
     public void setOrderService(OrdersService orderService) {
         service = orderService;
-        service.setDao(dao);
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public ResponseEntity<Orders> postOrder(@RequestBody Orders order) {
-        dao.create(order);
+        service.postOrder(order);
         HttpHeaders responseHeaders = new HttpHeaders();
         URI newOrderURI = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -47,12 +45,12 @@ public class OrdersController {
 
     @RequestMapping(value = "/{uuid}/", method = RequestMethod.GET)
     public ResponseEntity<?> getOrderByID(@PathVariable UUID uuid) {
-        return new ResponseEntity<>(dao.getById(uuid), HttpStatus.OK);
+        return new ResponseEntity<>(service.getOrderByID(uuid), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{uuid}/", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteOrderById(@PathVariable UUID uuid) {
-        dao.deleteById(uuid);
+        service.deleteOrderById(uuid);
         return new Success().makeResponse(HttpStatus.OK);
     }
 

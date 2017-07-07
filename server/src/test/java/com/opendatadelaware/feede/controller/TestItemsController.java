@@ -54,7 +54,7 @@ public class TestItemsController {
         MockitoAnnotations.initMocks(this);
         mvc = MockMvcBuilders.standaloneSetup(controller).build();
         uuid = UUID.randomUUID();
-        items = new Items().setUUID(uuid).setQuantity(10.00)
+        items = new Items().setUUID(uuid).setQuantity("10")
                             .setDescription("Good Food").setCategory("Food");
     }
 
@@ -75,7 +75,7 @@ public class TestItemsController {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(jsonPath("$.uuid").value(uuid.toString()))
-                .andExpect(jsonPath("$.quantity").value(10.00))
+                .andExpect(jsonPath("$.quantity").value("10"))
                 .andExpect(jsonPath("$.description").value("Good Food"))
                 .andExpect(jsonPath("$.category").value("Food"));
     }
