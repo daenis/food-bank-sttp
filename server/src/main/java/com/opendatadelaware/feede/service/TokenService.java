@@ -27,4 +27,8 @@ public class TokenService extends AbstractService<TokenDao> {
   public JwtToken createToken() {
     return JwtToken.createTokenInstance("");
   }
+
+  public EntityWrapper<Token> confirmToken(JwtToken jwtToken) throws InvalidTokenException {
+
+  }
 }

@@ -1,12 +1,12 @@
 package com.opendatadelaware.feede.error;
 
-import java.io.IOException;
+import io.jsonwebtoken.JwtException;
 
 
 /**
  * Created by aaronlong on 7/5/17.
  */
-public class InvalidTokenException extends IOException {
+public class InvalidTokenException extends JwtException {
   final static String message = "Your token has expired or been corrupted";
   public InvalidTokenException() {
     super(message);

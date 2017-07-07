@@ -1,6 +1,5 @@
 package com.opendatadelaware.feede.config.jwt;
 
-import com.opendatadelaware.feede.error.InvalidTokenException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +35,7 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
         List<GrantedAuthority> authorities = scopes.stream()
                 .map(authority -> new SimpleGrantedAuthority(authority))
                 .collect(Collectors.toList());
+
         return new JwtAuthenticationToken(jwtToken, authorities);
     }
 
