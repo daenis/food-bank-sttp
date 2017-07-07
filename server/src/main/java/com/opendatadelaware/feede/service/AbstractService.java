@@ -16,4 +16,5 @@ public abstract class AbstractService <T extends AbstractDao> {
   public void setDao(T daoInstance) {
     dao = daoInstance;
   }
+
 }

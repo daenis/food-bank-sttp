@@ -19,6 +19,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "ITEMS")
 public class Items implements Serializable {
+
   @Id
   @GeneratedValue(generator = "uuid2")
   @GenericGenerator(name = "uuid2", strategy = "uuid2")
@@ -32,7 +33,7 @@ public class Items implements Serializable {
   private String description;
 
   @Column(name = "quantity")
-  private Double quantity;
+  private String quantity;
 
   @ManyToOne(fetch= FetchType.EAGER)
   @JoinColumn(name = "order_number", referencedColumnName = "uuid")
@@ -42,24 +43,27 @@ public class Items implements Serializable {
     return category;
   }
 
-  public void setCategory(String category) {
+  public Items setCategory(String category) {
     this.category = category;
+    return this;
   }
 
   public String getDescription() {
     return description;
   }
 
-  public void setDescription(String description) {
+  public Items setDescription(String description) {
     this.description = description;
+    return this;
   }
 
-  public Double getQuantity() {
+  public String getQuantity() {
     return quantity;
   }
 
-  public void setQuantity(Double quantity) {
+  public Items setQuantity(String quantity) {
     this.quantity = quantity;
+    return this;
   }
 
   public Orders getOrderNumber() {
@@ -69,4 +73,15 @@ public class Items implements Serializable {
   public void setOrderNumber(Orders orderNumber) {
     this.orderNumber = orderNumber;
   }
+
+  public UUID getUUID() {
+    return uuid;
+  }
+
+  public Items setUUID(UUID uuid) {
+    this.uuid = uuid;
+    return this;
+  }
+
+
 }
