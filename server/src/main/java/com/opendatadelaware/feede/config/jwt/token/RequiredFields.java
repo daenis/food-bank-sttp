@@ -9,8 +9,8 @@ import java.util.Optional;
  */
 public enum RequiredFields {
 
-    SUBJECT(""), ISSUED(""), EXPIRATION(""),
-    ISSUER(""), JTI("");
+    SUBJECT("sub"), ISSUED("iat"), EXPIRATION("exp"),
+    ISSUER("iss"), JWT_ID("jti");
 
     private String fieldName;
 
