@@ -1,6 +1,8 @@
 package com.opendatadelaware.feede.config.jwt.token;
 
 import com.opendatadelaware.feede.exception.JwtExpiredTokenException;
+import com.opendatadelaware.feede.service.TokenService;
+import com.opendatadelaware.feede.service.UsersService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jws;
@@ -13,23 +15,31 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.BadCredentialsException;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Created by aaronlong on 7/7/17.
  */
 public class JwtToken {
   private static Logger LOGGER = LoggerFactory.getLogger(JwtToken.class);
   private static String HEADER_PREFIX = "Bearer ";
-  private String token;
+  private final String tokenAsString;
+  private final String tokenSigningKey;
+  private Claims claims;
 
-  private JwtToken(String token) {
-    this.token = token;
+  private JwtToken(String token, String signingKey) {
+    tokenAsString = token;
+    tokenSigningKey = signingKey;
+    claims = parseClaims();
   }
 
-  public static JwtToken createTokenInstance(String token) {
-    return new JwtToken(token);
+  public static JwtToken createTokenInstance(String token, String signingKey) {
+    return new JwtToken(token, signingKey);
   }
 
-  public static JwtToken createTokenInstanceFromHeader(String header) {
+  public static JwtToken createTokenInstanceFromHeader(String header, String signingKey) {
     if (header == null && header.isEmpty()) {
       throw new AuthenticationServiceException("Authorization Header cannot be blank!");
     }
@@ -38,12 +48,12 @@ public class JwtToken {
       throw new AuthenticationServiceException("Invalid authorization header size.");
     }
     String token = header.substring(HEADER_PREFIX.length(), header.length());
-    return new JwtToken(token);
+    return new JwtToken(token, signingKey);
   }
 
-  public Jws<Claims> parseClaims(String signingKey) {
+  private Claims parseClaims() {
     try {
-      return Jwts.parser().setSigningKey(signingKey).parseClaimsJws(this.token);
+      return Jwts.parser().setSigningKey(tokenSigningKey).parseClaimsJws(tokenAsString).getBody();
     } catch (UnsupportedJwtException | MalformedJwtException | IllegalArgumentException | SignatureException ex) {
       LOGGER.error("Invalid JWT Token", ex);
       throw new BadCredentialsException("Invalid JWT token: ", ex);
@@ -53,7 +63,16 @@ public class JwtToken {
     }
   }
 
-  public String getToken() {
-    return token;
+  public String getTokenString() {
+    return tokenAsString;
+  }
+
+  public Claims getTokenClaims() {
+    return claims;
+  }
+
+  public boolean confirmTokenViaEntities(TokenService tokenService, UsersService usersService) {
+    
+    return false;
   }
 }
