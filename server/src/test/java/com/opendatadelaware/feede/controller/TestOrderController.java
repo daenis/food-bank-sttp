@@ -23,10 +23,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import com.opendatadelaware.feede.model.Orders;
 import com.opendatadelaware.feede.controller.responses.Success;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.time.Instant;
 import java.util.Date;
@@ -86,7 +84,7 @@ public class TestOrderController {
     public void testGetByIDMethodShouldFailDueToWrongUUID() throws Exception {
         UUID random = UUID.randomUUID();
         when(dao.read(order.getUUID())).thenReturn(order);
-        mvc.perform(get("/api/orders/{random}/", random))
+        mvc.perform(get("/api/orders/{random}/", random).accept(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.uuid").doesNotExist())
                 .andExpect(jsonPath("$.user.username").doesNotExist());
     }
@@ -105,8 +103,6 @@ public class TestOrderController {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(orderAsJsonString))
                 .andExpect(status().isCreated());
-//        mvc.perform(get())
-
     }
 
     @Test
