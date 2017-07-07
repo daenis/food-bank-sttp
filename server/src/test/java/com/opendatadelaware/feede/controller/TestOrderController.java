@@ -3,6 +3,7 @@ package com.opendatadelaware.feede.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.opendatadelaware.feede.controller.responses.Response;
 import com.opendatadelaware.feede.dao.OrdersDao;
+import com.opendatadelaware.feede.model.Users;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,8 +24,11 @@ import com.opendatadelaware.feede.model.Orders;
 import com.opendatadelaware.feede.controller.responses.Success;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.mockito.Mockito.when;
+
+import java.time.Instant;
 import java.util.Date;
 
 
@@ -54,34 +58,49 @@ public class TestOrderController {
 
     @Test
     public void testGetByIDMethodShouldPass() throws Exception {
-        Orders order = new Orders();
-        UUID uuid = UUID.randomUUID();
-        when(dao.read(uuid)).thenReturn(order);
-        mvc.perform(get("/api/orders/{uuid}/", uuid))
+        Users user = new Users();
+        Orders order = new Orders().setUUID(UUID.randomUUID()).setDateTime(Date.from(Instant.now())).setUser(user);
+        UUID uuid = order.getUUID();
+        when(dao.getById(order.getUUID())).thenReturn(order);
+        mvc.perform(get("/api/orders/{uuid}/", uuid).accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE));
+                .andExpect(jsonPath("$.uuid").exists())
+                .andExpect(jsonPath("$.uuid").value(order.getUUID().toString()))
+                .andExpect(jsonPath("$.user").exists())
+                .andExpect(jsonPath("$.user").value(user));
     }
 
     @Test
     public void testGetByIDMethodShouldFailDueToWrongEndpoint() throws Exception {
-        Orders order = new Orders();
-        UUID uuid = UUID.randomUUID();
-        when(dao.read(uuid)).thenReturn(order);
-        mvc.perform(get("/api/orders/", uuid))
+        Users user = new Users();
+        Orders order = new Orders().setUUID(UUID.randomUUID()).setDateTime(Date.from(Instant.now())).setUser(user);
+        when(dao.read(order.getUUID())).thenReturn(order);
+        mvc.perform(get("/api/orders/", order.getUUID()))
+                .andExpect(status().is4xxClientError());
+    }
+
+    @Test
+    public void testGetByIDMethodShouldFailDueToWrongUUID() throws Exception {
+        Users user = new Users();
+        Orders order = new Orders().setUUID(UUID.randomUUID()).setDateTime(Date.from(Instant.now())).setUser(user);
+        UUID uuid = order.getUUID();
+        UUID random = UUID.randomUUID();
+        when(dao.read(order.getUUID())).thenReturn(order);
+        mvc.perform(get("/api/orders/{uuid}", random))
                 .andExpect(status().is4xxClientError());
     }
 
     @Test
     public void testSuccessfulPost() throws Exception {
-        Orders order = new Orders();
-        UUID uuid = UUID.randomUUID();
+        Users user = new Users();
+        Orders order = new Orders().setUUID(UUID.randomUUID()).setDateTime(Date.from(Instant.now())).setUser(user);
         String orderAsJsonString;
         try {
             orderAsJsonString = new ObjectMapper().writeValueAsString(order);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        when(dao.create(order)).thenReturn(uuid);
+        when(dao.create(order)).thenReturn(order.getUUID());
         mvc.perform(post("/api/orders/")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(orderAsJsonString))
@@ -90,8 +109,8 @@ public class TestOrderController {
 
     @Test
     public void testPostWithIncorrectEndpoint() throws Exception {
-        Orders order = new Orders();
-        UUID uuid = order.getUUID();
+        Users user = new Users();
+        Orders order = new Orders().setUUID(UUID.randomUUID()).setDateTime(Date.from(Instant.now())).setUser(user);
         String orderAsJsonString;
         try {
             orderAsJsonString = new ObjectMapper().writeValueAsString(order);
