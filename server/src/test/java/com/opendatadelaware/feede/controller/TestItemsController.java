@@ -21,8 +21,10 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.List;
 import java.util.UUID;
 
+import static org.mockito.Mockito.reset;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.mockito.Mockito.when;
 
@@ -68,26 +70,37 @@ public class TestItemsController {
 
     @Test
     public void testGetByUUID() throws Exception {
-
         when(itemsDao.read(uuid)).thenReturn(items);
         mvc.perform(get("/api/items/{uuid}/", uuid))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE));
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(jsonPath("$.uuid").value(uuid.toString()))
+                .andExpect(jsonPath("$.quantity").value(10.00))
+                .andExpect(jsonPath("$.description").value("Good Food"))
+                .andExpect(jsonPath("$.category").value("Food"));
+    }
+
+    @Test
+    public void testUUIDDoesNotExist() throws Exception {
+        UUID random = UUID.randomUUID();
+        when(itemsDao.read(items.getUuid())).thenReturn(items);
+        mvc.perform(get("/api/items/{random}/", random)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.uuid").doesNotExist())
+                .andExpect(jsonPath("$.user.username").doesNotExist());
     }
 
     @Test
     public void testDeleteByUUID() throws Exception {
-        Items items = new Items();
-        UUID uuid = UUID.randomUUID();
         when(itemsDao.deleteByUUID(uuid)).thenReturn(items);
         mvc.perform(delete("/api/items/{uuid}/", uuid)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
+
+
     @Test
     public void testSuccessfulPost() throws Exception {
-        Items items = new Items();
-        UUID uuid = UUID.randomUUID();
         String itemsAsJsonString;
         try {
             itemsAsJsonString = new ObjectMapper().writeValueAsString(items);
@@ -100,5 +113,14 @@ public class TestItemsController {
                 .content(itemsAsJsonString))
                 .andExpect(status().isCreated());
     }
+
+    @Test
+    public void testFailureDueToIncorrectEndPoint() throws Exception {
+        when(itemsDao.read(items.getUuid())).thenReturn(items);
+        mvc.perform(get("/api/items/", uuid)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().is4xxClientError());
+    }
+
 
 }
