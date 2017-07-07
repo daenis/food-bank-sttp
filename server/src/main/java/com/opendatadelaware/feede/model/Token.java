@@ -1,7 +1,7 @@
 package com.opendatadelaware.feede.model;
 
 import com.opendatadelaware.feede.model.converters.TokenConverter;
-import com.opendatadelaware.feede.model.fields.TokenField;
+import com.opendatadelaware.feede.model.fields.TokenType;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Column;
@@ -53,7 +53,43 @@ public class Token implements Serializable {
 
   @Convert(converter = TokenConverter.class)
   @Column(name = "token_type", nullable = false, updatable = false)
-  private TokenField tokenType;
+  private TokenType tokenType;
+
+  public UUID getUuid() {
+    return uuid;
+  }
+
+  public Token setUuid(UUID uuid) {
+    this.uuid = uuid;
+    return this;
+  }
+
+  public UUID getToken() {
+    return token;
+  }
+
+  public Token setToken(UUID token) {
+    this.token = token;
+    return this;
+  }
+
+  public Date getCreationTime() {
+    return creationTime;
+  }
+
+  public Token setCreationTime(Date creationTime) {
+    this.creationTime = creationTime;
+    return this;
+  }
+
+  public Date getExpirationTime() {
+    return expirationTime;
+  }
+
+  public Token setExpirationTime(Date expirationTime) {
+    this.expirationTime = expirationTime;
+    return this;
+  }
 
   public Users getUser() {
     return user;
@@ -64,11 +100,20 @@ public class Token implements Serializable {
     return this;
   }
 
-  public TokenField getTokenType() {
+  public boolean isActive() {
+    return active;
+  }
+
+  public Token setActive(boolean active) {
+    this.active = active;
+    return this;
+  }
+
+  public TokenType getTokenType() {
     return tokenType;
   }
 
-  public Token setTokenType(TokenField tokenType) {
+  public Token setTokenType(TokenType tokenType) {
     this.tokenType = tokenType;
     return this;
   }

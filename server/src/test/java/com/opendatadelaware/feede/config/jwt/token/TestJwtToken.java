@@ -94,5 +94,5 @@ public class TestJwtToken {
         String result = claims.getId();
         Assert.assertEquals("Assert that token Id is generated correctly", prediction, result);
     }
-    
+
 }
