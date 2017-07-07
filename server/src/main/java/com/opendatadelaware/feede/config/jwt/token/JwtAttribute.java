@@ -11,10 +11,6 @@ public interface JwtAttribute {
 
   String getAttributeName();
 
-  void setAttributeName(String attribute);
-
   String getAttributeValue();
-
-  void setAttributeValue(String value);
 
 }

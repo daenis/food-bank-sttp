@@ -5,8 +5,13 @@ package com.opendatadelaware.feede.config.jwt.token;
  */
 public class Claim implements JwtAttribute {
 
-  private String attributeName;
-  private String attributeValue;
+  private final String attributeName;
+  private final String attributeValue;
+
+  public Claim(String name, String value) {
+    attributeName = name;
+    attributeValue = value;
+  }
 
   @Override
   public String getAttributeType() {
@@ -19,17 +24,8 @@ public class Claim implements JwtAttribute {
   }
 
   @Override
-  public void setAttributeName(String attribute) {
-    attributeName = attribute;
-  }
-
-  @Override
   public String getAttributeValue() {
     return attributeValue;
   }
 
-  @Override
-  public void setAttributeValue(String value) {
-    attributeValue = value;
-  }
 }
