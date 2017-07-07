@@ -48,39 +48,44 @@ public class Users implements Serializable {
     return email;
   }
 
-  public void setEmail(String email) {
+  public Users setEmail(String email) {
     this.email = email;
+    return this;
   }
 
   public String getPassword() {
     return password;
   }
 
-  public void setPassword(String password) {
+  public Users setPassword(String password) {
     this.password = password;
+    return this;
   }
 
   public String getPhone() {
     return phone;
   }
 
-  public void setPhone(String phone) {
+  public Users setPhone(String phone) {
     this.phone = phone;
+    return this;
   }
 
   public String getLocation() {
     return location;
   }
 
-  public void setLocation(String location) {
+  public Users setLocation(String location) {
     this.location = location;
+    return this;
   }
 
   public String getType() {
     return type;
   }
 
-  public void setType(String type) {
+  public Users setType(String type) {
     this.type = type;
+    return this;
   }
 }

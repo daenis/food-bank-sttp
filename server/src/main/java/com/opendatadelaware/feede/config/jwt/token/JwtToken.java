@@ -21,6 +21,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Created by aaronlong on 7/7/17.
@@ -41,6 +42,11 @@ public class JwtToken {
   private JwtToken(EntityWrapper<Token> token, byte[] signingKey) {
     tokenSigningKey = signingKey;
     tokenAsString = buildToken();
+  }
+
+  public static JwtToken createJwtToken(Token token, byte[] signingKey) {
+    EntityWrapper<Token> newToken = EntityWrapper.makeWrapper(Optional.of(token));
+    return new JwtToken(newToken, signingKey);
   }
 
   public static JwtToken createTokenInstance(String token, byte[] signingKey) {
