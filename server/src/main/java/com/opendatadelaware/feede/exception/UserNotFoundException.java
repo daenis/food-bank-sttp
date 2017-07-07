@@ -1,7 +1,6 @@
-package com.opendatadelaware.feede.error;
+package com.opendatadelaware.feede.exception;
 
 import java.sql.SQLException;
-import java.util.function.Supplier;
 
 /**
  * Created by denniskalaygian on 7/6/17.

@@ -1,4 +1,4 @@
-package com.opendatadelaware.feede.error;
+package com.opendatadelaware.feede.exception;
 
 import com.opendatadelaware.feede.config.jwt.JwtToken;
 import org.springframework.security.core.AuthenticationException;

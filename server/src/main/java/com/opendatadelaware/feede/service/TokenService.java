@@ -2,7 +2,7 @@ package com.opendatadelaware.feede.service;
 
 import com.opendatadelaware.feede.config.jwt.JwtToken;
 import com.opendatadelaware.feede.dao.TokenDao;
-import com.opendatadelaware.feede.error.InvalidTokenException;
+import com.opendatadelaware.feede.exception.InvalidTokenException;
 import com.opendatadelaware.feede.model.Token;
 import com.opendatadelaware.feede.model.Users;
 import org.springframework.stereotype.Service;
@@ -29,6 +29,6 @@ public class TokenService extends AbstractService<TokenDao> {
   }
 
   public EntityWrapper<Token> confirmToken(JwtToken jwtToken) throws InvalidTokenException {
-
+    return EntityWrapper.makeWrapper(Optional.empty());
   }
 }

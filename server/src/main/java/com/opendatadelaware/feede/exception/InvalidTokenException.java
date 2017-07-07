@@ -1,4 +1,4 @@
-package com.opendatadelaware.feede.error;
+package com.opendatadelaware.feede.exception;
 
 import io.jsonwebtoken.JwtException;
 

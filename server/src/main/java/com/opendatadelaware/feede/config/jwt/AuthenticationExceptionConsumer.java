@@ -1,6 +1,6 @@
 package com.opendatadelaware.feede.config.jwt;
 
-import com.opendatadelaware.feede.error.JwtExpiredTokenException;
+import com.opendatadelaware.feede.exception.JwtExpiredTokenException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
