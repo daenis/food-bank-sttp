@@ -4,6 +4,10 @@ package com.opendatadelaware.feede.config.jwt.token;
  * Created by aaronlong on 7/7/17.
  */
 public interface JwtAttribute {
+  String CLAIM = "CLAIM";
+  String PRINCIPAL = "PRINCIPAL";
+
+  String getAttributeType();
 
   String getAttributeName();
 
@@ -11,6 +15,6 @@ public interface JwtAttribute {
 
   String getAttributeValue();
 
-  void setAttributeValue(String attributeValue);
+  void setAttributeValue(String value);
 
 }
