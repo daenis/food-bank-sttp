@@ -3,6 +3,7 @@ package com.opendatadelaware.feede.config.jwt.token;
 import com.opendatadelaware.feede.model.Token;
 import com.opendatadelaware.feede.model.Users;
 import com.opendatadelaware.feede.model.fields.TokenType;
+import com.opendatadelaware.feede.service.EntityWrapper;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -104,15 +105,22 @@ public class TestJwtToken {
         Users user = new Users().setEmail("johndoe@example.com").setPassword("12345").setLocation("19963")
                 .setPhone("3022222222").setType("user");
 
-        Optional<TokenType> tokenType = TokenType.getTypeFromCode("USERS");
+        Date issuedTime = new Date();
 
-        Token predictionToken = new Token().setCreationTime(new Date())
-                .setExpirationTime(new Date(new Date().getTime() + 900000)).setTokenType(tokenType.get())
+        Date expirationTime = new Date(issuedTime.getTime() + 90000);
+
+        Token predictionToken = new Token().setCreationTime(issuedTime)
+                .setExpirationTime(expirationTime).setTokenType(TokenType.USER)
                 .setActive(true).setUser(user);
 
-        String prediction = JwtToken.createJwtToken(predictionToken, key.getEncoded()).getTokenString();
-        String result = JwtToken.createTokenInstance(prediction, key.getEncoded()).getTokenString();
+        EntityWrapper<Token> wrapper = EntityWrapper.makeWrapper(Optional.of(predictionToken));
+
+        String prediction = Jwts.builder().setIssuedAt(issuedTime).setExpiration(expirationTime)
+                .signWith(SignatureAlgorithm.HS512, key).compact();
+
+        String result = JwtToken.createJwtToken(wrapper, key.getEncoded()).getTokenString();
+
         Assert.assertEquals("Checking to see if the token is built", prediction, result);
     }
-    
+
 }

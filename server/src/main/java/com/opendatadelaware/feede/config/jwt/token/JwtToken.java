@@ -1,5 +1,6 @@
 package com.opendatadelaware.feede.config.jwt.token;
 
+import com.opendatadelaware.feede.exception.InvalidTokenException;
 import com.opendatadelaware.feede.exception.JwtExpiredTokenException;
 import com.opendatadelaware.feede.model.Token;
 import com.opendatadelaware.feede.model.Users;
@@ -11,6 +12,7 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
 import org.slf4j.Logger;
@@ -40,13 +42,14 @@ public class JwtToken {
   }
 
   private JwtToken(EntityWrapper<Token> token, byte[] signingKey) {
-    tokenSigningKey = signingKey;
-    tokenAsString = buildToken();
+    if (token.isPopulated()) {
+      tokenSigningKey = signingKey;
+      tokenAsString = buildToken(token.getEntityObject());
+    } else throw new InvalidTokenException();
   }
 
-  public static JwtToken createJwtToken(Token token, byte[] signingKey) {
-    EntityWrapper<Token> newToken = EntityWrapper.makeWrapper(Optional.of(token));
-    return new JwtToken(newToken, signingKey);
+  public static JwtToken createJwtToken(EntityWrapper<Token> token, byte[] signingKey) {
+    return new JwtToken(token, signingKey);
   }
 
   public static JwtToken createTokenInstance(String token, byte[] signingKey) {
@@ -65,8 +68,12 @@ public class JwtToken {
     return new JwtToken(token, signingKey);
   }
 
-  private String buildToken() {
-    return "";
+  private String buildToken(Token token) {
+    return Jwts.builder().setId(token.getToken().toString())
+                          .setExpiration(token.getExpirationTime())
+                          .setIssuedAt(token.getCreationTime())
+                         .setSubject(token.getUser().getEmail())
+            .signWith(SignatureAlgorithm.HS512, tokenSigningKey).compact();
   }
 
   private Claims parseClaims() {
