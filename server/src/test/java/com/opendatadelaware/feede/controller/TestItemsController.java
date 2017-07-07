@@ -35,6 +35,8 @@ public class TestItemsController {
     private static final Logger LOGGER = LoggerFactory.getLogger(TestItemsController.class);
 
     private MockMvc mvc;
+    private Items items;
+    private UUID uuid;
 
     @MockBean
     private ItemsDao itemsDao;
@@ -49,6 +51,9 @@ public class TestItemsController {
     public void init() {
         MockitoAnnotations.initMocks(this);
         mvc = MockMvcBuilders.standaloneSetup(controller).build();
+        uuid = UUID.randomUUID();
+        items = new Items().setUuid(uuid).setQuantity(10.00)
+                            .setDescription("Good Food").setCategory("Food");
     }
 
     private String objectToString(List<Items> p) {
@@ -63,9 +68,7 @@ public class TestItemsController {
 
     @Test
     public void testGetByUUID() throws Exception {
-        Items items = new Items();
-        UUID uuid = UUID.randomUUID();
-        
+
         when(itemsDao.read(uuid)).thenReturn(items);
         mvc.perform(get("/api/items/{uuid}/", uuid))
                 .andExpect(status().isOk())
