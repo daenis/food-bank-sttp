@@ -27,6 +27,6 @@ public enum RequiredFields {
                 .stream()
                 .filter(f -> !attr.containsKey(f))
                 .findAny();
-        return result.isPresent() ? false : true;
+        return !result.isPresent();
     }
 }
