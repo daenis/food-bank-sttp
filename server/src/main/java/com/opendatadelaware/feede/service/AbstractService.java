@@ -3,6 +3,8 @@ package com.opendatadelaware.feede.service;
 import com.opendatadelaware.feede.dao.AbstractDao;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.UUID;
+
 /**
  * Created by aaronlong on 6/27/17.
  * @see <a href =
