@@ -29,25 +29,25 @@ public class JwtToken {
   private static Logger LOGGER = LoggerFactory.getLogger(JwtToken.class);
   private static String HEADER_PREFIX = "Bearer ";
   private final String tokenAsString;
-  private final String tokenSigningKey;
+  private final byte[] tokenSigningKey;
   private Claims claims;
 
-  private JwtToken(String token, String signingKey) {
+  private JwtToken(String token, byte[] signingKey) {
     tokenAsString = token;
     tokenSigningKey = signingKey;
     getTokenClaims();
   }
 
-  private JwtToken(EntityWrapper<Token> token, String signingKey) {
+  private JwtToken(EntityWrapper<Token> token, byte[] signingKey) {
     tokenSigningKey = signingKey;
     tokenAsString = buildToken();
   }
 
-  public static JwtToken createTokenInstance(String token, String signingKey) {
+  public static JwtToken createTokenInstance(String token, byte[] signingKey) {
     return new JwtToken(token, signingKey);
   }
 
-  public static JwtToken createTokenInstanceFromHeader(String header, String signingKey) {
+  public static JwtToken createTokenInstanceFromHeader(String header, byte[] signingKey) {
     if (header == null && header.isEmpty()) {
       throw new AuthenticationServiceException("Authorization Header cannot be blank!");
     }
