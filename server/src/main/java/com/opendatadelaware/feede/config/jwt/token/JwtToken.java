@@ -2,6 +2,7 @@ package com.opendatadelaware.feede.config.jwt.token;
 
 import com.opendatadelaware.feede.exception.JwtExpiredTokenException;
 import com.opendatadelaware.feede.model.Token;
+import com.opendatadelaware.feede.model.Users;
 import com.opendatadelaware.feede.service.EntityWrapper;
 import com.opendatadelaware.feede.service.TokenService;
 import com.opendatadelaware.feede.service.UsersService;
@@ -34,7 +35,12 @@ public class JwtToken {
   private JwtToken(String token, String signingKey) {
     tokenAsString = token;
     tokenSigningKey = signingKey;
-    claims = parseClaims();
+    getTokenClaims();
+  }
+
+  private JwtToken(EntityWrapper<Token> token, String signingKey) {
+    tokenSigningKey = signingKey;
+    tokenAsString = buildToken();
   }
 
   public static JwtToken createTokenInstance(String token, String signingKey) {
@@ -51,6 +57,10 @@ public class JwtToken {
     }
     String token = header.substring(HEADER_PREFIX.length(), header.length());
     return new JwtToken(token, signingKey);
+  }
+
+  private String buildToken() {
+    return "";
   }
 
   private Claims parseClaims() {
@@ -70,6 +80,9 @@ public class JwtToken {
   }
 
   public Claims getTokenClaims() {
+    if (claims == null) {
+      claims = parseClaims();
+    }
     return claims;
   }
 
