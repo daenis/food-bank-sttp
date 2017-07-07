@@ -43,6 +43,8 @@ public class TestOrderController {
     private static final Logger LOGGER = LoggerFactory.getLogger(TestUserController.class);
 
     private MockMvc mvc;
+    private Users user;
+    private Orders order;
 
     @Mock
     OrdersDao dao;
@@ -54,46 +56,44 @@ public class TestOrderController {
     public void init() {
         MockitoAnnotations.initMocks(this);
         mvc = MockMvcBuilders.standaloneSetup(ordersController).build();
+        user = new Users();
+        user.setUsername("markb");
+        order = new Orders().setUUID(UUID.randomUUID()).setDateTime(Date.from(Instant.now())).setUser(user);
+
     }
 
     @Test
     public void testGetByIDMethodShouldPass() throws Exception {
-        Users user = new Users();
-        Orders order = new Orders().setUUID(UUID.randomUUID()).setDateTime(Date.from(Instant.now())).setUser(user);
         UUID uuid = order.getUUID();
         when(dao.getById(order.getUUID())).thenReturn(order);
         mvc.perform(get("/api/orders/{uuid}/", uuid).accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.uuid").exists())
                 .andExpect(jsonPath("$.uuid").value(order.getUUID().toString()))
-                .andExpect(jsonPath("$.user").exists())
-                .andExpect(jsonPath("$.user").value(user));
+                .andExpect(jsonPath("$.user.username").exists())
+                .andExpect(jsonPath("$.user.username").value("markb"));
     }
 
     @Test
     public void testGetByIDMethodShouldFailDueToWrongEndpoint() throws Exception {
-        Users user = new Users();
-        Orders order = new Orders().setUUID(UUID.randomUUID()).setDateTime(Date.from(Instant.now())).setUser(user);
-        when(dao.read(order.getUUID())).thenReturn(order);
-        mvc.perform(get("/api/orders/", order.getUUID()))
+        UUID uuid = order.getUUID();
+        when(dao.getById(order.getUUID())).thenReturn(order);
+        mvc.perform(get("/api/orders/", uuid).accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().is4xxClientError());
     }
 
     @Test
     public void testGetByIDMethodShouldFailDueToWrongUUID() throws Exception {
-        Users user = new Users();
-        Orders order = new Orders().setUUID(UUID.randomUUID()).setDateTime(Date.from(Instant.now())).setUser(user);
-        UUID uuid = order.getUUID();
         UUID random = UUID.randomUUID();
         when(dao.read(order.getUUID())).thenReturn(order);
-        mvc.perform(get("/api/orders/{uuid}", random))
-                .andExpect(status().is4xxClientError());
+        mvc.perform(get("/api/orders/{random}/", random))
+                .andExpect(jsonPath("$.uuid").doesNotExist())
+                .andExpect(jsonPath("$.user.username").doesNotExist());
     }
 
     @Test
     public void testSuccessfulPost() throws Exception {
-        Users user = new Users();
-        Orders order = new Orders().setUUID(UUID.randomUUID()).setDateTime(Date.from(Instant.now())).setUser(user);
+        UUID uuid = order.getUUID();
         String orderAsJsonString;
         try {
             orderAsJsonString = new ObjectMapper().writeValueAsString(order);
@@ -105,6 +105,8 @@ public class TestOrderController {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(orderAsJsonString))
                 .andExpect(status().isCreated());
+//        mvc.perform(get())
+
     }
 
     @Test
