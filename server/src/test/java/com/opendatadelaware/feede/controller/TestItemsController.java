@@ -54,7 +54,7 @@ public class TestItemsController {
         MockitoAnnotations.initMocks(this);
         mvc = MockMvcBuilders.standaloneSetup(controller).build();
         uuid = UUID.randomUUID();
-        items = new Items().setUuid(uuid).setQuantity(10.00)
+        items = new Items().setUUID(uuid).setQuantity(10.00)
                             .setDescription("Good Food").setCategory("Food");
     }
 
@@ -83,7 +83,7 @@ public class TestItemsController {
     @Test
     public void testUUIDDoesNotExist() throws Exception {
         UUID random = UUID.randomUUID();
-        when(itemsDao.read(items.getUuid())).thenReturn(items);
+        when(itemsDao.read(items.getUUID())).thenReturn(items);
         mvc.perform(get("/api/items/{random}/", random)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.uuid").doesNotExist())
@@ -116,7 +116,7 @@ public class TestItemsController {
 
     @Test
     public void testFailureDueToIncorrectEndPoint() throws Exception {
-        when(itemsDao.read(items.getUuid())).thenReturn(items);
+        when(itemsDao.read(items.getUUID())).thenReturn(items);
         mvc.perform(get("/api/items/", uuid)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().is4xxClientError());

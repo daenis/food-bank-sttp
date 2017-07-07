@@ -74,11 +74,11 @@ public class Items implements Serializable {
     this.orderNumber = orderNumber;
   }
 
-  public UUID getUuid() {
+  public UUID getUUID() {
     return uuid;
   }
 
-  public Items setUuid(UUID uuid) {
+  public Items setUUID(UUID uuid) {
     this.uuid = uuid;
     return this;
   }
