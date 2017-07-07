@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.opendatadelaware.feede.controller.responses.Response;
 import com.opendatadelaware.feede.dao.OrdersDao;
 import com.opendatadelaware.feede.model.Users;
+import com.opendatadelaware.feede.service.OrdersService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,6 +14,8 @@ import static org.mockito.Mockito.*;
 import org.mockito.MockitoAnnotations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -44,11 +47,14 @@ public class TestOrderController {
     private Users user;
     private Orders order;
 
-    @Mock
-    OrdersDao dao;
+    @MockBean
+    private OrdersDao ordersDao;
+
+    @SpyBean
+    private OrdersService ordersService;
 
     @InjectMocks
-    OrdersController ordersController;
+    private OrdersController ordersController;
 
     @Before
     public void init() {
@@ -63,7 +69,7 @@ public class TestOrderController {
     @Test
     public void testGetByIDMethodShouldPass() throws Exception {
         UUID uuid = order.getUUID();
-        when(dao.getById(order.getUUID())).thenReturn(order);
+        when(ordersService.getOrderByID(order.getUUID())).thenReturn(order);
         mvc.perform(get("/api/orders/{uuid}/", uuid).accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.uuid").exists())
@@ -75,7 +81,7 @@ public class TestOrderController {
     @Test
     public void testGetByIDMethodShouldFailDueToWrongEndpoint() throws Exception {
         UUID uuid = order.getUUID();
-        when(dao.getById(order.getUUID())).thenReturn(order);
+        when(ordersService.getOrderByID(order.getUUID())).thenReturn(order);
         mvc.perform(get("/api/orders/", uuid).accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().is4xxClientError());
     }
@@ -83,7 +89,7 @@ public class TestOrderController {
     @Test
     public void testGetByIDMethodShouldFailDueToWrongUUID() throws Exception {
         UUID random = UUID.randomUUID();
-        when(dao.read(order.getUUID())).thenReturn(order);
+        when(ordersService.getOrderByID(order.getUUID())).thenReturn(order);
         mvc.perform(get("/api/orders/{random}/", random).accept(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.uuid").doesNotExist())
                 .andExpect(jsonPath("$.user.username").doesNotExist());
@@ -98,7 +104,7 @@ public class TestOrderController {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        when(dao.create(order)).thenReturn(order.getUUID());
+        when(ordersService.postOrder(order)).thenReturn(order.getUUID());
         mvc.perform(post("/api/orders/")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(orderAsJsonString))
@@ -107,15 +113,13 @@ public class TestOrderController {
 
     @Test
     public void testPostWithIncorrectEndpoint() throws Exception {
-        Users user = new Users();
-        Orders order = new Orders().setUUID(UUID.randomUUID()).setDateTime(Date.from(Instant.now())).setUser(user);
         String orderAsJsonString;
         try {
             orderAsJsonString = new ObjectMapper().writeValueAsString(order);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        when(dao.create(order)).thenReturn(order.getUUID());
+        when(ordersService.postOrder(order)).thenReturn(order.getUUID());
         mvc.perform(post("/api/orders")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(orderAsJsonString))
@@ -124,18 +128,18 @@ public class TestOrderController {
 
     @Test
     public void testDeleteById() throws Exception {
-        Orders order = new Orders();
         UUID uuid = UUID.randomUUID();
-        when(dao.read(uuid)).thenReturn(order);
+        when(ordersService.getOrderByID(uuid)).thenReturn(order);
+        doNothing().when(ordersService).deleteOrderById(order.getUUID());
         mvc.perform(delete("/api/orders/{uuid}/", uuid))
                 .andExpect(status().isOk());
     }
 
     @Test
     public void testDeleteByIdFailsBecauseOfIncorrectEndpoint() throws Exception {
-        Orders order = new Orders();
         UUID uuid = UUID.randomUUID();
-        when(dao.read(uuid)).thenReturn(order);
+        when(ordersService.getOrderByID(uuid)).thenReturn(order);
+        doNothing().when(ordersService).deleteOrderById(order.getUUID());
         mvc.perform(delete("/api/orders/", uuid))
                 .andExpect(status().is4xxClientError());
     }

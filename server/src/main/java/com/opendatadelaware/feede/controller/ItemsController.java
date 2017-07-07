@@ -32,13 +32,13 @@ public class ItemsController {
 
     @RequestMapping(value = "/{uuid}/", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteItemByUUID(@PathVariable UUID uuid) {
-        service.deleteOrderById(uuid);
+        service.deleteItemsById(uuid);
         return new Success().makeResponse(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{uuid}/", method = RequestMethod.GET)
     public ResponseEntity<Items> getItemsByUUID(@PathVariable UUID uuid) {
-        return new ResponseEntity<>(service.getOrderByID(uuid), HttpStatus.OK);
+        return new ResponseEntity<>(service.getItemsById(uuid), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)

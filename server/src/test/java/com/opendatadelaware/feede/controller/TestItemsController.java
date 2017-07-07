@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
+import org.mockito.stubbing.Answer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -21,12 +22,11 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.List;
 import java.util.UUID;
 
-import static org.mockito.Mockito.reset;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.mockito.Mockito.when;
 
 /**
  * Created by jarrydstamatelos on 6/30/17.
@@ -70,7 +70,7 @@ public class TestItemsController {
 
     @Test
     public void testGetByUUID() throws Exception {
-        when(itemsDao.read(uuid)).thenReturn(items);
+        when(itemsService.getItemsById(uuid)).thenReturn(items);
         mvc.perform(get("/api/items/{uuid}/", uuid))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
@@ -83,7 +83,7 @@ public class TestItemsController {
     @Test
     public void testUUIDDoesNotExist() throws Exception {
         UUID random = UUID.randomUUID();
-        when(itemsDao.read(items.getUUID())).thenReturn(items);
+        when(itemsService.getItemsById(items.getUUID())).thenReturn(items);
         mvc.perform(get("/api/items/{random}/", random)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.uuid").doesNotExist())
@@ -92,7 +92,8 @@ public class TestItemsController {
 
     @Test
     public void testDeleteByUUID() throws Exception {
-        when(itemsDao.deleteByUUID(uuid)).thenReturn(items);
+        when(itemsService.getItemsById(items.getUUID())).thenReturn(items);
+        doNothing().when(itemsService).deleteItemsById(items.getUUID());
         mvc.perform(delete("/api/items/{uuid}/", uuid)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());

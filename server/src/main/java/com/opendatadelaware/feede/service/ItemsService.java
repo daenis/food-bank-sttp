@@ -28,7 +28,7 @@ public class ItemsService extends AbstractService<ItemsDao> {
     @Autowired
     public void setDao(ItemsDao anItemsDao) { itemsDao = anItemsDao; }
 
-    public Items getOrderByID(UUID uuid) {
+    public Items getItemsById(UUID uuid) {
         return itemsDao.read(uuid);
     }
 
@@ -36,7 +36,7 @@ public class ItemsService extends AbstractService<ItemsDao> {
         return itemsDao.create(items);
     }
 
-    public void deleteOrderById(UUID uuid) {
+    public void deleteItemsById(UUID uuid) {
         itemsDao.deleteByUUID(uuid);
     }
 
