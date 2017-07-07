@@ -1,6 +1,8 @@
 package com.opendatadelaware.feede.config.jwt.token;
 
 import com.opendatadelaware.feede.exception.JwtExpiredTokenException;
+import com.opendatadelaware.feede.model.Token;
+import com.opendatadelaware.feede.service.EntityWrapper;
 import com.opendatadelaware.feede.service.TokenService;
 import com.opendatadelaware.feede.service.UsersService;
 import io.jsonwebtoken.Claims;
@@ -72,7 +74,7 @@ public class JwtToken {
   }
 
   public boolean confirmTokenViaEntities(TokenService tokenService, UsersService usersService) {
-    
-    return false;
+    EntityWrapper<Token> token = tokenService.getTokenEntityFromJtiToken(claims.getId());
+    return tokenService.validateUserFromToken(token, usersService.getUserFromEmail(claims.getSubject()));
   }
 }

@@ -15,7 +15,7 @@ import java.util.Optional;
 @Service
 public class TokenService extends AbstractService<TokenDao> {
 
-  public EntityWrapper<Token> getTokenTableFromJtiToken(String jtiToken) {
+  public EntityWrapper<Token> getTokenEntityFromJtiToken(String jtiToken) {
     Optional<Token> token = dao.getTokenEntityFromJTI(jtiToken);
     return EntityWrapper.makeWrapper(token);
   }
@@ -28,7 +28,4 @@ public class TokenService extends AbstractService<TokenDao> {
     return JwtToken.createTokenInstance("");
   }
 
-  public EntityWrapper<Token> confirmToken(JwtToken jwtToken) throws InvalidTokenException {
-    return EntityWrapper.makeWrapper(Optional.empty());
-  }
 }
