@@ -1,5 +1,6 @@
 package com.opendatadelaware.feede.config.jwt;
 
+import com.opendatadelaware.feede.model.Token;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +36,8 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
         List<GrantedAuthority> authorities = scopes.stream()
                 .map(authority -> new SimpleGrantedAuthority(authority))
                 .collect(Collectors.toList());
-
-        return new JwtAuthenticationToken(jwtToken, authorities);
+        // TODO: Just Do It
+        return new JwtAuthenticationToken(jwtToken, new Token(), authorities);
     }
 
     @Override
