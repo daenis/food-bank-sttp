@@ -53,7 +53,7 @@ public class AuthenticationExceptionConsumer {
         message = e.getMessage();
     }
 
-    private class ErrorResponse implements Serializable {
+    public class ErrorResponse implements Serializable {
         private final HttpStatus status;
         private final String message;
         private final String errorCode;
