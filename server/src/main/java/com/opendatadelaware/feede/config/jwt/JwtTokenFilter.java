@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContext;
@@ -67,5 +68,11 @@ public class JwtTokenFilter extends AbstractAuthenticationProcessingFilter {
                                               HttpServletResponse response,
                                               AuthenticationException failed) throws IOException, ServletException {
         failureHandler.onAuthenticationFailure(request, response, failed);
+    }
+
+    @Autowired
+    @Override
+    public void setAuthenticationManager(AuthenticationManager authenticationManager) {
+        super.setAuthenticationManager(authenticationManager);
     }
 }

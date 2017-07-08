@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 
 /**
  * Created by aaronlong on 6/27/17.
@@ -29,5 +31,9 @@ public class UsersService extends AbstractService<UsersDao> {
 
   public EntityWrapper<Users> getUserFromEmail(String email) {
     return EntityWrapper.makeWrapper(dao.getUserByEmail(email));
+  }
+
+  public EntityWrapper<Users> validateUserForLogin() {
+    return EntityWrapper.makeWrapper(Optional.empty());
   }
 }

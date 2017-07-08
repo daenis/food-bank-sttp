@@ -60,6 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     jwtAuthenticationProvider = theJwtAuthenticationProvider;
   }
 
+  @Autowired
   public void setSuccessHandler(AuthenticationSuccessHandler successHandler) {
     this.successHandler = successHandler;
   }
