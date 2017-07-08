@@ -24,6 +24,7 @@ public class TestJwtToken {
 
     private Key key;
     private String jwt;
+    private Claims claims;
     private static final String BEARER = "Bearer ";
 
     @Before
@@ -32,6 +33,26 @@ public class TestJwtToken {
         jwt = Jwts.builder().setSubject("johndoe@example.net").
                 setIssuer("tariq").setIssuedAt(new Date()).setExpiration(new Date(new Date().getTime() + 90000))
                 .setAudience("Froilan").setId("re4378t476590876").signWith(SignatureAlgorithm.HS512, key).compact();
+    }
+
+    @Before
+    public void setUpForTokenGeneration() {
+        Users user = new Users().setEmail("johndoe@example.com").setPassword("12345").setLocation("19963")
+                             .setPhone("3022222222").setType("user");
+
+        Date issuedTime = new Date();
+
+        Date expirationTime = new Date(issuedTime.getTime() + 90000);
+
+        Token predictionToken = new Token().setCreationTime(issuedTime)
+                                        .setExpirationTime(expirationTime).setTokenType(TokenType.USER)
+                                        .setActive(true).setUser(user).setToken(UUID.randomUUID());
+
+        EntityWrapper<Token> wrapper = EntityWrapper.makeWrapper(Optional.of(predictionToken));
+
+        String result = JwtToken.createJwtToken(wrapper, key.getEncoded()).getTokenString();
+
+        claims = Jwts.parser().setSigningKey(key).parseClaimsJws(result).getBody();
     }
 
     @Test
@@ -102,25 +123,22 @@ public class TestJwtToken {
     }
 
     @Test
-    public void testBuildToken() {
-        Users user = new Users().setEmail("johndoe@example.com").setPassword("12345").setLocation("19963")
-                .setPhone("3022222222").setType("user");
-
-        Date issuedTime = new Date();
-
-        Date expirationTime = new Date(issuedTime.getTime() + 90000);
-
-        Token predictionToken = new Token().setCreationTime(issuedTime)
-                .setExpirationTime(expirationTime).setTokenType(TokenType.USER)
-                .setActive(true).setUser(user).setToken(UUID.randomUUID());
-
-        EntityWrapper<Token> wrapper = EntityWrapper.makeWrapper(Optional.of(predictionToken));
-
-        String result = JwtToken.createJwtToken(wrapper, key.getEncoded()).getTokenString();
-
-        Claims claims = Jwts.parser().setSigningKey(key).parseClaimsJws(result).getBody();
-
-        Assert.assertEquals("Checking to see if the token is built", "johndoe@example.com", claims.getSubject());
+    public void testBuildTokenSubject() {
+        Assert.assertEquals("Checking built token's subject",
+                "johndoe@example.com", claims.getSubject());
     }
+
+    @Test
+    public void testBuildTokenJTI() {
+        Assert.assertTrue("Checking built token's jti",
+                claims.getId() != null);
+    }
+
+    @Test
+    public void testBuildTokenIssueTime() {
+        Assert.assertTrue("Checking built token's expiration",
+                claims.getExpiration().getTime() > new Date().getTime());
+    }
+
 
 }

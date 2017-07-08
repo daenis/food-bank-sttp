@@ -65,7 +65,6 @@ public class JwtToken {
   }
 
   private String buildToken(Token token) {
-    LOGGER.error(token.getToken().toString());
     return Jwts.builder().setId(token.getToken().toString())
                           .setExpiration(token.getExpirationTime())
                           .setIssuedAt(token.getCreationTime())
