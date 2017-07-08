@@ -116,12 +116,11 @@ public class TestJwtToken {
 
         EntityWrapper<Token> wrapper = EntityWrapper.makeWrapper(Optional.of(predictionToken));
 
-        String prediction = Jwts.builder().setIssuedAt(issuedTime).setExpiration(expirationTime)
-                .signWith(SignatureAlgorithm.HS512, key).compact();
-
         String result = JwtToken.createJwtToken(wrapper, key.getEncoded()).getTokenString();
 
-        Assert.assertEquals("Checking to see if the token is built", prediction, result);
+        Claims claims = Jwts.parser().setSigningKey(key).parseClaimsJws(result).getBody();
+
+        Assert.assertEquals("Checking to see if the token is built", "johndoe@example.com", claims.getSubject());
     }
 
 }
