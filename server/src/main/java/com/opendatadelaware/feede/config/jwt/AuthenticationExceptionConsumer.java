@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -52,7 +53,7 @@ public class AuthenticationExceptionConsumer {
         message = e.getMessage();
     }
 
-    private class ErrorResponse {
+    private class ErrorResponse implements Serializable {
         private final HttpStatus status;
         private final String message;
         private final String errorCode;
@@ -65,6 +66,21 @@ public class AuthenticationExceptionConsumer {
             timestamp = new Date();
         }
 
+        public HttpStatus getStatus() {
+            return status;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+
+        public String getErrorCode() {
+            return errorCode;
+        }
+
+        public Date getTimestamp() {
+            return timestamp;
+        }
     }
 
     public ErrorResponse getErrorResponse() {

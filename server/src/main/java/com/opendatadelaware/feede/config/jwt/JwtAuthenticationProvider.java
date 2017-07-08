@@ -31,7 +31,7 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
     public Authentication authenticate(Authentication authentication)
             throws AuthenticationException {
         JwtToken jwtToken = (JwtToken) authentication.getCredentials();
-        Jws<Claims> claims = jwtToken.parseClaims(jwtSettings.getTokenSigningKey());
+        Jws<Claims> claims = jwtToken.parseClaims(jwtSettings.getTokenSigningKey().toString());
         List<String> scopes = claims.getBody().get("scopes", List.class);
         List<GrantedAuthority> authorities = scopes.stream()
                 .map(authority -> new SimpleGrantedAuthority(authority))
