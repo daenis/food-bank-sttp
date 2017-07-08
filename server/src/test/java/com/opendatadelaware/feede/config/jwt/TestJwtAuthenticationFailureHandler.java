@@ -1,6 +1,8 @@
 package com.opendatadelaware.feede.config.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -49,6 +51,16 @@ public class TestJwtAuthenticationFailureHandler {
       stream = new ByteArrayOutputStream();
       writer = new PrintWriter(stream);
       when(response.getWriter()).thenReturn(writer);
+    } catch (IOException e) {
+      LOGGER.error(e.getMessage());
+    }
+  }
+
+  @After
+  public void tearDown() {
+    try {
+      writer.close();
+      stream.close();
     } catch (IOException e) {
       LOGGER.error(e.getMessage());
     }
