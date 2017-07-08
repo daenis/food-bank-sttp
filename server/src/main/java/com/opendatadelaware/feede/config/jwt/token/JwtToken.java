@@ -2,14 +2,12 @@ package com.opendatadelaware.feede.config.jwt.token;
 
 import com.opendatadelaware.feede.exception.InvalidTokenException;
 import com.opendatadelaware.feede.exception.JwtExpiredTokenException;
-import com.opendatadelaware.feede.model.Token;
-import com.opendatadelaware.feede.model.Users;
+import com.opendatadelaware.feede.model.Tokens;
 import com.opendatadelaware.feede.service.EntityWrapper;
 import com.opendatadelaware.feede.service.TokenService;
 import com.opendatadelaware.feede.service.UsersService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -37,14 +35,14 @@ public class JwtToken {
     getTokenClaims();
   }
 
-  private JwtToken(EntityWrapper<Token> token, byte[] signingKey) {
+  private JwtToken(EntityWrapper<Tokens> token, byte[] signingKey) {
     if (token.isPopulated()) {
       tokenSigningKey = signingKey;
       tokenAsString = buildToken(token.getEntityObject());
     } else throw new InvalidTokenException();
   }
 
-  public static JwtToken createJwtToken(EntityWrapper<Token> token, byte[] signingKey) {
+  public static JwtToken createJwtToken(EntityWrapper<Tokens> token, byte[] signingKey) {
     return new JwtToken(token, signingKey);
   }
 
@@ -64,7 +62,7 @@ public class JwtToken {
     return new JwtToken(token, signingKey);
   }
 
-  private String buildToken(Token token) {
+  private String buildToken(Tokens token) {
     return Jwts.builder().setId(token.getToken().toString())
                           .setExpiration(token.getExpirationTime())
                           .setIssuedAt(token.getCreationTime())
@@ -76,11 +74,11 @@ public class JwtToken {
     try {
       return Jwts.parser().setSigningKey(tokenSigningKey).parseClaimsJws(tokenAsString).getBody();
     } catch (UnsupportedJwtException | MalformedJwtException | IllegalArgumentException | SignatureException ex) {
-      LOGGER.error("Invalid JWT Token", ex);
+      LOGGER.error("Invalid JWT Tokens", ex);
       throw new BadCredentialsException("Invalid JWT token: ", ex);
     } catch (ExpiredJwtException expiredEx) {
-      LOGGER.info("JWT Token is expired", expiredEx);
-      throw new JwtExpiredTokenException( "JWT Token expired");
+      LOGGER.info("JWT Tokens is expired", expiredEx);
+      throw new JwtExpiredTokenException( "JWT Tokens expired");
     }
   }
 
@@ -96,7 +94,7 @@ public class JwtToken {
   }
 
   public boolean confirmTokenViaEntities(TokenService tokenService, UsersService usersService) {
-    EntityWrapper<Token> token = tokenService.getTokenEntityFromJtiToken(claims.getId());
+    EntityWrapper<Tokens> token = tokenService.getTokenEntityFromJtiToken(claims.getId());
     return tokenService.validateUserFromToken(token, usersService.getUserFromEmail(claims.getSubject()));
   }
 }

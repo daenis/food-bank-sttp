@@ -1,6 +1,6 @@
 package com.opendatadelaware.feede.config.jwt.token;
 
-import com.opendatadelaware.feede.model.Token;
+import com.opendatadelaware.feede.model.Tokens;
 import com.opendatadelaware.feede.model.Users;
 import com.opendatadelaware.feede.model.fields.TokenType;
 import com.opendatadelaware.feede.service.EntityWrapper;
@@ -44,11 +44,11 @@ public class TestJwtToken {
 
         Date expirationTime = new Date(issuedTime.getTime() + 90000);
 
-        Token predictionToken = new Token().setCreationTime(issuedTime)
+        Tokens predictionToken = new Tokens().setCreationTime(issuedTime)
                                         .setExpirationTime(expirationTime).setTokenType(TokenType.USER)
                                         .setActive(true).setUser(user).setToken(UUID.randomUUID());
 
-        EntityWrapper<Token> wrapper = EntityWrapper.makeWrapper(Optional.of(predictionToken));
+        EntityWrapper<Tokens> wrapper = EntityWrapper.makeWrapper(Optional.of(predictionToken));
 
         String result = JwtToken.createJwtToken(wrapper, key.getEncoded()).getTokenString();
 

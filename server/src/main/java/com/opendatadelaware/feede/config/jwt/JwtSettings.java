@@ -14,7 +14,7 @@ public class JwtSettings {
     private Integer tokenRefreshTime;
 
     /**
-     * Token issuer.
+     * Tokens issuer.
      */
     private String tokenIssuer;
     

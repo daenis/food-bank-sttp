@@ -44,6 +44,11 @@ public class Users implements Serializable {
     return uuid;
   }
 
+  public Users setUuid(UUID uuid) {
+    this.uuid = uuid;
+    return this;
+  }
+
   public String getEmail() {
     return email;
   }

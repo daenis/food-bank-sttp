@@ -24,7 +24,7 @@ import java.util.UUID;
  */
 @Entity
 @Table(name = "TOKENS")
-public class Token implements Serializable {
+public class Tokens implements Serializable {
   @Id
   @GeneratedValue(generator = "uuid2")
   @GenericGenerator(name = "uuid2", strategy = "uuid2")
@@ -59,7 +59,7 @@ public class Token implements Serializable {
     return uuid;
   }
 
-  public Token setUuid(UUID uuid) {
+  public Tokens setUuid(UUID uuid) {
     this.uuid = uuid;
     return this;
   }
@@ -68,7 +68,7 @@ public class Token implements Serializable {
     return token;
   }
 
-  public Token setToken(UUID token) {
+  public Tokens setToken(UUID token) {
     this.token = token;
     return this;
   }
@@ -77,7 +77,7 @@ public class Token implements Serializable {
     return creationTime;
   }
 
-  public Token setCreationTime(Date creationTime) {
+  public Tokens setCreationTime(Date creationTime) {
     this.creationTime = creationTime;
     return this;
   }
@@ -86,7 +86,7 @@ public class Token implements Serializable {
     return expirationTime;
   }
 
-  public Token setExpirationTime(Date expirationTime) {
+  public Tokens setExpirationTime(Date expirationTime) {
     this.expirationTime = expirationTime;
     return this;
   }
@@ -95,7 +95,7 @@ public class Token implements Serializable {
     return user;
   }
 
-  public Token setUser(Users user) {
+  public Tokens setUser(Users user) {
     this.user = user;
     return this;
   }
@@ -104,7 +104,7 @@ public class Token implements Serializable {
     return active;
   }
 
-  public Token setActive(boolean active) {
+  public Tokens setActive(boolean active) {
     this.active = active;
     return this;
   }
@@ -113,7 +113,7 @@ public class Token implements Serializable {
     return tokenType;
   }
 
-  public Token setTokenType(TokenType tokenType) {
+  public Tokens setTokenType(TokenType tokenType) {
     this.tokenType = tokenType;
     return this;
   }

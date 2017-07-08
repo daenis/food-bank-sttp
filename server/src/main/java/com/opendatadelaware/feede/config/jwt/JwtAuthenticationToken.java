@@ -1,6 +1,6 @@
 package com.opendatadelaware.feede.config.jwt;
 
-import com.opendatadelaware.feede.model.Token;
+import com.opendatadelaware.feede.model.Tokens;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -12,7 +12,7 @@ import java.util.Collection;
 public class JwtAuthenticationToken extends AbstractAuthenticationToken {
 
     private JwtToken jwtToken;
-    private Token tokenModel;
+    private Tokens tokenModel;
 
     public JwtAuthenticationToken(JwtToken unsafeToken) {
         super(null);
@@ -20,7 +20,7 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
         setAuthenticated(false);
     }
 
-    public JwtAuthenticationToken(JwtToken token, Token tokenModel, Collection<? extends GrantedAuthority> authorities) {
+    public JwtAuthenticationToken(JwtToken token, Tokens tokenModel, Collection<? extends GrantedAuthority> authorities) {
         super(authorities);
         eraseCredentials();
         jwtToken = token;
@@ -43,7 +43,7 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
     }
 
     @Override
-    public Token getPrincipal() {
+    public Tokens getPrincipal() {
         return tokenModel;
     }
 

@@ -1,7 +1,7 @@
 package com.opendatadelaware.feede.config.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.opendatadelaware.feede.model.Token;
+import com.opendatadelaware.feede.model.Tokens;
 import com.opendatadelaware.feede.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -36,7 +36,7 @@ public class JwtAuthenticationSuccessHandler implements AuthenticationSuccessHan
                                       Authentication authentication)
           throws IOException, ServletException {
 
-    Token accessToken = new Token();
+    Tokens accessToken = new Tokens();
   }
 
   protected final void clearAuthenticationAttributes(HttpServletRequest request) {
