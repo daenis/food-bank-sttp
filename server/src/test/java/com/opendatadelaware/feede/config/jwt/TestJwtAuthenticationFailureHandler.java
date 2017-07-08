@@ -1,7 +1,6 @@
 package com.opendatadelaware.feede.config.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -66,12 +65,22 @@ public class TestJwtAuthenticationFailureHandler {
     }
   }
 
+  private void callErrorRequest(AuthenticationException e) throws IOException, ServletException {
+    failureHandler.onAuthenticationFailure(request, response, e);
+  }
+
+  private void setErrorResponseExpected(AuthenticationException e) {
+    errorResponseExpected = AuthenticationExceptionConsumer.factory(e).getErrorResponse();
+  }
+
   @Test
   public void testBadCredentialsHandling() throws IOException, ServletException {
     exception = new BadCredentialsException("Bad Creds");
-    errorResponseExpected = AuthenticationExceptionConsumer.factory(exception).getErrorResponse();
-    failureHandler.onAuthenticationFailure(request, response, exception);
+    callErrorRequest(exception);
+    setErrorResponseExpected(exception);
     String badCredentialsActual = new String(stream.toByteArray());
     Assert.assertThat(badCredentialsActual, containsString(errorResponseExpected.getErrorCode()));
+    Assert.assertThat(badCredentialsActual, containsString(errorResponseExpected.getMessage()));
+    Assert.assertThat(badCredentialsActual, containsString(errorResponseExpected.getStatus().name()));
   }
 }
