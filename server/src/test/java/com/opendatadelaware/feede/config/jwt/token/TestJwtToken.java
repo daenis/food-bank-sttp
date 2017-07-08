@@ -50,7 +50,7 @@ public class TestJwtToken {
 
         EntityWrapper<Tokens> wrapper = EntityWrapper.makeWrapper(Optional.of(predictionToken));
 
-        String result = JwtToken.createJwtToken(wrapper, key.getEncoded()).getTokenString();
+        String result = JwtToken.createTokenInstance(wrapper, key.getEncoded()).getTokenString();
 
         claims = Jwts.parser().setSigningKey(key).parseClaimsJws(result).getBody();
     }

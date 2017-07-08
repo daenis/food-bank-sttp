@@ -42,7 +42,7 @@ public class JwtToken {
     } else throw new InvalidTokenException();
   }
 
-  public static JwtToken createJwtToken(EntityWrapper<Tokens> token, byte[] signingKey) {
+  public static JwtToken createTokenInstance(EntityWrapper<Tokens> token, byte[] signingKey) {
     return new JwtToken(token, signingKey);
   }
 
