@@ -1,6 +1,7 @@
 package com.opendatadelaware.feede.config.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.opendatadelaware.feede.exception.JwtExpiredTokenException;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -11,6 +12,7 @@ import static org.mockito.Mockito.when;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.core.AuthenticationException;
@@ -73,14 +75,36 @@ public class TestJwtAuthenticationFailureHandler {
     errorResponseExpected = AuthenticationExceptionConsumer.factory(e).getErrorResponse();
   }
 
+  private void runAssertions(String actual) {
+    Assert.assertThat(actual, containsString(errorResponseExpected.getErrorCode()));
+    Assert.assertThat(actual, containsString(errorResponseExpected.getMessage()));
+    Assert.assertThat(actual, containsString(errorResponseExpected.getStatus().name()));
+  }
+
   @Test
   public void testBadCredentialsHandling() throws IOException, ServletException {
     exception = new BadCredentialsException("Bad Creds");
     callErrorRequest(exception);
     setErrorResponseExpected(exception);
     String badCredentialsActual = new String(stream.toByteArray());
-    Assert.assertThat(badCredentialsActual, containsString(errorResponseExpected.getErrorCode()));
-    Assert.assertThat(badCredentialsActual, containsString(errorResponseExpected.getMessage()));
-    Assert.assertThat(badCredentialsActual, containsString(errorResponseExpected.getStatus().name()));
+    runAssertions(badCredentialsActual);
+  }
+
+  @Test
+  public void testExpiredTokenHandling() throws IOException, ServletException {
+    exception = new JwtExpiredTokenException("Expired Token");
+    callErrorRequest(exception);
+    setErrorResponseExpected(exception);
+    String expiredTokenActual = new String(stream.toByteArray());
+    runAssertions(expiredTokenActual);
+  }
+
+  @Test
+  public void testGeneralAuthErrorHandling() throws IOException, ServletException {
+    exception = new AuthenticationCredentialsNotFoundException("General Error");
+    callErrorRequest(exception);
+    setErrorResponseExpected(exception);
+    String expiredTokenActual = new String(stream.toByteArray());
+    runAssertions(expiredTokenActual);
   }
 }
