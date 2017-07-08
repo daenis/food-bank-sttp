@@ -14,6 +14,8 @@ public class BadRequest implements Response {
   @JsonProperty("status")
   private String error;
 
+  private HttpStatus code;
+
   public BadRequest() {
     error = "Your request couldn't be processed as is. Consult the documentation";
   }
@@ -22,8 +24,27 @@ public class BadRequest implements Response {
     error = message;
   }
 
+  @Override
+  public ResponseEntity<? extends Response> makeResponse() {
+    if (code == null) {
+      return new BadRequest()
+                     .setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR)
+                     .makeResponse();
+    }
+    return new ResponseEntity<>(this, code);
+  }
+
   public ResponseEntity<? extends Response> makeResponse(HttpStatus httpCode) {
     return new ResponseEntity<>(this, httpCode);
   }
+
+  @Override
+  public BadRequest setStatusCode(HttpStatus httpCode) {
+    if (httpCode != null) {
+      code = httpCode;
+    }
+    return this;
+  }
+
 
 }

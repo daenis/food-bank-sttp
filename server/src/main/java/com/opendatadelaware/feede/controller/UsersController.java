@@ -39,7 +39,7 @@ public class UsersController {
     if (userSubmission.containsKey("auth")) {
         byte[] jsonRepresentation = Base64.decode(userSubmission.get("auth"));
         RequestBodyMapper<UserAuthValidator> auth = RequestBodyMapper.factory(jsonRepresentation, UserAuthValidator.class);
-        return service.createUserFromRequest(auth);
+        return service.createUserFromRequest(auth).makeResponse();
     }
     return new BadRequest().makeResponse(HttpStatus.BAD_REQUEST);
   }

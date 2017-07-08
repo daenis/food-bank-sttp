@@ -22,11 +22,11 @@ public class UsersService extends AbstractService<UsersDao> {
   private static final String successMessage = "User was created";
   private static final String failureMessage = "User couldn't be create because of missing or invalid properties";
 
-  public ResponseEntity<? extends Response> createUserFromRequest(RequestBodyMapper<UserAuthValidator> authSubmission) {
+  public Response createUserFromRequest(RequestBodyMapper<UserAuthValidator> authSubmission) {
     if (authSubmission.doesExist() && authSubmission.get().isValid()) {
-      return new Success(successMessage).makeResponse(HttpStatus.CREATED);
+      return new Success(successMessage).setStatusCode(HttpStatus.CREATED);
     }
-    return new BadRequest(failureMessage).makeResponse(HttpStatus.BAD_REQUEST);
+    return new BadRequest(failureMessage).setStatusCode(HttpStatus.BAD_REQUEST);
   }
 
   public EntityWrapper<Users> getUserFromEmail(String email) {
