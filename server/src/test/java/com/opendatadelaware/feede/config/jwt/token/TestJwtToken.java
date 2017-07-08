@@ -15,6 +15,7 @@ import org.junit.Test;
 import java.security.Key;
 import java.util.Date;
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * Created by denniskalaygian on 7/7/17.
@@ -111,7 +112,7 @@ public class TestJwtToken {
 
         Token predictionToken = new Token().setCreationTime(issuedTime)
                 .setExpirationTime(expirationTime).setTokenType(TokenType.USER)
-                .setActive(true).setUser(user);
+                .setActive(true).setUser(user).setToken(UUID.randomUUID());
 
         EntityWrapper<Token> wrapper = EntityWrapper.makeWrapper(Optional.of(predictionToken));
 
