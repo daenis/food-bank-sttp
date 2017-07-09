@@ -30,12 +30,12 @@ import java.io.IOException;
 public class JwtTokenFilter extends AbstractAuthenticationProcessingFilter {
     private static final Logger LOGGER = LoggerFactory.getLogger(JwtTokenFilter.class);
     private final AuthenticationFailureHandler failureHandler;
-    private static final String defaultFilterUrl = "/api/user/login";
+    private static final String defaultUrl = "/api/user/login";
     private JwtSettings settings;
 
     @Autowired
     public JwtTokenFilter(AuthenticationFailureHandler failureHandler) {
-        super(defaultFilterUrl);
+        super(defaultUrl);
         this.failureHandler = failureHandler;
     }
 
