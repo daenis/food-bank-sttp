@@ -24,7 +24,12 @@ public class UsersService extends AbstractService<UsersDao> {
 
   public Response createUserFromRequest(RequestBodyMapper<UserAuthValidator> authSubmission) {
     if (authSubmission.doesExist() && authSubmission.get().isValid()) {
-      return new Success(successMessage).setStatusCode(HttpStatus.CREATED);
+      UserAuthValidator auth = authSubmission.get();
+      if (!dao.getUserByEmail(auth.getEmail()).isPresent()) {
+        Users user = new Users().setEmail(auth.getEmail())
+                             .setPhone(auth.getPhone());
+        return new Success(successMessage).setStatusCode(HttpStatus.CREATED);
+      }
     }
     return new BadRequest(failureMessage).setStatusCode(HttpStatus.BAD_REQUEST);
   }

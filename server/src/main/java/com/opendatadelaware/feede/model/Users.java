@@ -27,18 +27,24 @@ public class Users implements Serializable {
   @NotEmpty
   private String email;
 
-  @Column(name = "password")
+  @Column(name = "password", length = 60)
   @NotEmpty
   private String password;
 
   @Column(name = "phone")
   private String phone;
 
-  @Column(name = "preferred_location")
-  private String location;
+  @Column(name = "address")
+  private String address;
 
-  @Column(name = "type")
-  private String type;
+  @Column(name = "city")
+  private String city;
+
+  @Column(name = "state")
+  private String state;
+
+  @Column(name = "zip")
+  private String zip;
 
   public UUID getUuid() {
     return uuid;
@@ -76,21 +82,40 @@ public class Users implements Serializable {
     return this;
   }
 
-  public String getLocation() {
-    return location;
+  public String getAddress() {
+    return address;
   }
 
-  public Users setLocation(String location) {
-    this.location = location;
+  public Users setAddress(String address) {
+    this.address = address;
     return this;
   }
 
-  public String getType() {
-    return type;
+  public String getCity() {
+    return city;
   }
 
-  public Users setType(String type) {
-    this.type = type;
+  public Users setCity(String city) {
+    this.city = city;
     return this;
   }
+
+  public String getState() {
+    return state;
+  }
+
+  public Users setState(String state) {
+    this.state = state;
+    return this;
+  }
+
+  public String getZip() {
+    return zip;
+  }
+
+  public Users setZip(String zip) {
+    this.zip = zip;
+    return this;
+  }
+  
 }
