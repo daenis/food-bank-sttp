@@ -22,7 +22,10 @@ public class TokenService extends AbstractService<TokenDao> {
   }
 
   public boolean validateUserFromToken(EntityWrapper<Tokens> token, EntityWrapper<Users> user) {
-    return token.getEntityObject().getUser().getUuid() == user.getEntityObject().getUuid();
+    if (token.isPopulated() && user.isPopulated()) {
+      return token.getEntityObject().getUser().getUuid() == user.getEntityObject().getUuid();
+    }
+    return false;
   }
 
   public JwtToken createToken() {
