@@ -2,20 +2,20 @@ package com.opendatadelaware.feede.config.jwt;
 
 import com.opendatadelaware.feede.config.jwt.token.JwtToken;
 import com.opendatadelaware.feede.model.Tokens;
+import com.opendatadelaware.feede.model.Users;
+import com.opendatadelaware.feede.service.EntityWrapper;
 import com.opendatadelaware.feede.service.TokenService;
 import com.opendatadelaware.feede.service.UsersService;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by denniskalaygian on 7/5/17.
@@ -40,9 +40,16 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
     public Authentication authenticate(Authentication authentication)
             throws AuthenticationException {
         JwtToken jwtToken = (JwtToken) authentication.getCredentials();
-        List<GrantedAuthority> authorities = jwtToken.getAuthority();
-        // TODO: Just Do It
-        return new JwtAuthenticationToken(jwtToken, new Tokens(), authorities);
+        Claims claims = jwtToken.getTokenClaims();
+        String email = claims.getSubject();
+        String jti = claims.getId();
+        List<GrantedAuthority> authorities = jwtToken.getAuthorities();
+        EntityWrapper<Users> user = usersService.getUserFromEmail(email);
+        EntityWrapper<Tokens> token = tokenService.getTokenEntityFromJtiToken(jti);
+        if (!tokenService.validateUserFromToken(token, user)) {
+            throw new BadCredentialsException("The user credentials you provide are incorrect");
+        }
+        return new JwtAuthenticationToken(jwtToken, token, authorities);
     }
 
     @Override

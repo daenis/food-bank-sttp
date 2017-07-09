@@ -88,7 +88,7 @@ public class JwtToken {
     }
   }
 
-  public List<GrantedAuthority> getAuthority() {
+  public List<GrantedAuthority> getAuthorities() {
     List<String> scopes = getTokenClaims().get("scopes", List.class);
     return scopes.stream()
                    .map(SimpleGrantedAuthority::new)
