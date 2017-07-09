@@ -1,6 +1,7 @@
 package com.opendatadelaware.feede.dao;
 
 import com.opendatadelaware.feede.model.Tokens;
+import com.opendatadelaware.feede.service.TokenService;
 import org.apache.lucene.search.Query;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.Search;
@@ -49,4 +50,11 @@ public class TokenDao extends AbstractDao<Tokens, UUID> {
       return Optional.empty();
     }
   }
+
+  public void addToken(String jtiToken) {
+    TokenService service = new TokenService();
+    Tokens token = service.getTokenEntityFromJtiToken(jtiToken).getEntityObject();
+    create(token);
+  }
+
 }
