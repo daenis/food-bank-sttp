@@ -23,6 +23,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -95,6 +97,7 @@ public class TestUserController {
   @Test
   public void testPostValidInput() throws Exception {
       Optional<String> goodAuth = jsonFileToBase64String("/json/GoodUserInput.json");
+      when(dao.getUserByEmail(anyString())).thenReturn(Optional.empty());
       if (goodAuth.isPresent()) {
         Map<String, String> map = Collections.singletonMap("auth", goodAuth.get());
         String goodAuthJsonBody = new ObjectMapper().writeValueAsString(map);
