@@ -17,6 +17,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -64,10 +69,11 @@ public class JwtToken {
 
   private String buildToken(Tokens token) {
     return Jwts.builder().setId(token.getToken().toString())
-                          .setExpiration(token.getExpirationTime())
-                          .setIssuedAt(token.getCreationTime())
-                         .setSubject(token.getUser().getEmail())
-            .signWith(SignatureAlgorithm.HS512, tokenSigningKey).compact();
+                   .setExpiration(token.getExpirationTime())
+                   .setIssuedAt(token.getCreationTime())
+                   .claim("scope", token.getTokenType().getCode())
+                   .setSubject(token.getUser().getEmail())
+                   .signWith(SignatureAlgorithm.HS512, tokenSigningKey).compact();
   }
 
   private Claims parseClaims() {
@@ -80,6 +86,13 @@ public class JwtToken {
       LOGGER.info("JWT Tokens is expired", expiredEx);
       throw new JwtExpiredTokenException( "JWT Tokens expired");
     }
+  }
+
+  public List<GrantedAuthority> getAuthority() {
+    List<String> scopes = getTokenClaims().get("scopes", List.class);
+    return scopes.stream()
+                   .map(SimpleGrantedAuthority::new)
+                   .collect(Collectors.toList());
   }
 
   public String getTokenString() {

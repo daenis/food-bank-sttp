@@ -2,6 +2,8 @@ package com.opendatadelaware.feede.config.jwt;
 
 import com.opendatadelaware.feede.config.jwt.token.JwtToken;
 import com.opendatadelaware.feede.model.Tokens;
+import com.opendatadelaware.feede.service.TokenService;
+import com.opendatadelaware.feede.service.UsersService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,21 +24,23 @@ import java.util.stream.Collectors;
 public class JwtAuthenticationProvider implements AuthenticationProvider {
 
     private final JwtSettings jwtSettings;
+    private final TokenService tokenService;
+    private final UsersService usersService;
 
     @Autowired
-    public JwtAuthenticationProvider(JwtSettings jwtSettings) {
-        this.jwtSettings = jwtSettings;
+    public JwtAuthenticationProvider(JwtSettings theJwtSettings,
+                                     TokenService theTokenService,
+                                     UsersService theUsersService) {
+        jwtSettings = theJwtSettings;
+        tokenService = theTokenService;
+        usersService = theUsersService;
     }
 
     @Override
     public Authentication authenticate(Authentication authentication)
             throws AuthenticationException {
         JwtToken jwtToken = (JwtToken) authentication.getCredentials();
-        Claims claims = jwtToken.getTokenClaims();
-        List<String> scopes = claims.get("scopes", List.class);
-        List<GrantedAuthority> authorities = scopes.stream()
-                .map(authority -> new SimpleGrantedAuthority(authority))
-                .collect(Collectors.toList());
+        List<GrantedAuthority> authorities = jwtToken.getAuthority();
         // TODO: Just Do It
         return new JwtAuthenticationToken(jwtToken, new Tokens(), authorities);
     }
