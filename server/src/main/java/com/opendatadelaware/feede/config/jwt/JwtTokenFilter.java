@@ -12,9 +12,10 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.stereotype.Component;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
+
+import com.opendatadelaware.feede.config.jwt.token.JwtToken;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -29,12 +30,18 @@ import java.io.IOException;
 public class JwtTokenFilter extends AbstractAuthenticationProcessingFilter {
     private static final Logger LOGGER = LoggerFactory.getLogger(JwtTokenFilter.class);
     private final AuthenticationFailureHandler failureHandler;
-    private static final String defaultUrl = "/api/users";
+    private static final String defaultFilterUrl = "/api/user/login";
+    private JwtSettings settings;
 
     @Autowired
     public JwtTokenFilter(AuthenticationFailureHandler failureHandler) {
-        super(defaultUrl);
+        super(defaultFilterUrl);
         this.failureHandler = failureHandler;
+    }
+
+    @Autowired
+    public void setSettings(JwtSettings settings) {
+        this.settings = settings;
     }
 
     @Override
@@ -48,7 +55,7 @@ public class JwtTokenFilter extends AbstractAuthenticationProcessingFilter {
             throw new HttpRequestMethodNotSupportedException("Authentication method not supported");
         }
         String tokenHeader = httpServletRequest.getHeader(WebSecurityConfig.JWT_TOKEN_HEADER_PARAM);
-        JwtToken token = JwtToken.createTokenInstanceFromHeader(tokenHeader);
+        JwtToken token = JwtToken.createTokenInstanceFromHeader(tokenHeader, settings.getTokenSigningKey());
         return getAuthenticationManager().authenticate(new JwtAuthenticationToken(token));
     }
 

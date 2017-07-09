@@ -26,7 +26,7 @@ public class UsersService extends AbstractService<UsersDao> {
   private PasswordEncoder passwordEncoder;
 
   private static final String successMessage = "User was created";
-  private static final String failureMessage = "User couldn't be create because of missing or invalid properties";
+  private static final String failureMessage = "User couldn't be created because of missing or invalid properties";
 
   public Response createUserFromRequest(RequestBodyMapper<UserAuthValidator> authSubmission) {
     if (authSubmission.doesExist() && authSubmission.get().isValid()) {

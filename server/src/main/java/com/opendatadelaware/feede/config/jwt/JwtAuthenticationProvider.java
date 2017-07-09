@@ -1,5 +1,6 @@
 package com.opendatadelaware.feede.config.jwt;
 
+import com.opendatadelaware.feede.config.jwt.token.JwtToken;
 import com.opendatadelaware.feede.model.Tokens;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -31,8 +32,8 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
     public Authentication authenticate(Authentication authentication)
             throws AuthenticationException {
         JwtToken jwtToken = (JwtToken) authentication.getCredentials();
-        Jws<Claims> claims = jwtToken.parseClaims(jwtSettings.getTokenSigningKey().toString());
-        List<String> scopes = claims.getBody().get("scopes", List.class);
+        Claims claims = jwtToken.getTokenClaims();
+        List<String> scopes = claims.get("scopes", List.class);
         List<GrantedAuthority> authorities = scopes.stream()
                 .map(authority -> new SimpleGrantedAuthority(authority))
                 .collect(Collectors.toList());
