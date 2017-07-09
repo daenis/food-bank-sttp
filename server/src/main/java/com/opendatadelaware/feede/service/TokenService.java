@@ -5,6 +5,7 @@ import com.opendatadelaware.feede.dao.TokenDao;
 import com.opendatadelaware.feede.model.Tokens;
 import com.opendatadelaware.feede.model.Users;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -12,6 +13,7 @@ import java.util.Optional;
  * Created by aaronlong on 7/4/17.
  */
 @Service
+@Transactional
 public class TokenService extends AbstractService<TokenDao> {
 
   public EntityWrapper<Tokens> getTokenEntityFromJtiToken(String jtiToken) {

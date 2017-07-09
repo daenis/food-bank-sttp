@@ -2,6 +2,7 @@ package com.opendatadelaware.feede.dao;
 
 import com.opendatadelaware.feede.model.Users;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,6 +12,7 @@ import java.util.UUID;
  * Created by aaronlong on 6/27/17.
  */
 @Repository
+@Transactional
 public class UsersDao extends AbstractDao<Users, UUID> {
 
   public UsersDao () {
@@ -22,7 +24,8 @@ public class UsersDao extends AbstractDao<Users, UUID> {
   }
 
   public Optional<Users> getUserByEmail(String email) {
-    Users result = (Users) getSession().createQuery("FROM Users WHERE email = :email").uniqueResult();
+    Users result = (Users) getSession().createQuery("FROM Users WHERE email = :email")
+                                   .setParameter("email", email).uniqueResult();
     return result != null ? Optional.of(result) : Optional.empty();
   }
 

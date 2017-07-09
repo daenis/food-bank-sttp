@@ -6,6 +6,7 @@ import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.Search;
 import org.hibernate.search.query.dsl.QueryBuilder;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -18,6 +19,7 @@ import java.util.UUID;
  * Created by aaronlong on 7/4/17.
  */
 @Repository
+@Transactional
 public class TokenDao extends AbstractDao<Tokens, UUID> {
   private EntityManager entityManager;
 
