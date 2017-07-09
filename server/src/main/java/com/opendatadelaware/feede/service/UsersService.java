@@ -31,7 +31,6 @@ public class UsersService extends AbstractService<UsersDao> {
   public Response createUserFromRequest(RequestBodyMapper<UserAuthValidator> authSubmission) {
     if (authSubmission.doesExist() && authSubmission.get().isValid()) {
       UserAuthValidator auth = authSubmission.get();
-      System.out.println(auth.getEmail());
       if (!dao.getUserByEmail(auth.getEmail()).isPresent()) {
         String encodedPassword = passwordEncoder.encode(auth.getPassword());
         Users user = new Users().setEmail(auth.getEmail())
