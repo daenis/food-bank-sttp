@@ -37,8 +37,8 @@ public class TestJwtToken {
 
     @Before
     public void setUpForTokenGeneration() {
-        Users user = new Users().setEmail("johndoe@example.com").setPassword("12345").setLocation("19963")
-                             .setPhone("3022222222").setType("user");
+        Users user = new Users().setEmail("johndoe@example.com").setPassword("12345")
+                             .setPhone("3022222222");
 
         Date issuedTime = new Date();
 
