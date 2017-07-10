@@ -2,6 +2,9 @@ package com.opendatadelaware.feede.config.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.opendatadelaware.feede.model.Tokens;
+import com.opendatadelaware.feede.model.Users;
+import com.opendatadelaware.feede.model.fields.TokenType;
+import com.opendatadelaware.feede.service.EntityWrapper;
 import com.opendatadelaware.feede.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Optional;
 
 /**
  * Created by aaronlong on 7/6/17.
@@ -59,6 +63,13 @@ public class JwtAuthenticationSuccessHandler implements AuthenticationSuccessHan
       //Clear the authentication attributes
       clearAuthenticationAttributes(httpServletRequest);
 
+  }
+
+  public EntityWrapper<Tokens> generateTokenBasedOnUser(EntityWrapper<Users> user, HttpStatus status, TokenType type) {
+    type = TokenType.USER;
+    EntityWrapper<Tokens> token = EntityWrapper.makeWrapper( Optional.of(new Tokens().setUser(user.getEntityObject())
+            .setTokenType(type).setActive(status.is2xxSuccessful())));
+    return token;
   }
 
   protected final void clearAuthenticationAttributes(HttpServletRequest request) {
