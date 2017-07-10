@@ -31,4 +31,6 @@ public class TokenService extends AbstractService<TokenDao> {
   public JwtToken createToken() {
     return JwtToken.createTokenInstance("");
   }
+
+
 }
