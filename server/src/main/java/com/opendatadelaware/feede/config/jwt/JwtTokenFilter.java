@@ -32,7 +32,7 @@ public class JwtTokenFilter extends AbstractAuthenticationProcessingFilter {
     private static final Logger LOGGER = LoggerFactory.getLogger(JwtTokenFilter.class);
     private final AuthenticationSuccessHandler successHandler;
     private final AuthenticationFailureHandler failureHandler;
-    private static final String defaultUrl = "/api/user/login";
+    private static final String defaultUrl = "/api";
     private JwtSettings settings;
 
     @Autowired

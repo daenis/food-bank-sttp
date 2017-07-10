@@ -19,15 +19,8 @@ public class JwtSettings {
      * Tokens issuer.
      */
     private String tokenIssuer;
-    
-    /**
-     * Key is used to sign {@link JwtToken}.
-     */
+
     private byte[] tokenSigningKey;
-    
-    /**
-     * {@link JwtToken} can be refreshed during this timeframe.
-     */
 
     private Environment environment;
 
