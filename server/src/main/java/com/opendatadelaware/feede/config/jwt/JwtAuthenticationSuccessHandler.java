@@ -46,13 +46,7 @@ public class JwtAuthenticationSuccessHandler implements AuthenticationSuccessHan
                                       HttpServletResponse httpServletResponse,
                                       Authentication authentication)
           throws IOException, ServletException {
-
-      Tokens principal = (Tokens) authentication.getPrincipal();
-
-      //Create an access Token
-      JwtToken accessToken = JwtToken.createTokenInstance(principal);
-      //Create a refresh token
-
+      JwtToken token = (JwtToken) authentication.getCredentials();
 
       //Create a map to hold the two tokens that were just created
       //Place the token in the map
@@ -63,7 +57,7 @@ public class JwtAuthenticationSuccessHandler implements AuthenticationSuccessHan
       //Set the content type of the response
       httpServletResponse.setContentType(MediaType.APPLICATION_JSON_VALUE);
       //Write the token values to the mapper variable
-      mapper.writeValue(httpServletResponse.getWriter(), accessToken);
+      mapper.writeValue(httpServletResponse.getWriter(), ((JwtToken) authentication.getCredentials()).getTokenString());
 
       //Clear the authentication attributes
       clearAuthenticationAttributes(httpServletRequest);
