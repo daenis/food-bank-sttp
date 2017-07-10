@@ -1,6 +1,6 @@
 package com.opendatadelaware.feede.exception;
 
-import com.opendatadelaware.feede.config.jwt.JwtToken;
+import com.opendatadelaware.feede.config.jwt.token.JwtToken;
 import org.springframework.security.core.AuthenticationException;
 
 /**
