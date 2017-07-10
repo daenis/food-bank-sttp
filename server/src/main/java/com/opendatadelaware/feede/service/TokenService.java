@@ -37,8 +37,9 @@ public class TokenService extends AbstractService<TokenDao> {
     return false;
   }
 
-  public JwtToken createToken() {
-    return JwtToken.createTokenInstance("", settings.getTokenSigningKey());
+  public JwtToken createToken(EntityWrapper<Users> user) {
+    EntityWrapper<Tokens> token = EntityWrapper.makeWrapper(dao.createTokenEntry(user));
+    return JwtToken.createTokenInstance(token, settings.getTokenSigningKey());
   }
 
 

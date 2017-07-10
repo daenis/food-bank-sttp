@@ -53,7 +53,7 @@ public class TokenDao extends AbstractDao<Tokens, UUID> {
     }
   }
 
-  public Optional<Tokens> createToken(EntityWrapper<Users> user) {
+  public Optional<Tokens> createTokenEntry(EntityWrapper<Users> user) {
     if (user.isPopulated()) {
       Tokens token = new Tokens().setTokenType(TokenType.USER)
                              .setUser(user.getEntityObject()).setActive(true);

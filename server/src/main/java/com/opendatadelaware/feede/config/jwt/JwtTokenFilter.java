@@ -12,6 +12,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 
@@ -29,14 +30,17 @@ import java.io.IOException;
 @Component
 public class JwtTokenFilter extends AbstractAuthenticationProcessingFilter {
     private static final Logger LOGGER = LoggerFactory.getLogger(JwtTokenFilter.class);
+    private final AuthenticationSuccessHandler successHandler;
     private final AuthenticationFailureHandler failureHandler;
     private static final String defaultUrl = "/api/user/login";
     private JwtSettings settings;
 
     @Autowired
-    public JwtTokenFilter(AuthenticationFailureHandler failureHandler) {
+    public JwtTokenFilter(AuthenticationSuccessHandler theSuccessHandler,
+                          AuthenticationFailureHandler theFailureHandler) {
         super(defaultUrl);
-        this.failureHandler = failureHandler;
+        successHandler = theSuccessHandler;
+        failureHandler = theFailureHandler;
     }
 
     @Autowired

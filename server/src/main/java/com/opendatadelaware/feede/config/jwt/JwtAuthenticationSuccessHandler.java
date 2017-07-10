@@ -1,11 +1,13 @@
 package com.opendatadelaware.feede.config.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.opendatadelaware.feede.config.jwt.token.JwtToken;
 import com.opendatadelaware.feede.model.Tokens;
 import com.opendatadelaware.feede.model.Users;
 import com.opendatadelaware.feede.model.fields.TokenType;
 import com.opendatadelaware.feede.service.EntityWrapper;
 import com.opendatadelaware.feede.service.TokenService;
+import com.opendatadelaware.feede.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -28,12 +30,15 @@ import java.util.Optional;
 public class JwtAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
   private final ObjectMapper mapper;
   private final TokenService tokenService;
+  private final UsersService usersService;
 
   @Autowired
   public JwtAuthenticationSuccessHandler(final ObjectMapper aMapper,
-                                         final TokenService aTokenService) {
+                                         final TokenService aTokenService,
+                                         final UsersService aUsersService) {
     mapper = aMapper;
     tokenService = aTokenService;
+    usersService = aUsersService;
   }
 
   @Override
@@ -42,7 +47,7 @@ public class JwtAuthenticationSuccessHandler implements AuthenticationSuccessHan
                                       Authentication authentication)
           throws IOException, ServletException {
 
-      String principal = (String)authentication.getPrincipal();
+      Tokens principal = (Tokens) authentication.getPrincipal();
 
       //Create an access Token
       JwtToken accessToken = JwtToken.createTokenInstance(principal);
