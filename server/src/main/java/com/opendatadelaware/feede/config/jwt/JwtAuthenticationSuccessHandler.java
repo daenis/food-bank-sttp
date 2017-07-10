@@ -29,16 +29,22 @@ import java.util.Optional;
 @Component
 public class JwtAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
   private final ObjectMapper mapper;
-  private final TokenService tokenService;
-  private final UsersService usersService;
+  private TokenService tokenService;
+  private UsersService usersService;
 
   @Autowired
-  public JwtAuthenticationSuccessHandler(final ObjectMapper aMapper,
-                                         final TokenService aTokenService,
-                                         final UsersService aUsersService) {
+  public JwtAuthenticationSuccessHandler(final ObjectMapper aMapper) {
     mapper = aMapper;
-    tokenService = aTokenService;
-    usersService = aUsersService;
+  }
+
+  @Autowired
+  public void setTokenService(TokenService theTokenService) {
+    tokenService = theTokenService;
+  }
+
+  @Autowired
+  public void setUsersService(UsersService theUsersService) {
+    usersService = theUsersService;
   }
 
   @Override

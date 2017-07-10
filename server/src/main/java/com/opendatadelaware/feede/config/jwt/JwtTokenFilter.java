@@ -72,6 +72,7 @@ public class JwtTokenFilter extends AbstractAuthenticationProcessingFilter {
         context.setAuthentication(authResult);
         SecurityContextHolder.setContext(context);
         chain.doFilter(request, response);
+        successHandler.onAuthenticationSuccess(request, response, authResult);
     }
 
     @Override
