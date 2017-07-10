@@ -21,6 +21,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -53,6 +55,7 @@ public class JwtAuthenticationSuccessHandler implements AuthenticationSuccessHan
                                       Authentication authentication)
           throws IOException, ServletException {
       JwtToken token = (JwtToken) authentication.getCredentials();
+      Map<String, String> tokenMap = Collections.singletonMap("token", token.getTokenString());
 
       //Create a map to hold the two tokens that were just created
       //Place the token in the map
@@ -63,7 +66,7 @@ public class JwtAuthenticationSuccessHandler implements AuthenticationSuccessHan
       //Set the content type of the response
       httpServletResponse.setContentType(MediaType.APPLICATION_JSON_VALUE);
       //Write the token values to the mapper variable
-      mapper.writeValue(httpServletResponse.getWriter(), ((JwtToken) authentication.getCredentials()).getTokenString());
+      mapper.writeValue(httpServletResponse.getWriter(), tokenMap);
 
       //Clear the authentication attributes
       clearAuthenticationAttributes(httpServletRequest);
