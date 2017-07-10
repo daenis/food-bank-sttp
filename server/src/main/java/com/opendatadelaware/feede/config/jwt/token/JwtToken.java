@@ -28,8 +28,8 @@ import java.util.stream.Collectors;
  * Created by aaronlong on 7/7/17.
  */
 public class JwtToken {
-  private static Logger LOGGER = LoggerFactory.getLogger(JwtToken.class);
-  private static String HEADER_PREFIX = "Bearer ";
+  private static final Logger LOGGER = LoggerFactory.getLogger(JwtToken.class);
+  private static final String HEADER_PREFIX = "Bearer ";
   private final String tokenAsString;
   private final byte[] tokenSigningKey;
   private Claims claims;

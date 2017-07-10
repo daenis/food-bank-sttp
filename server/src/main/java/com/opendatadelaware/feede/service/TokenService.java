@@ -1,9 +1,11 @@
 package com.opendatadelaware.feede.service;
 
-import com.opendatadelaware.feede.config.jwt.JwtToken;
+import com.opendatadelaware.feede.config.jwt.JwtSettings;
+import com.opendatadelaware.feede.config.jwt.token.JwtToken;
 import com.opendatadelaware.feede.dao.TokenDao;
 import com.opendatadelaware.feede.model.Tokens;
 import com.opendatadelaware.feede.model.Users;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +17,13 @@ import java.util.Optional;
 @Service
 @Transactional
 public class TokenService extends AbstractService<TokenDao> {
+
+  private final JwtSettings settings;
+
+  @Autowired
+  public TokenService(final JwtSettings theSettings) {
+    settings = theSettings;
+  }
 
   public EntityWrapper<Tokens> getTokenEntityFromJtiToken(String jtiToken) {
     Optional<Tokens> token = dao.getTokenEntityFromJTI(jtiToken);
@@ -29,7 +38,7 @@ public class TokenService extends AbstractService<TokenDao> {
   }
 
   public JwtToken createToken() {
-    return JwtToken.createTokenInstance("");
+    return JwtToken.createTokenInstance("", settings.getTokenSigningKey());
   }
 
 
