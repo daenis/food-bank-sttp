@@ -37,8 +37,7 @@ public class UsersController {
   @RequestMapping(method = RequestMethod.POST)
   public ResponseEntity<? extends Response> addUser(@RequestBody Map<String, String> userSubmission) {
     if (userSubmission.containsKey("auth")) {
-        byte[] jsonRepresentation = Base64.decode(userSubmission.get("auth"));
-        RequestBodyMapper<UserAuthValidator> auth = RequestBodyMapper.factory(jsonRepresentation, UserAuthValidator.class);
+        RequestBodyMapper<UserAuthValidator> auth = base64ToRequestBodyMapper(userSubmission.get("auth"),UserAuthValidator.class);
         return service.createUserFromRequest(auth).makeResponse();
     }
     return new BadRequest().makeResponse(HttpStatus.BAD_REQUEST);
