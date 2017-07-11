@@ -7,7 +7,6 @@ import com.opendatadelaware.feede.controller.responses.Success;
 import com.opendatadelaware.feede.controller.utils.RequestBodyMapper;
 import com.opendatadelaware.feede.controller.utils.UserAuthValidator;
 import com.opendatadelaware.feede.dao.UsersDao;
-import com.opendatadelaware.feede.model.Users;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -17,7 +16,6 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.io.IOException;
@@ -37,8 +35,8 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class TestUsersService {
 
-  private static byte[] goodBase64;
-  private static byte[] badBase64;
+  private static byte[] goodNewUserBase64;
+  private static byte[] badNewUserBase64;
   private static final Logger LOGGER = LoggerFactory.getLogger(TestUserController.class);
 
   @Mock
@@ -51,8 +49,8 @@ public class TestUsersService {
 
   @BeforeClass
   public static void init() {
-    goodBase64 = readFile("/base64/good.base64");
-    badBase64  = readFile("/base64/bad.base64");
+    goodNewUserBase64 = readFile("/base64/goodNewUser.base64");
+    badNewUserBase64  = readFile("/base64/badNewUser.base64");
   }
 
   private static byte[] readFile(String fileName) {
@@ -74,7 +72,7 @@ public class TestUsersService {
 
   @Test
   public void testCreateUserFromRequestSuccess() {
-    byte[] json = Base64.getDecoder().decode(goodBase64);
+    byte[] json = Base64.getDecoder().decode(goodNewUserBase64);
     RequestBodyMapper<UserAuthValidator> auth = RequestBodyMapper.factory(json, UserAuthValidator.class);
     when(dao.getUserByEmail(anyString())).thenReturn(Optional.empty());
     Response response = service.createUserFromRequest(auth);
@@ -83,21 +81,21 @@ public class TestUsersService {
 
   @Test
   public void testCreateUserFromRequestBadRequest() {
-    byte[] json = Base64.getDecoder().decode(badBase64);
+    byte[] json = Base64.getDecoder().decode(badNewUserBase64);
     RequestBodyMapper<UserAuthValidator> auth = RequestBodyMapper.factory(json, UserAuthValidator.class);
     Response response = service.createUserFromRequest(auth);
     Assert.assertTrue("BadRequest response is returned", response instanceof BadRequest);
   }
-
+  
   @Test
   public void testValidateUserForLoginSuccess() {
-    byte[] json = Base64.getDecoder().decode(goodBase64);
+    byte[] json = Base64.getDecoder().decode(goodNewUserBase64);
     // Test to make sure that token is returned for a valid user
   }
-
+  
   @Test
   public void testValidateUserForLoginFailure() {
-
+    
   }
 
 }
