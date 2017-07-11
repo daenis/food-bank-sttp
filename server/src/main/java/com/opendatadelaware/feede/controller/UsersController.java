@@ -44,4 +44,9 @@ public class UsersController {
     return new BadRequest().makeResponse(HttpStatus.BAD_REQUEST);
   }
 
+  @RequestMapping(path = "/api/user/login", method = RequestMethod.POST)
+  public ResponseEntity<? extends Response> loginRequestHandler(@RequestBody Map<String, String> userSubmission) {
+    return new BadRequest().makeResponse(HttpStatus.BAD_REQUEST);
+  }
+
 }

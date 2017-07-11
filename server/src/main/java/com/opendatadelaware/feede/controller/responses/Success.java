@@ -1,6 +1,7 @@
 package com.opendatadelaware.feede.controller.responses;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,6 +19,7 @@ public class Success implements Response {
   private final Long time;
 
   private HttpStatus code;
+  private HttpHeaders header;
 
   public Success() {
     time = new Date().getTime();
@@ -41,7 +43,14 @@ public class Success implements Response {
                       .setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR)
                       .makeResponse();
     }
-    return new ResponseEntity<>(this, code);
+    return makeResponseEntity();
+  }
+
+  private ResponseEntity<? extends Response> makeResponseEntity() {
+    if (header != null) {
+      return new ResponseEntity<Response>(this, header, code);
+    }
+    return new ResponseEntity<Response>(this, code);
   }
 
   @Override
@@ -49,6 +58,11 @@ public class Success implements Response {
     if (httpCode != null) {
       code = httpCode;
     }
+    return this;
+  }
+
+  public Success setHeader(HttpHeaders aHeader) {
+    header = aHeader;
     return this;
   }
 }
