@@ -28,8 +28,8 @@ public class UserCredentials {
     return username;
   }
 
-  public String getPassword(PasswordEncoder encoder) {
-    return encoder.encode(password);
+  public String getPassword() {
+    return password;
   }
 
   private static String base64StringToGeneralString(String base64String) {

@@ -18,6 +18,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.security.auth.login.CredentialException;
@@ -29,6 +30,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Base64;
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
@@ -49,7 +51,6 @@ public class TestUsersService {
   @Mock
   private UsersDao dao;
 
-  @Mock
   private PasswordEncoder passwordEncoder;
 
   private UsersService service;
@@ -85,6 +86,7 @@ public class TestUsersService {
 
   @Before
   public void setUp() {
+    passwordEncoder = new BCryptPasswordEncoder();
     service = new UsersService();
     service.setDao(dao);
     service.setPasswordEncoder(passwordEncoder);
@@ -110,8 +112,16 @@ public class TestUsersService {
   @Test
   public void testValidateUserForLoginSuccess() throws CredentialException {
     UserCredentials creds = new UserCredentials(goodUserLoginBase64);
+
+    UUID uuid = UUID.randomUUID();
+    String passHash = passwordEncoder.encode("zipcoder2017");
+    Users userModal = new Users().setEmail("johndoe@gmail.com").setUuid(uuid).setPassword(passHash);
+    when(dao.getUserByEmail(anyString())).thenReturn(Optional.of(userModal));
+
     EntityWrapper<Users> user = service.validateUserForLogin(creds);
-    Assert.assertTrue("Checking to see if a valid user object is returned", user != null);
+
+    System.out.println(user.getEntityObject());
+    Assert.assertEquals("Checking to see if a valid user object is returned", user.getEntityObject().getUuid(), uuid);
     // Test to make sure that token is returned for a valid user
   }
 
