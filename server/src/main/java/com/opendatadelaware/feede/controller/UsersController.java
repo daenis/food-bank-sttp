@@ -49,4 +49,10 @@ public class UsersController {
     return new BadRequest().makeResponse(HttpStatus.BAD_REQUEST);
   }
 
+
+  private static <T> RequestBodyMapper<T> base64ToRequestBodyMapper(String encodedString, Class<T> theClass) {
+    byte[] jsonRepresentation = Base64.decode(encodedString);
+    return RequestBodyMapper.<T>factory(jsonRepresentation, theClass);
+  }
+
 }

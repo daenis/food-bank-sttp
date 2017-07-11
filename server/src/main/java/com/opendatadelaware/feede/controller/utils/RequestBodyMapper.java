@@ -13,27 +13,29 @@ import java.util.Optional;
  */
 public class RequestBodyMapper <T> {
   private static final Logger LOGGER = LoggerFactory.getLogger(RequestBodyMapper.class);
-  private transient Optional<T> value;
+  private boolean present;
+  private T result;
 
   private RequestBodyMapper(byte[] json, Class<T> tClass) {
     try {
-      T result = new ObjectMapper().readValue(json, tClass);
-      value = Optional.of(result);
+      result = new ObjectMapper().readValue(json, tClass);
+      present = true;
     } catch (IOException e) {
       LOGGER.warn(e.getMessage());
-      value = Optional.empty();
+      present = false;
+      result = null;
     }
   }
 
   public boolean doesExist() {
-    return value.isPresent();
+    return present;
   }
 
   public T get() {
-    return value.get();
+    return result;
   }
 
-  public static <T> RequestBodyMapper factory(byte[] json, Class<T> tClass) {
-    return new RequestBodyMapper<T>(json, tClass);
+  public static <T> RequestBodyMapper<T> factory(byte[] json, Class<T> theClass) {
+    return new RequestBodyMapper<T>(json, theClass);
   }
 }
