@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
+import javax.security.auth.login.CredentialException;
 import java.util.Map;
 
 /**
@@ -46,9 +46,10 @@ public class UsersController {
   }
 
   @RequestMapping(path = "/api/user/login", method = RequestMethod.POST)
-  public ResponseEntity<? extends Response> loginRequestHandler(@RequestBody Map<String, String> userSubmission) {
+  public ResponseEntity<? extends Response> loginRequestHandler(@RequestBody Map<String, String> userSubmission)
+          throws CredentialException {
     if (userSubmission.containsKey("auth")) {
-      RequestBodyMapper<UserCredentials> auth = base64ToRequestBodyMapper(userSubmission.get("auth"), UserCredentials.class);
+      UserCredentials auth = new UserCredentials(userSubmission.get("auth"));
     }
     return new BadRequest().makeResponse(HttpStatus.BAD_REQUEST);
   }
