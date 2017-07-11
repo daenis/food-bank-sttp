@@ -52,7 +52,8 @@ public class UsersService extends AbstractService<UsersDao> {
 
   public EntityWrapper<Users> validateUserForLogin(UserCredentials creds) {
     if(dao.getUserByEmail(creds.getUsername()).isPresent() &&
-            dao.getUserByEmail(creds.getUsername()).get().getPassword().equals(creds.getPassword())) {
+            dao.getUserByEmail(creds.getUsername()).get()
+                    .getPassword().equals(creds.getPassword(passwordEncoder))) {
       return EntityWrapper.makeWrapper(dao.getUserByEmail(creds.getUsername()));
     }
     return EntityWrapper.makeWrapper(Optional.empty());

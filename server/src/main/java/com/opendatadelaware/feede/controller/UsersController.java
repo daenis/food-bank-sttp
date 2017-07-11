@@ -1,10 +1,14 @@
 package com.opendatadelaware.feede.controller;
 
+import com.opendatadelaware.feede.config.jwt.token.JwtToken;
 import com.opendatadelaware.feede.controller.responses.BadRequest;
 import com.opendatadelaware.feede.controller.responses.Response;
 import com.opendatadelaware.feede.controller.utils.RequestBodyMapper;
 import com.opendatadelaware.feede.controller.utils.UserAuthValidator;
 import com.opendatadelaware.feede.controller.utils.UserCredentials;
+import com.opendatadelaware.feede.model.Users;
+import com.opendatadelaware.feede.service.EntityWrapper;
+import com.opendatadelaware.feede.service.TokenService;
 import com.opendatadelaware.feede.service.UsersService;
 import org.bouncycastle.util.encoders.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +29,16 @@ import java.util.Map;
 @RequestMapping("/api/user")
 public class UsersController {
   private UsersService service;
+  private TokenService tokenService;
 
   @Autowired
   public void setUserService(UsersService aService) {
     service = aService;
+  }
+
+  @Autowired
+  public void setTokenService(TokenService aTokenService) {
+    tokenService = aTokenService;
   }
 
   @RequestMapping(method = RequestMethod.GET)
@@ -50,7 +60,8 @@ public class UsersController {
           throws CredentialException {
     if (userSubmission.containsKey("auth")) {
       UserCredentials auth = new UserCredentials(userSubmission.get("auth"));
-      
+      EntityWrapper<Users> user = service.validateUserForLogin(auth);
+      JwtToken token = tokenService.createToken(user);
     }
     return new BadRequest().makeResponse(HttpStatus.BAD_REQUEST);
   }

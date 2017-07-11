@@ -1,6 +1,7 @@
 package com.opendatadelaware.feede.controller.utils;
 
 import org.bouncycastle.util.encoders.Base64;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.security.auth.login.CredentialException;
 
@@ -27,8 +28,8 @@ public class UserCredentials {
     return username;
   }
 
-  public String getPassword() {
-    return password;
+  public String getPassword(PasswordEncoder encoder) {
+    return encoder.encode(password);
   }
 
   private static String base64StringToGeneralString(String base64String) {
