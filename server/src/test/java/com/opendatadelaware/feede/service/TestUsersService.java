@@ -89,4 +89,15 @@ public class TestUsersService {
     Assert.assertTrue("BadRequest response is returned", response instanceof BadRequest);
   }
 
+  @Test
+  public void testValidateUserForLoginSuccess() {
+    byte[] json = Base64.getDecoder().decode(goodBase64);
+    // Test to make sure that token is returned for a valid user
+  }
+
+  @Test
+  public void testValidateUserForLoginFailure() {
+
+  }
+
 }

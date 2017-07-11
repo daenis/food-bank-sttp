@@ -1,8 +1,10 @@
 package com.opendatadelaware.feede.controller;
 
+import com.opendatadelaware.feede.config.WebSecurityConfig;
 import com.opendatadelaware.feede.config.jwt.token.JwtToken;
 import com.opendatadelaware.feede.controller.responses.BadRequest;
 import com.opendatadelaware.feede.controller.responses.Response;
+import com.opendatadelaware.feede.controller.responses.Success;
 import com.opendatadelaware.feede.controller.utils.RequestBodyMapper;
 import com.opendatadelaware.feede.controller.utils.UserAuthValidator;
 import com.opendatadelaware.feede.controller.utils.UserCredentials;
@@ -12,6 +14,7 @@ import com.opendatadelaware.feede.service.TokenService;
 import com.opendatadelaware.feede.service.UsersService;
 import org.bouncycastle.util.encoders.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -62,6 +65,14 @@ public class UsersController {
       UserCredentials auth = new UserCredentials(userSubmission.get("auth"));
       EntityWrapper<Users> user = service.validateUserForLogin(auth);
       JwtToken token = tokenService.createToken(user);
+      String bearerToken = String.format("Bearer %s", token.getTokenString());
+      HttpHeaders header = new HttpHeaders();
+      header.add(WebSecurityConfig.JWT_TOKEN_HEADER_PARAM, bearerToken);
+      return new Success()
+              .setHeader(header)
+              .setStatusCode(HttpStatus.OK)
+              .makeResponse();
+      // What to return for the happy path?
     }
     return new BadRequest().makeResponse(HttpStatus.BAD_REQUEST);
   }
