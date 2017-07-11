@@ -1,6 +1,7 @@
 package com.opendatadelaware.feede.service;
 
 import com.opendatadelaware.feede.config.jwt.JwtSettings;
+import com.opendatadelaware.feede.config.jwt.token.JwtToken;
 import com.opendatadelaware.feede.model.Tokens;
 import com.opendatadelaware.feede.model.Users;
 import com.opendatadelaware.feede.model.fields.TokenType;
@@ -43,6 +44,15 @@ public class TestTokenService {
     EntityWrapper<Users> userWrapper = EntityWrapper.makeWrapper(Optional.of(user));
     boolean result = service.validateUserFromToken(tokenWrapper, userWrapper);
     Assert.assertTrue("Assert that user and token are referenced", result);
+  }
+
+  @Test
+  public void testCreateToken() {
+    Users theUser = new Users().setEmail("something@gmail.com").setPassword("123456").setAddress("811 this street")
+            .setCity("Wilmington").setState("DE").setZip("19963").setPhone("3022222222").setUuid(UUID.randomUUID());
+    EntityWrapper<Users> userWrapper = EntityWrapper.makeWrapper(Optional.of(theUser));
+    JwtToken result = service.createToken(userWrapper);
+    Assert.assertTrue("Checking to see if a token is correctly generated", result != null);
   }
 
 }

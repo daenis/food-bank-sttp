@@ -42,5 +42,4 @@ public class TokenService extends AbstractService<TokenDao> {
     return JwtToken.createTokenInstance(token, settings.getTokenSigningKey());
   }
 
-
 }
