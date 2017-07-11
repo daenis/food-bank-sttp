@@ -50,6 +50,7 @@ public class UsersController {
           throws CredentialException {
     if (userSubmission.containsKey("auth")) {
       UserCredentials auth = new UserCredentials(userSubmission.get("auth"));
+      
     }
     return new BadRequest().makeResponse(HttpStatus.BAD_REQUEST);
   }

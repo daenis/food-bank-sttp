@@ -5,6 +5,7 @@ import com.opendatadelaware.feede.controller.responses.Response;
 import com.opendatadelaware.feede.controller.responses.Success;
 import com.opendatadelaware.feede.controller.utils.RequestBodyMapper;
 import com.opendatadelaware.feede.controller.utils.UserAuthValidator;
+import com.opendatadelaware.feede.controller.utils.UserCredentials;
 import com.opendatadelaware.feede.dao.UsersDao;
 import com.opendatadelaware.feede.model.Users;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +50,11 @@ public class UsersService extends AbstractService<UsersDao> {
     return EntityWrapper.makeWrapper(dao.getUserByEmail(email));
   }
 
-  public EntityWrapper<Users> validateUserForLogin() {
+  public EntityWrapper<Users> validateUserForLogin(UserCredentials creds) {
+    if(dao.getUserByEmail(creds.getUsername()).isPresent() &&
+            dao.getUserByEmail(creds.getUsername()).get().getPassword().equals(creds.getPassword())) {
+      return EntityWrapper.makeWrapper(dao.getUserByEmail(creds.getUsername()));
+    }
     return EntityWrapper.makeWrapper(Optional.empty());
   }
 
