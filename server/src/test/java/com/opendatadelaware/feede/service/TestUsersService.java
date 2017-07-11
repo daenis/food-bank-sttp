@@ -120,16 +120,33 @@ public class TestUsersService {
 
     EntityWrapper<Users> user = service.validateUserForLogin(creds);
 
-    System.out.println(user.getEntityObject());
-    Assert.assertEquals("Checking to see if a valid user object is returned", user.getEntityObject().getUuid(), uuid);
-    // Test to make sure that token is returned for a valid user
+    Assert.assertTrue("Checking to see if a valid user object is returned", user.isPopulated());
   }
 
-  // Test for the exception
-  
+  @Test(expected=CredentialException.class)
+  public void testValidateUserForLoginSuccessException() throws CredentialException {
+    UserCredentials creds = new UserCredentials("badcredentials");
+
+    UUID uuid = UUID.randomUUID();
+    String passHash = passwordEncoder.encode("zipcoder2017");
+    Users userModal = new Users().setEmail("johndoe@gmail.com").setUuid(uuid).setPassword(passHash);
+    when(dao.getUserByEmail(anyString())).thenReturn(Optional.of(userModal));
+
+    EntityWrapper<Users> user = service.validateUserForLogin(creds);
+  }
+
   @Test
-  public void testValidateUserForLoginFailure() {
-    
+  public void testValidateUserForLoginFailure() throws CredentialException {
+    UserCredentials creds = new UserCredentials(badUserLoginBase64);
+
+    UUID uuid = UUID.randomUUID();
+    String passHash = passwordEncoder.encode("123456");
+    Users userModal = new Users().setEmail("@@.com").setUuid(uuid).setPassword(passHash);
+    when(dao.getUserByEmail(anyString())).thenReturn(Optional.of(userModal));
+
+    EntityWrapper<Users> user = service.validateUserForLogin(creds);
+
+    Assert.assertFalse("Checking to see if a valid user object is returned", user.isPopulated());
   }
 
 }
