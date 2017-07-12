@@ -1,9 +1,11 @@
 package com.opendatadelaware.feede.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.opendatadelaware.feede.config.jwt.JwtSettings;
 import com.opendatadelaware.feede.dao.TokenDao;
 import com.opendatadelaware.feede.dao.UsersDao;
+import com.opendatadelaware.feede.model.Users;
 import com.opendatadelaware.feede.service.TokenService;
 import com.opendatadelaware.feede.service.UsersService;
 import org.junit.Assert;
@@ -36,8 +38,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Base64;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 
 /**
@@ -130,8 +134,24 @@ public class TestUserController {
   }
 
   @Test
-  public void testTokenCreation() {
-//    Users users
-//    when(userDao).thenReturn()
+  public void testTokenCreation() throws Exception {
+    String passWordRaw = "12345Password";
+    String passWordEncode = passwordEncoder.encode(passWordRaw);
+    String email = "johnDoe@gmail.com";
+    byte[] authenticationRawBytes = String.format("%s;%s", email, passWordRaw).getBytes();
+    String base64Authentication = Base64.getEncoder().encodeToString(authenticationRawBytes);
+    Map<String, String> map = new HashMap<>();
+    map.put("auth", base64Authentication);
+    String httpBody = new ObjectMapper().writeValueAsString(map);
+
+    Users user = new Users()
+                         .setPassword(passWordEncode)
+                         .setEmail(email)
+                         .setUuid(UUID.randomUUID());
+    when(userDao.getUserByEmail(anyString())).thenReturn(Optional.of(user));
+
+    this.mvc.perform(post("/api/user/login")
+                             .contentType(MediaType.APPLICATION_JSON).content(httpBody)).andExpect(status().isOk());
+
   }
 }
