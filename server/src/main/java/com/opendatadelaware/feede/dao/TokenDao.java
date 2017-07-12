@@ -60,6 +60,7 @@ public class TokenDao extends AbstractDao<Tokens, UUID> {
       Date now = new Date();
       Tokens token = new Tokens().setUuid(UUID.randomUUID()).setTokenType(TokenType.USER)
                              .setCreationTime(now)
+                             .setToken(UUID.randomUUID())
                              .setExpirationTime(new Date(now.getTime() + EXPIRATION_TIME))
                              .setUser(user.getEntityObject())
                              .setActive(true);
