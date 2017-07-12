@@ -35,13 +35,13 @@ public class UsersController {
   private TokenService tokenService;
 
   @Autowired
-  public void setUserService(UsersService aService) {
-    service = aService;
+  public void setUserService(UsersService theUserService) {
+    service = theUserService;
   }
 
   @Autowired
-  public void setTokenService(TokenService aTokenService) {
-    tokenService = aTokenService;
+  public void setTokenService(TokenService theTokenService) {
+    tokenService = theTokenService;
   }
 
   @RequestMapping(method = RequestMethod.GET)

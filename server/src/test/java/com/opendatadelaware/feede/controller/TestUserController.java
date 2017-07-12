@@ -1,24 +1,30 @@
 package com.opendatadelaware.feede.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.opendatadelaware.feede.config.jwt.JwtSettings;
+import com.opendatadelaware.feede.dao.TokenDao;
 import com.opendatadelaware.feede.dao.UsersDao;
+import com.opendatadelaware.feede.service.TokenService;
 import com.opendatadelaware.feede.service.UsersService;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.http.MediaType;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.mock.env.MockEnvironment;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
 
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
@@ -44,17 +50,37 @@ public class TestUserController {
 
   private MockMvc mvc;
 
+  @Mock
+  private MockEnvironment environment;
+
   @MockBean
-  private UsersDao dao;
+  private UsersDao userDao;
+
+  @MockBean
+  private TokenDao tokenDao;
 
   @SpyBean
   private UsersService usersService;
 
+  @SpyBean
+  private TokenService tokenService;
+
+  @SpyBean
+  private BCryptPasswordEncoder passwordEncoder;
+
   @MockBean
-  private PasswordEncoder passwordEncoder;
+  private JwtSettings settings;
 
   @InjectMocks
   private UsersController controller;
+
+  @Before
+  public void initJwtSetting() {
+    when(settings.getTokenSigningKey()).thenReturn("secret".getBytes());
+    when(settings.getTokenExpirationTime()).thenReturn(15);
+    when(settings.getTokenRefreshTime()).thenReturn(60);
+    when(settings.getTokenIssuer()).thenReturn("feede");
+  }
 
   @Before
   public void init() {
@@ -91,7 +117,7 @@ public class TestUserController {
   @Test
   public void testPostValidInput() throws Exception {
       Optional<String> goodAuth = jsonFileToBase64String("/json/GoodUserSignUpInput.json");
-      when(dao.getUserByEmail(anyString())).thenReturn(Optional.empty());
+      when(userDao.getUserByEmail(anyString())).thenReturn(Optional.empty());
       if (goodAuth.isPresent()) {
         Map<String, String> map = Collections.singletonMap("auth", goodAuth.get());
         String goodAuthJsonBody = new ObjectMapper().writeValueAsString(map);
@@ -105,6 +131,7 @@ public class TestUserController {
 
   @Test
   public void testTokenCreation() {
-
+//    Users users
+//    when(userDao).thenReturn()
   }
 }
