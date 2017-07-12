@@ -5,7 +5,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.opendatadelaware.feede.config.jwt.JwtSettings;
 import com.opendatadelaware.feede.dao.TokenDao;
 import com.opendatadelaware.feede.dao.UsersDao;
+import com.opendatadelaware.feede.model.Tokens;
 import com.opendatadelaware.feede.model.Users;
+import com.opendatadelaware.feede.model.fields.TokenType;
+import com.opendatadelaware.feede.service.EntityWrapper;
 import com.opendatadelaware.feede.service.TokenService;
 import com.opendatadelaware.feede.service.UsersService;
 import org.junit.Assert;
@@ -28,6 +31,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import static org.mockito.Matchers.anyObject;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -38,6 +42,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Base64;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -148,10 +153,18 @@ public class TestUserController {
                          .setPassword(passWordEncode)
                          .setEmail(email)
                          .setUuid(UUID.randomUUID());
+    Date now = new Date();
+    Tokens token = new Tokens().setExpirationTime(new Date(now.getTime() + 900000))
+                           .setCreationTime(now)
+                           .setTokenType(TokenType.USER)
+                           .setToken(UUID.randomUUID())
+                           .setUuid(UUID.randomUUID());
     when(userDao.getUserByEmail(anyString())).thenReturn(Optional.of(user));
+    when(tokenDao.createTokenEntry(anyObject())).thenReturn(Optional.of(token));
 
     this.mvc.perform(post("/api/user/login")
-                             .contentType(MediaType.APPLICATION_JSON).content(httpBody)).andExpect(status().isOk());
+                             .contentType(MediaType.APPLICATION_JSON).content(httpBody))
+            .andExpect(status().isOk());
 
   }
 }
