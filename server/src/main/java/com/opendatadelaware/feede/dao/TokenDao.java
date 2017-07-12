@@ -64,7 +64,7 @@ public class TokenDao extends AbstractDao<Tokens, UUID> {
                              .setExpirationTime(new Date(now.getTime() + EXPIRATION_TIME))
                              .setUser(user.getEntityObject())
                              .setActive(true);
-      UUID tokenPK = (UUID) getSession().save(token);
+      UUID tokenPK = create(token);
       Tokens tokenModal = read(tokenPK);
       return (tokenModal != null) ? Optional.of(token) : Optional.empty();
     }
