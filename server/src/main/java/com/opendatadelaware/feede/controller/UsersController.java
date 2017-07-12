@@ -11,7 +11,7 @@ import com.opendatadelaware.feede.controller.utils.UserCredentials;
 import com.opendatadelaware.feede.model.Users;
 import com.opendatadelaware.feede.service.EntityWrapper;
 import com.opendatadelaware.feede.service.TokenService;
-import com.opendatadelaware.feede.service.UsersService;
+import com.opendatadelaware.feede.service.UserService;
 import org.bouncycastle.util.encoders.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -31,11 +31,11 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/user")
 public class UsersController {
-  private UsersService service;
+  private UserService service;
   private TokenService tokenService;
 
   @Autowired
-  public void setUserService(UsersService theUserService) {
+  public void setUserService(UserService theUserService) {
     service = theUserService;
   }
 

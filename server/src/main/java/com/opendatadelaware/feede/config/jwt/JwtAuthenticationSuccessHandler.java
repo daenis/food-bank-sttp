@@ -7,7 +7,7 @@ import com.opendatadelaware.feede.model.Users;
 import com.opendatadelaware.feede.model.fields.TokenType;
 import com.opendatadelaware.feede.service.EntityWrapper;
 import com.opendatadelaware.feede.service.TokenService;
-import com.opendatadelaware.feede.service.UsersService;
+import com.opendatadelaware.feede.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -32,7 +32,7 @@ import java.util.Optional;
 public class JwtAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
   private final ObjectMapper mapper;
   private TokenService tokenService;
-  private UsersService usersService;
+  private UserService userService;
 
   @Autowired
   public JwtAuthenticationSuccessHandler(final ObjectMapper aMapper) {
@@ -45,8 +45,8 @@ public class JwtAuthenticationSuccessHandler implements AuthenticationSuccessHan
   }
 
   @Autowired
-  public void setUsersService(UsersService theUsersService) {
-    usersService = theUsersService;
+  public void setUserService(UserService theUserService) {
+    userService = theUserService;
   }
 
   @Override

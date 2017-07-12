@@ -13,9 +13,9 @@ import java.util.UUID;
  */
 @Repository
 @Transactional
-public class UsersDao extends AbstractDao<Users, UUID> {
+public class UserDao extends AbstractDao<Users, UUID> {
 
-  public UsersDao () {
+  public UserDao() {
     super(Users.class);
   }
 

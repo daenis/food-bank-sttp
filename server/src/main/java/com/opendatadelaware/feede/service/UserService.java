@@ -6,7 +6,7 @@ import com.opendatadelaware.feede.controller.responses.Success;
 import com.opendatadelaware.feede.controller.utils.RequestBodyMapper;
 import com.opendatadelaware.feede.controller.utils.UserAuthValidator;
 import com.opendatadelaware.feede.controller.utils.UserCredentials;
-import com.opendatadelaware.feede.dao.UsersDao;
+import com.opendatadelaware.feede.dao.UserDao;
 import com.opendatadelaware.feede.model.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,7 +22,7 @@ import java.util.Optional;
  */
 @Service
 @Transactional
-public class UsersService extends AbstractService<UsersDao> {
+public class UserService extends AbstractService<UserDao> {
 
   private PasswordEncoder passwordEncoder;
 

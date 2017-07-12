@@ -1,6 +1,5 @@
 package com.opendatadelaware.feede.config;
 
-import com.opendatadelaware.feede.service.UsersService;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;

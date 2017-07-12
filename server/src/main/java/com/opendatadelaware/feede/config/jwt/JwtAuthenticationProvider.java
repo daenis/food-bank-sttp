@@ -6,7 +6,7 @@ import com.opendatadelaware.feede.model.Tokens;
 import com.opendatadelaware.feede.model.Users;
 import com.opendatadelaware.feede.service.EntityWrapper;
 import com.opendatadelaware.feede.service.TokenService;
-import com.opendatadelaware.feede.service.UsersService;
+import com.opendatadelaware.feede.service.UserService;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -26,15 +26,15 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
 
     private final JwtSettings jwtSettings;
     private final TokenService tokenService;
-    private final UsersService usersService;
+    private final UserService userService;
 
     @Autowired
     public JwtAuthenticationProvider(JwtSettings theJwtSettings,
                                      TokenService theTokenService,
-                                     UsersService theUsersService) {
+                                     UserService theUserService) {
         jwtSettings = theJwtSettings;
         tokenService = theTokenService;
-        usersService = theUsersService;
+        userService = theUserService;
     }
 
     @Override
@@ -45,7 +45,7 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
         String email = claims.getSubject();
         String jti = claims.getId();
         List<GrantedAuthority> authorities = jwtToken.getAuthorities();
-        EntityWrapper<Users> user = usersService.getUserFromEmail(email);
+        EntityWrapper<Users> user = userService.getUserFromEmail(email);
         EntityWrapper<Tokens> token = tokenService.getTokenEntityFromJtiToken(jti);
         if (!tokenService.validateUserFromToken(token, user)) {
             throw new BadCredentialsException("The user credentials you provide are incorrect");

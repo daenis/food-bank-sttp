@@ -1,22 +1,19 @@
 package com.opendatadelaware.feede.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.opendatadelaware.feede.config.WebSecurityConfig;
 import com.opendatadelaware.feede.config.jwt.JwtSettings;
 import com.opendatadelaware.feede.config.jwt.token.JwtToken;
 import com.opendatadelaware.feede.dao.TokenDao;
-import com.opendatadelaware.feede.dao.UsersDao;
+import com.opendatadelaware.feede.dao.UserDao;
 import com.opendatadelaware.feede.model.Tokens;
 import com.opendatadelaware.feede.model.Users;
 import com.opendatadelaware.feede.model.fields.TokenType;
 import com.opendatadelaware.feede.service.EntityWrapper;
 import com.opendatadelaware.feede.service.TokenService;
-import com.opendatadelaware.feede.service.UsersService;
+import com.opendatadelaware.feede.service.UserService;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -39,7 +36,6 @@ import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 
 import java.net.URL;
 import java.nio.file.Files;
@@ -67,13 +63,13 @@ public class TestUserController {
   private MockEnvironment environment;
 
   @MockBean
-  private UsersDao userDao;
+  private UserDao userDao;
 
   @MockBean
   private TokenDao tokenDao;
 
   @SpyBean
-  private UsersService usersService;
+  private UserService userService;
 
   @SpyBean
   private TokenService tokenService;

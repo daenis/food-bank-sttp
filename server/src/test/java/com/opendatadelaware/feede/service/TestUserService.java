@@ -7,7 +7,7 @@ import com.opendatadelaware.feede.controller.responses.Success;
 import com.opendatadelaware.feede.controller.utils.RequestBodyMapper;
 import com.opendatadelaware.feede.controller.utils.UserAuthValidator;
 import com.opendatadelaware.feede.controller.utils.UserCredentials;
-import com.opendatadelaware.feede.dao.UsersDao;
+import com.opendatadelaware.feede.dao.UserDao;
 import com.opendatadelaware.feede.model.Users;
 import org.junit.Assert;
 import org.junit.Before;
@@ -39,7 +39,7 @@ import static org.mockito.Mockito.when;
  * Created by aaronlong on 7/8/17.
  */
 @RunWith(MockitoJUnitRunner.class)
-public class TestUsersService {
+public class TestUserService {
 
   private static byte[] goodNewUserBase64;
   private static byte[] badNewUserBase64;
@@ -49,11 +49,11 @@ public class TestUsersService {
   private static final Logger LOGGER = LoggerFactory.getLogger(TestUserController.class);
 
   @Mock
-  private UsersDao dao;
+  private UserDao dao;
 
   private PasswordEncoder passwordEncoder;
 
-  private UsersService service;
+  private UserService service;
 
   @BeforeClass
   public static void init() {
@@ -65,7 +65,7 @@ public class TestUsersService {
 
   private static String readFileAsString(String fileName) {
     try {
-      URL url = TestUsersService.class.getResource(fileName);
+      URL url = TestUserService.class.getResource(fileName);
       byte[] fileAsBytes = Files.readAllBytes(Paths.get(url.toURI()));
       return new String(fileAsBytes);
     } catch(URISyntaxException | IOException e) {
@@ -76,7 +76,7 @@ public class TestUsersService {
 
   private static byte[] readFile(String fileName) {
     try {
-      Path path = Paths.get(TestUsersService.class.getResource(fileName).toURI());
+      Path path = Paths.get(TestUserService.class.getResource(fileName).toURI());
       return Files.readAllBytes(path);
     } catch (URISyntaxException | IOException e) {
       LOGGER.error(e.getMessage());
@@ -87,7 +87,7 @@ public class TestUsersService {
   @Before
   public void setUp() {
     passwordEncoder = new BCryptPasswordEncoder();
-    service = new UsersService();
+    service = new UserService();
     service.setDao(dao);
     service.setPasswordEncoder(passwordEncoder);
   }
