@@ -48,6 +48,9 @@ public class JwtToken {
   }
 
   public static JwtToken createTokenInstance(EntityWrapper<Tokens> token, byte[] signingKey) {
+    if (!token.isPopulated()) {
+      throw new AuthenticationServiceException("User couldn't be authenticated at this time. Please try again");
+    }
     return new JwtToken(token, signingKey);
   }
 
@@ -69,7 +72,7 @@ public class JwtToken {
 
   private String buildToken(Tokens token) {
     LOGGER.warn(token.getExpirationTime().toString());
-    return Jwts.builder().setId(token.getToken().toString())
+    return Jwts.builder().setId(token.getUser().getEmail())
                    .setExpiration(token.getExpirationTime())
                    .setIssuedAt(token.getCreationTime())
                    .claim("scope", token.getTokenType().getCode())

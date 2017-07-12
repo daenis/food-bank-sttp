@@ -3,6 +3,7 @@ package com.opendatadelaware.feede.model;
 import com.opendatadelaware.feede.model.converters.TokenConverter;
 import com.opendatadelaware.feede.model.fields.TokenType;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.Column;
 import javax.persistence.Convert;
@@ -47,6 +48,7 @@ public class Tokens implements Serializable {
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "user", referencedColumnName = "uuid", nullable = false, updatable = false)
   private Users user;
+
 
   @Column(name = "active", nullable = false)
   private boolean active;
