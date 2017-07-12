@@ -58,13 +58,14 @@ public class TokenDao extends AbstractDao<Tokens, UUID> {
   public Optional<Tokens> createTokenEntry(EntityWrapper<Users> user) {
     if (user.isPopulated()) {
       Date now = new Date();
-      Tokens token = new Tokens().setTokenType(TokenType.USER)
+      Tokens token = new Tokens().setUuid(UUID.randomUUID()).setTokenType(TokenType.USER)
                              .setCreationTime(now)
                              .setExpirationTime(new Date(now.getTime() + EXPIRATION_TIME))
                              .setUser(user.getEntityObject())
                              .setActive(true);
-      token = read(create(token));
-      return (token != null) ? Optional.of(token) : Optional.empty();
+      UUID tokenPK = (UUID) getSession().save(token);
+      Tokens tokenModal = read(tokenPK);
+      return (tokenModal != null) ? Optional.of(token) : Optional.empty();
     }
     return Optional.empty();
   }
