@@ -2,7 +2,9 @@ package com.opendatadelaware.feede.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.opendatadelaware.feede.config.WebSecurityConfig;
 import com.opendatadelaware.feede.config.jwt.JwtSettings;
+import com.opendatadelaware.feede.config.jwt.token.JwtToken;
 import com.opendatadelaware.feede.dao.TokenDao;
 import com.opendatadelaware.feede.dao.UsersDao;
 import com.opendatadelaware.feede.model.Tokens;
@@ -29,6 +31,7 @@ import org.springframework.mock.env.MockEnvironment;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.mockito.Matchers.anyObject;
@@ -36,6 +39,7 @@ import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 
 import java.net.URL;
 import java.nio.file.Files;
@@ -158,13 +162,18 @@ public class TestUserController {
                            .setCreationTime(now)
                            .setTokenType(TokenType.USER)
                            .setToken(UUID.randomUUID())
+                           .setUser(user)
                            .setUuid(UUID.randomUUID());
     when(userDao.getUserByEmail(anyString())).thenReturn(Optional.of(user));
     when(tokenDao.createTokenEntry(anyObject())).thenReturn(Optional.of(token));
 
-    this.mvc.perform(post("/api/user/login")
-                             .contentType(MediaType.APPLICATION_JSON).content(httpBody))
-            .andExpect(status().isOk());
-
+    MvcResult result = this.mvc.perform(post("/api/user/login")
+                             .contentType(MediaType.APPLICATION_JSON).content(httpBody)).andExpect(status().isOk())
+                               .andReturn();
+    EntityWrapper<Tokens> tokensEntityWrapper = EntityWrapper.makeWrapper(Optional.of(token));
+    String tokenHeaderExpected = String.format("Bearer %s",
+            JwtToken.createTokenInstance(tokensEntityWrapper, settings.getTokenSigningKey()).getTokenString());
+    String tokenHeaderActual = result.getResponse().getHeader(WebSecurityConfig.JWT_TOKEN_HEADER_PARAM);
+    Assert.assertEquals("Confirming jwt comparisons", tokenHeaderActual, tokenHeaderExpected);
   }
 }
