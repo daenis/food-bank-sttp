@@ -1,5 +1,6 @@
 package com.opendatadelaware.feede.config.jwt;
 
+import com.opendatadelaware.feede.config.jwt.token.JwtAuthenticationToken;
 import com.opendatadelaware.feede.config.jwt.token.JwtToken;
 import com.opendatadelaware.feede.model.Tokens;
 import com.opendatadelaware.feede.model.Users;

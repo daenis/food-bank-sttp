@@ -1,6 +1,7 @@
 package com.opendatadelaware.feede.config.jwt;
 
 import com.opendatadelaware.feede.config.WebSecurityConfig;
+import com.opendatadelaware.feede.config.jwt.token.JwtAuthenticationToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
