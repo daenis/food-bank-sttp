@@ -73,7 +73,8 @@ public class JwtToken {
                    .setIssuedAt(token.getCreationTime())
                    .claim("scope", token.getTokenType().getCode())
                    .setSubject(token.getUser().getEmail())
-                   .signWith(SignatureAlgorithm.HS512, tokenSigningKey).compact();
+                   .signWith(SignatureAlgorithm.HS512, tokenSigningKey)
+                   .compact();
   }
 
   private Claims parseClaims() {
