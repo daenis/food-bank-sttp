@@ -8,12 +8,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.logging.LogLevel;
-import org.springframework.boot.logging.LoggingSystem;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.http.MediaType;
@@ -43,6 +40,7 @@ import java.util.Optional;
 @RunWith(SpringRunner.class)
 public class TestUserController {
   private static final Logger LOGGER = LoggerFactory.getLogger(TestUserController.class);
+  private static final String MISSING_FILE = "Test setup error! ";
 
   private MockMvc mvc;
 
@@ -70,7 +68,7 @@ public class TestUserController {
       byte[] jsonData = Files.readAllBytes(Paths.get(inputFile.toURI()));
       return Optional.<String>of(Base64.getEncoder().encodeToString(jsonData));
     } catch (Exception e) {
-      LOGGER.error(e.getMessage());
+      LOGGER.error(MISSING_FILE + e.getMessage());
       return Optional.empty();
     }
   }
@@ -78,7 +76,7 @@ public class TestUserController {
   @Test
   // Needs to handle the exception
   public void testPostBadInput() throws Exception {
-    Optional<String> badAuth = jsonFileToBase64String("/json/BadUserInput.json");
+    Optional<String> badAuth = jsonFileToBase64String("/json/BadUserSignUpInput.json");
     if (badAuth.isPresent()) {
       Map<String, String> badInput = Collections.singletonMap("auth", badAuth.get());
       String badAuthBody = new ObjectMapper().writeValueAsString(badInput);
@@ -86,13 +84,13 @@ public class TestUserController {
                                .contentType(MediaType.APPLICATION_JSON).content(badAuthBody))
               .andExpect(status().isBadRequest());
     } else {
-      Assert.fail("File not available");
+      Assert.fail(MISSING_FILE + "testPostBadInput()");
     }
   }
 
   @Test
   public void testPostValidInput() throws Exception {
-      Optional<String> goodAuth = jsonFileToBase64String("/json/GoodUserInput.json");
+      Optional<String> goodAuth = jsonFileToBase64String("/json/GoodUserSignUpInput.json");
       when(dao.getUserByEmail(anyString())).thenReturn(Optional.empty());
       if (goodAuth.isPresent()) {
         Map<String, String> map = Collections.singletonMap("auth", goodAuth.get());
@@ -101,7 +99,12 @@ public class TestUserController {
                                  .contentType(MediaType.APPLICATION_JSON).content(goodAuthJsonBody))
                 .andExpect(status().isCreated());
       } else {
-        Assert.fail();
+        Assert.fail(MISSING_FILE + "testPostValidInput()");
       }
+  }
+
+  @Test
+  public void testTokenCreation() {
+
   }
 }

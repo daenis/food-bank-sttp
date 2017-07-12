@@ -24,6 +24,8 @@ import java.util.UUID;
 @Repository
 @Transactional
 public class TokenDao extends AbstractDao<Tokens, UUID> {
+
+  private static final long EXPIRATION_TIME = 900000;
   private EntityManager entityManager;
 
   public TokenDao() {
@@ -55,8 +57,12 @@ public class TokenDao extends AbstractDao<Tokens, UUID> {
 
   public Optional<Tokens> createTokenEntry(EntityWrapper<Users> user) {
     if (user.isPopulated()) {
+      Date now = new Date();
       Tokens token = new Tokens().setTokenType(TokenType.USER)
-                             .setUser(user.getEntityObject()).setActive(true);
+                             .setCreationTime(now)
+                             .setExpirationTime(new Date(now.getTime() + EXPIRATION_TIME))
+                             .setUser(user.getEntityObject())
+                             .setActive(true);
       token = read(create(token));
       return (token != null) ? Optional.of(token) : Optional.empty();
     }

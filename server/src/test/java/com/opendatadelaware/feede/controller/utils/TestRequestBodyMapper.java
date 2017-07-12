@@ -30,7 +30,7 @@ public class TestRequestBodyMapper {
 
   @Test
   public void testRequestBodyMapperCreation() {
-    Optional<byte[]> bytes = readFile("/json/GoodUserInput.json");
+    Optional<byte[]> bytes = readFile("/json/GoodUserSignUpInput.json");
     if (bytes.isPresent()) {
       RequestBodyMapper<UserAuthValidator> result = RequestBodyMapper.<UserAuthValidator>factory(bytes.get(), UserAuthValidator.class);
       Assert.assertNotNull("Checking if UserAuthValidator was created", result.get());
@@ -39,7 +39,7 @@ public class TestRequestBodyMapper {
 
   @Test
   public void testRequestBodyMapperReturnObjectValidity() {
-    Optional<byte[]> bytes = readFile("/json/GoodUserInput.json");
+    Optional<byte[]> bytes = readFile("/json/GoodUserSignUpInput.json");
     if (bytes.isPresent()) {
       RequestBodyMapper<UserAuthValidator> result = RequestBodyMapper.<UserAuthValidator>factory(bytes.get(), UserAuthValidator.class);
       Assert.assertTrue("Checking if return Validator isValid", result.get().isValid());
