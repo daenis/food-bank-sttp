@@ -58,10 +58,11 @@ public class UsersController {
     return new BadRequest().makeResponse(HttpStatus.BAD_REQUEST);
   }
 
-  @RequestMapping(path = "/api/user/login", method = RequestMethod.POST)
+  @RequestMapping(path = "login", method = RequestMethod.POST)
   public ResponseEntity<? extends Response> loginRequestHandler(@RequestBody Map<String, String> userSubmission)
           throws CredentialException {
     if (userSubmission.containsKey("auth")) {
+      System.out.println("Hello");
       UserCredentials auth = new UserCredentials(userSubmission.get("auth"));
       EntityWrapper<Users> user = service.validateUserForLogin(auth);
       JwtToken token = tokenService.createToken(user);
@@ -72,7 +73,6 @@ public class UsersController {
               .setHeader(header)
               .setStatusCode(HttpStatus.OK)
               .makeResponse();
-      // What to return for the happy path?
     }
     return new BadRequest().makeResponse(HttpStatus.BAD_REQUEST);
   }
