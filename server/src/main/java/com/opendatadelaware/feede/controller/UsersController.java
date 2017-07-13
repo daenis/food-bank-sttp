@@ -77,6 +77,11 @@ public class UsersController {
     return new BadRequest().makeResponse(HttpStatus.BAD_REQUEST);
   }
 
+  @RequestMapping(path = "check", method = RequestMethod.POST)
+  public ResponseEntity<String> checkItOut(@RequestBody Map<String, String> userSubmission) {
+    return new ResponseEntity<String>("<h1>Check</h1>", HttpStatus.OK);
+  }
+
   private static <T> RequestBodyMapper<T> base64ToRequestBodyMapper(String encodedString, Class<T> theClass) {
     byte[] jsonRepresentation = Base64.decode(encodedString);
     return RequestBodyMapper.<T>factory(jsonRepresentation, theClass);
