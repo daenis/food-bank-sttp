@@ -8,7 +8,10 @@ import com.opendatadelaware.feede.service.EntityWrapper;
 import com.opendatadelaware.feede.service.TokenService;
 import com.opendatadelaware.feede.service.UserService;
 import io.jsonwebtoken.Claims;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
@@ -21,8 +24,10 @@ import java.util.List;
 /**
  * Created by denniskalaygian on 7/5/17.
  */
-@Component
+@Configuration
 public class JwtAuthenticationProvider implements AuthenticationProvider {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(JwtAuthenticationProvider.class);
 
     private final JwtSettings jwtSettings;
     private final TokenService tokenService;
@@ -55,6 +60,7 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public boolean supports(Class<?> authentication) {
+        LOGGER.warn(authentication.toString());
         return (JwtAuthenticationToken.class.isAssignableFrom(authentication));
     }
 

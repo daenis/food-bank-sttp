@@ -28,18 +28,18 @@ import java.io.IOException;
 /**
  * Created by denniskalaygian on 7/5/17.
  */
-@Component
 public class JwtTokenFilter extends AbstractAuthenticationProcessingFilter {
     private static final Logger LOGGER = LoggerFactory.getLogger(JwtTokenFilter.class);
     private final AuthenticationSuccessHandler successHandler;
     private final AuthenticationFailureHandler failureHandler;
-    private static final String defaultUrl = "/api";
+    private static final String defaultUrl = "/api/**";
     private JwtSettings settings;
 
     @Autowired
     public JwtTokenFilter(AuthenticationSuccessHandler theSuccessHandler,
                           AuthenticationFailureHandler theFailureHandler) {
         super(defaultUrl);
+        LOGGER.info("Filter called");
         successHandler = theSuccessHandler;
         failureHandler = theFailureHandler;
     }

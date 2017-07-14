@@ -1,6 +1,7 @@
 package com.opendatadelaware.feede.config;
 
 import com.opendatadelaware.feede.config.jwt.JwtAuthenticationProvider;
+import com.opendatadelaware.feede.config.jwt.JwtTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,10 +11,12 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * Created by aaronlong on 6/28/17.
@@ -24,6 +27,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   public static final String JWT_TOKEN_HEADER_PARAM = "X-Authorization";
 
+  private AuthenticationManager authenticationManager;
   private AuthenticationSuccessHandler successHandler;
   private AuthenticationFailureHandler failureHandler;
 
@@ -34,7 +38,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     http.csrf().disable().authorizeRequests()
             .antMatchers("/api/user").permitAll()
             .antMatchers(HttpMethod.POST, "/api/user/login").permitAll()
-            .anyRequest().authenticated();
+            .and()
+            .authorizeRequests()
+                      .anyRequest().authenticated()
+            .and()
+              .sessionManagement()
+              .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+
+            .and()
+              .addFilterBefore(buildFilter(), UsernamePasswordAuthenticationFilter.class);
+  }
+
+  private JwtTokenFilter buildFilter() {
+    JwtTokenFilter filter = new JwtTokenFilter(successHandler, failureHandler);
+    filter.setAuthenticationManager(this.authenticationManager);
+    return filter;
   }
 
   @Override
@@ -51,6 +69,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   @Bean
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
+  }
+
+  @Autowired
+  public void authenticationManager(AuthenticationManager manager) {
+    authenticationManager = manager;
   }
 
   @Autowired
