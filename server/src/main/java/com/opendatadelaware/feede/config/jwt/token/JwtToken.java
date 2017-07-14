@@ -59,6 +59,7 @@ public class JwtToken {
   }
 
   public static JwtToken createTokenInstanceFromHeader(String header, byte[] signingKey) {
+    LOGGER.warn(header);
     if (header == null && header.isEmpty()) {
       throw new AuthenticationServiceException("Authorization Header cannot be blank!");
     }

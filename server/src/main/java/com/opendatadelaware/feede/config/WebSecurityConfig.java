@@ -53,7 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   private JwtTokenFilter buildFilter() {
     JwtTokenFilter filter = new JwtTokenFilter(successHandler, failureHandler, jwtSettings);
-    filter.setAuthenticationManager(this.authenticationManager);
+    filter.setAuthenticationManager(authenticationManager);
     return filter;
   }
 

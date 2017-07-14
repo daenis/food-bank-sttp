@@ -57,6 +57,7 @@ public class JwtTokenFilter extends AbstractAuthenticationProcessingFilter {
             throw new HttpRequestMethodNotSupportedException("Authentication method not supported");
         }
         String tokenHeader = httpServletRequest.getHeader(WebSecurityConfig.JWT_TOKEN_HEADER_PARAM);
+        LOGGER.warn(tokenHeader);
         JwtToken token = JwtToken.createTokenInstanceFromHeader(tokenHeader, settings.getTokenSigningKey());
         return getAuthenticationManager().authenticate(new JwtAuthenticationToken(token));
     }
@@ -80,7 +81,6 @@ public class JwtTokenFilter extends AbstractAuthenticationProcessingFilter {
         failureHandler.onAuthenticationFailure(request, response, failed);
     }
 
-    @Autowired
     @Override
     public void setAuthenticationManager(AuthenticationManager authenticationManager) {
         super.setAuthenticationManager(authenticationManager);
