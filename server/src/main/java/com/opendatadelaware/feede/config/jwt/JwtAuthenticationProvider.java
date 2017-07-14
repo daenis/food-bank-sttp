@@ -33,7 +33,6 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
     private final TokenService tokenService;
     private final UserService userService;
 
-    @Autowired
     public JwtAuthenticationProvider(JwtSettings theJwtSettings,
                                      TokenService theTokenService,
                                      UserService theUserService) {

@@ -1,6 +1,7 @@
 package com.opendatadelaware.feede.config;
 
 import com.opendatadelaware.feede.config.jwt.JwtAuthenticationProvider;
+import com.opendatadelaware.feede.config.jwt.JwtSettings;
 import com.opendatadelaware.feede.config.jwt.JwtTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -32,6 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   private AuthenticationFailureHandler failureHandler;
 
   private JwtAuthenticationProvider jwtAuthenticationProvider;
+  private JwtSettings jwtSettings;
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
@@ -50,7 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   }
 
   private JwtTokenFilter buildFilter() {
-    JwtTokenFilter filter = new JwtTokenFilter(successHandler, failureHandler);
+    JwtTokenFilter filter = new JwtTokenFilter(successHandler, failureHandler, jwtSettings);
     filter.setAuthenticationManager(this.authenticationManager);
     return filter;
   }
@@ -89,5 +91,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   @Autowired
   public void setFailureHandler(AuthenticationFailureHandler failureHandler) {
     this.failureHandler = failureHandler;
+  }
+
+  @Autowired
+  public void setJwtSettings(JwtSettings theSettings) {
+    jwtSettings = theSettings;
   }
 }

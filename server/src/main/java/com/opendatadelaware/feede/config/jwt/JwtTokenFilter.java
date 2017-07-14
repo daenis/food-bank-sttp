@@ -37,16 +37,13 @@ public class JwtTokenFilter extends AbstractAuthenticationProcessingFilter {
 
     @Autowired
     public JwtTokenFilter(AuthenticationSuccessHandler theSuccessHandler,
-                          AuthenticationFailureHandler theFailureHandler) {
+                          AuthenticationFailureHandler theFailureHandler,
+                          JwtSettings theSettings) {
         super(defaultUrl);
         LOGGER.info("Filter called");
         successHandler = theSuccessHandler;
         failureHandler = theFailureHandler;
-    }
-
-    @Autowired
-    public void setSettings(JwtSettings settings) {
-        this.settings = settings;
+        settings = theSettings;
     }
 
     @Override
