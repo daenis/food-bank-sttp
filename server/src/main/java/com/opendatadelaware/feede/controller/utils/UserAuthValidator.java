@@ -15,45 +15,46 @@ public class UserAuthValidator {
     private static final Validator VALIDATOR;
 
     static {
-      VALIDATOR = Validation.buildDefaultValidatorFactory().getValidator();
+        VALIDATOR = Validation.buildDefaultValidatorFactory().getValidator();
     }
 
-    @NotNull(message="First name cannot be null")
+    @NotNull(message = "First name cannot be null")
     private String firstName;
 
-    @NotNull(message="Last name cannot be null")
+    @NotNull(message = "Last name cannot be null")
     private String lastName;
 
-    @NotNull(message="Email cannot be null")
+    @NotNull(message = "Email cannot be null")
     @Email
     private String email;
 
-    @NotNull(message="Password cannot be null")
+    @NotNull(message = "Password cannot be null")
     private String password;
 
-    @NotNull(message="Phone number cannot be null")
-    @Pattern(regexp="(^$|(\\(?[0-9]{3}\\)?-?[0-9]{3}-?[0-9]{4})|(\\(?1\\)?-?\\(?[0-9]{3}\\)?-?[0-9]{3}-?[0-9]{4}))")
+    @NotNull(message = "Phone number cannot be null")
+    @Pattern(regexp = "(^$|(\\(?[0-9]{3}\\)?-?[0-9]{3}-?[0-9]{4})|(\\(?1\\)?-?\\(?[0-9]{3}\\)?-?[0-9]{3}-?[0-9]{4}))")
     private String phone;
 
-    @NotNull(message ="Street cannot be null")
+    @NotNull(message = "Street cannot be null")
     private String street;
 
-    @NotNull(message ="City cannot be null")
+    @NotNull(message = "City cannot be null")
     private String city;
 
-    @NotNull(message ="State cannot be null")
+    @NotNull(message = "State cannot be null")
     private String state;
 
-    @NotNull(message ="Zip cannot be null")
+    @NotNull(message = "Zip cannot be null")
     private String zip;
 
-    @NotNull(message="Type cannot be null")
+    @NotNull(message = "Type cannot be null")
     private String type;
 
-    public UserAuthValidator() {}
+    public UserAuthValidator() {
+    }
 
     public boolean isValid() {
-      return VALIDATOR.validate(this).size() == 0;
+        return VALIDATOR.validate(this).size() == 0;
     }
 
     public String getFirstName() {
@@ -148,6 +149,6 @@ public class UserAuthValidator {
 
     @Override
     public String toString() {
-      return String.format("[first_name=%s, last_name=%s, email=%s]", this.firstName, this.lastName, this.email);
+        return String.format("[first_name=%s, last_name=%s, email=%s]", this.firstName, this.lastName, this.email);
     }
 }

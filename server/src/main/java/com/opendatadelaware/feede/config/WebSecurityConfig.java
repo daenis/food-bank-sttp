@@ -26,80 +26,80 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-  public static final String JWT_TOKEN_HEADER_PARAM = "X-Authorization";
+    public static final String JWT_TOKEN_HEADER_PARAM = "X-Authorization";
 
-  private AuthenticationManager authenticationManager;
-  private AuthenticationSuccessHandler successHandler;
-  private AuthenticationFailureHandler failureHandler;
+    private AuthenticationManager authenticationManager;
+    private AuthenticationSuccessHandler successHandler;
+    private AuthenticationFailureHandler failureHandler;
 
-  private JwtAuthenticationProvider jwtAuthenticationProvider;
-  private JwtSettings jwtSettings;
+    private JwtAuthenticationProvider jwtAuthenticationProvider;
+    private JwtSettings jwtSettings;
 
-  @Override
-  protected void configure(HttpSecurity http) throws Exception {
-    http.csrf().disable().authorizeRequests()
-            .antMatchers("/api/user").permitAll()
-            .antMatchers(HttpMethod.POST, "/api/user/login").permitAll()
-            .and()
-            .authorizeRequests()
-                      .antMatchers("/api/**").authenticated()
-                      .antMatchers("/login").permitAll()
-            .and()
-              .sessionManagement()
-              .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .and()
-              .addFilterBefore(buildFilter(), UsernamePasswordAuthenticationFilter.class)
-              .addFilterBefore(buildFilterExceptionHandler(), JwtTokenFilter.class);
-  }
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable().authorizeRequests()
+                .antMatchers("/api/user").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/user/login").permitAll()
+                .and()
+                .authorizeRequests()
+                .antMatchers("/api/**").authenticated()
+                .antMatchers("/login").permitAll()
+                .and()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .addFilterBefore(buildFilter(), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(buildFilterExceptionHandler(), JwtTokenFilter.class);
+    }
 
-  private FilterExceptionHandler buildFilterExceptionHandler() {
-    return new FilterExceptionHandler();
-  }
+    private FilterExceptionHandler buildFilterExceptionHandler() {
+        return new FilterExceptionHandler();
+    }
 
-  private JwtTokenFilter buildFilter() {
-    JwtTokenFilter filter = new JwtTokenFilter(successHandler, failureHandler, jwtSettings);
-    filter.setAuthenticationManager(authenticationManager);
-    return filter;
-  }
+    private JwtTokenFilter buildFilter() {
+        JwtTokenFilter filter = new JwtTokenFilter(successHandler, failureHandler, jwtSettings);
+        filter.setAuthenticationManager(authenticationManager);
+        return filter;
+    }
 
-  @Override
-  protected void configure(AuthenticationManagerBuilder auth) {
-    auth.authenticationProvider(jwtAuthenticationProvider);
-  }
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) {
+        auth.authenticationProvider(jwtAuthenticationProvider);
+    }
 
-  @Bean
-  @Override
-  public AuthenticationManager authenticationManagerBean() throws Exception {
-    return super.authenticationManagerBean();
-  }
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
 
-  @Bean
-  public PasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder();
-  }
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-  @Autowired
-  public void authenticationManager(AuthenticationManager manager) {
-    authenticationManager = manager;
-  }
+    @Autowired
+    public void authenticationManager(AuthenticationManager manager) {
+        authenticationManager = manager;
+    }
 
-  @Autowired
-  public void setJwtAuthenticationProvider(JwtAuthenticationProvider theJwtAuthenticationProvider) {
-    jwtAuthenticationProvider = theJwtAuthenticationProvider;
-  }
+    @Autowired
+    public void setJwtAuthenticationProvider(JwtAuthenticationProvider theJwtAuthenticationProvider) {
+        jwtAuthenticationProvider = theJwtAuthenticationProvider;
+    }
 
-  @Autowired
-  public void setSuccessHandler(AuthenticationSuccessHandler successHandler) {
-    this.successHandler = successHandler;
-  }
+    @Autowired
+    public void setSuccessHandler(AuthenticationSuccessHandler successHandler) {
+        this.successHandler = successHandler;
+    }
 
-  @Autowired
-  public void setFailureHandler(AuthenticationFailureHandler failureHandler) {
-    this.failureHandler = failureHandler;
-  }
+    @Autowired
+    public void setFailureHandler(AuthenticationFailureHandler failureHandler) {
+        this.failureHandler = failureHandler;
+    }
 
-  @Autowired
-  public void setJwtSettings(JwtSettings theSettings) {
-    jwtSettings = theSettings;
-  }
+    @Autowired
+    public void setJwtSettings(JwtSettings theSettings) {
+        jwtSettings = theSettings;
+    }
 }

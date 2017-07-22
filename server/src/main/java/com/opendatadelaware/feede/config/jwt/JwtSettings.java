@@ -37,7 +37,7 @@ public class JwtSettings {
         environment = anEnvironment;
         return this;
     }
-    
+
     public Integer getTokenRefreshTime() {
         return tokenRefreshTime;
     }
@@ -50,12 +50,12 @@ public class JwtSettings {
     public Integer getTokenExpirationTime() {
         return tokenExpirationTime;
     }
-    
+
     public JwtSettings setTokenExpirationTime(Integer tokenExpirationTime) {
         this.tokenExpirationTime = tokenExpirationTime;
         return this;
     }
-    
+
     public String getTokenIssuer() {
         return tokenIssuer;
     }
@@ -64,11 +64,11 @@ public class JwtSettings {
         this.tokenIssuer = tokenIssuer;
         return this;
     }
-    
+
     public byte[] getTokenSigningKey() {
         return tokenSigningKey;
     }
-    
+
     public JwtSettings setTokenSigningKey(byte[] tokenSigningKey) {
         this.tokenSigningKey = tokenSigningKey;
         return this;

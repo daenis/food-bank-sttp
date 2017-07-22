@@ -1,7 +1,6 @@
 package com.opendatadelaware.feede.config.jwt.token;
 
 import com.opendatadelaware.feede.model.Tokens;
-import com.opendatadelaware.feede.config.jwt.token.JwtToken;
 import com.opendatadelaware.feede.service.EntityWrapper;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;

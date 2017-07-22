@@ -41,112 +41,110 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class TestUserService {
 
-  private static byte[] goodNewUserBase64;
-  private static byte[] badNewUserBase64;
-  private static String goodUserLoginBase64;
-  private static String badUserLoginBase64;
+    private static final Logger LOGGER = LoggerFactory.getLogger(TestUserController.class);
+    private static byte[] goodNewUserBase64;
+    private static byte[] badNewUserBase64;
+    private static String goodUserLoginBase64;
+    private static String badUserLoginBase64;
+    @Mock
+    private UserDao dao;
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(TestUserController.class);
+    private PasswordEncoder passwordEncoder;
 
-  @Mock
-  private UserDao dao;
+    private UserService service;
 
-  private PasswordEncoder passwordEncoder;
-
-  private UserService service;
-
-  @BeforeClass
-  public static void init() {
-    goodNewUserBase64 = readFile("/base64/goodNewUser.base64");
-    badNewUserBase64  = readFile("/base64/badNewUser.base64");
-    goodUserLoginBase64 = readFileAsString("/base64/goodUserLogin.base64");
-    badUserLoginBase64 = readFileAsString("/base64/badUserLogin.base64");
-  }
-
-  private static String readFileAsString(String fileName) {
-    try {
-      URL url = TestUserService.class.getResource(fileName);
-      byte[] fileAsBytes = Files.readAllBytes(Paths.get(url.toURI()));
-      return new String(fileAsBytes);
-    } catch(URISyntaxException | IOException e) {
-      System.out.println(e.getMessage());
-      return "";
+    @BeforeClass
+    public static void init() {
+        goodNewUserBase64 = readFile("/base64/goodNewUser.base64");
+        badNewUserBase64 = readFile("/base64/badNewUser.base64");
+        goodUserLoginBase64 = readFileAsString("/base64/goodUserLogin.base64");
+        badUserLoginBase64 = readFileAsString("/base64/badUserLogin.base64");
     }
-  }
 
-  private static byte[] readFile(String fileName) {
-    try {
-      Path path = Paths.get(TestUserService.class.getResource(fileName).toURI());
-      return Files.readAllBytes(path);
-    } catch (URISyntaxException | IOException e) {
-      LOGGER.error(e.getMessage());
-      return null;
+    private static String readFileAsString(String fileName) {
+        try {
+            URL url = TestUserService.class.getResource(fileName);
+            byte[] fileAsBytes = Files.readAllBytes(Paths.get(url.toURI()));
+            return new String(fileAsBytes);
+        } catch (URISyntaxException | IOException e) {
+            System.out.println(e.getMessage());
+            return "";
+        }
     }
-  }
 
-  @Before
-  public void setUp() {
-    passwordEncoder = new BCryptPasswordEncoder();
-    service = new UserService();
-    service.setDao(dao);
-    service.setPasswordEncoder(passwordEncoder);
-  }
+    private static byte[] readFile(String fileName) {
+        try {
+            Path path = Paths.get(TestUserService.class.getResource(fileName).toURI());
+            return Files.readAllBytes(path);
+        } catch (URISyntaxException | IOException e) {
+            LOGGER.error(e.getMessage());
+            return null;
+        }
+    }
 
-  @Test
-  public void testCreateUserFromRequestSuccess() {
-    byte[] json = Base64.getDecoder().decode(goodNewUserBase64);
-    RequestBodyMapper<UserAuthValidator> auth = RequestBodyMapper.factory(json, UserAuthValidator.class);
-    when(dao.getUserByEmail(anyString())).thenReturn(Optional.empty());
-    Response response = service.createUserFromRequest(auth);
-    Assert.assertTrue("Success response is returned", response instanceof Success);
-  }
+    @Before
+    public void setUp() {
+        passwordEncoder = new BCryptPasswordEncoder();
+        service = new UserService();
+        service.setDao(dao);
+        service.setPasswordEncoder(passwordEncoder);
+    }
 
-  @Test
-  public void testCreateUserFromRequestBadRequest() {
-    byte[] json = Base64.getDecoder().decode(badNewUserBase64);
-    RequestBodyMapper<UserAuthValidator> auth = RequestBodyMapper.factory(json, UserAuthValidator.class);
-    Response response = service.createUserFromRequest(auth);
-    Assert.assertTrue("BadRequest response is returned", response instanceof BadRequest);
-  }
-  
-  @Test
-  public void testValidateUserForLoginSuccess() throws CredentialException {
-    UserCredentials creds = new UserCredentials(goodUserLoginBase64);
+    @Test
+    public void testCreateUserFromRequestSuccess() {
+        byte[] json = Base64.getDecoder().decode(goodNewUserBase64);
+        RequestBodyMapper<UserAuthValidator> auth = RequestBodyMapper.factory(json, UserAuthValidator.class);
+        when(dao.getUserByEmail(anyString())).thenReturn(Optional.empty());
+        Response response = service.createUserFromRequest(auth);
+        Assert.assertTrue("Success response is returned", response instanceof Success);
+    }
 
-    UUID uuid = UUID.randomUUID();
-    String passHash = passwordEncoder.encode("zipcoder2017");
-    Users userModal = new Users().setEmail("johndoe@gmail.com").setUuid(uuid).setPassword(passHash);
-    when(dao.getUserByEmail(anyString())).thenReturn(Optional.of(userModal));
+    @Test
+    public void testCreateUserFromRequestBadRequest() {
+        byte[] json = Base64.getDecoder().decode(badNewUserBase64);
+        RequestBodyMapper<UserAuthValidator> auth = RequestBodyMapper.factory(json, UserAuthValidator.class);
+        Response response = service.createUserFromRequest(auth);
+        Assert.assertTrue("BadRequest response is returned", response instanceof BadRequest);
+    }
 
-    EntityWrapper<Users> user = service.validateUserForLogin(creds);
+    @Test
+    public void testValidateUserForLoginSuccess() throws CredentialException {
+        UserCredentials creds = new UserCredentials(goodUserLoginBase64);
 
-    Assert.assertTrue("Checking to see if a valid user object is returned", user.isPopulated());
-  }
+        UUID uuid = UUID.randomUUID();
+        String passHash = passwordEncoder.encode("zipcoder2017");
+        Users userModal = new Users().setEmail("johndoe@gmail.com").setUuid(uuid).setPassword(passHash);
+        when(dao.getUserByEmail(anyString())).thenReturn(Optional.of(userModal));
 
-  @Test(expected=CredentialException.class)
-  public void testValidateUserForLoginSuccessException() throws CredentialException {
-    UserCredentials creds = new UserCredentials("badcredentials");
+        EntityWrapper<Users> user = service.validateUserForLogin(creds);
 
-    UUID uuid = UUID.randomUUID();
-    String passHash = passwordEncoder.encode("zipcoder2017");
-    Users userModal = new Users().setEmail("johndoe@gmail.com").setUuid(uuid).setPassword(passHash);
-    when(dao.getUserByEmail(anyString())).thenReturn(Optional.of(userModal));
+        Assert.assertTrue("Checking to see if a valid user object is returned", user.isPopulated());
+    }
 
-    EntityWrapper<Users> user = service.validateUserForLogin(creds);
-  }
+    @Test(expected = CredentialException.class)
+    public void testValidateUserForLoginSuccessException() throws CredentialException {
+        UserCredentials creds = new UserCredentials("badcredentials");
 
-  @Test
-  public void testValidateUserForLoginFailure() throws CredentialException {
-    UserCredentials creds = new UserCredentials(badUserLoginBase64);
+        UUID uuid = UUID.randomUUID();
+        String passHash = passwordEncoder.encode("zipcoder2017");
+        Users userModal = new Users().setEmail("johndoe@gmail.com").setUuid(uuid).setPassword(passHash);
+        when(dao.getUserByEmail(anyString())).thenReturn(Optional.of(userModal));
 
-    UUID uuid = UUID.randomUUID();
-    String passHash = passwordEncoder.encode("123456");
-    Users userModal = new Users().setEmail("@@.com").setUuid(uuid).setPassword(passHash);
-    when(dao.getUserByEmail(anyString())).thenReturn(Optional.of(userModal));
+        EntityWrapper<Users> user = service.validateUserForLogin(creds);
+    }
 
-    EntityWrapper<Users> user = service.validateUserForLogin(creds);
+    @Test
+    public void testValidateUserForLoginFailure() throws CredentialException {
+        UserCredentials creds = new UserCredentials(badUserLoginBase64);
 
-    Assert.assertFalse("Checking to see if a valid user object is returned", user.isPopulated());
-  }
+        UUID uuid = UUID.randomUUID();
+        String passHash = passwordEncoder.encode("123456");
+        Users userModal = new Users().setEmail("@@.com").setUuid(uuid).setPassword(passHash);
+        when(dao.getUserByEmail(anyString())).thenReturn(Optional.of(userModal));
+
+        EntityWrapper<Users> user = service.validateUserForLogin(creds);
+
+        Assert.assertFalse("Checking to see if a valid user object is returned", user.isPopulated());
+    }
 
 }

@@ -31,13 +31,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Base64;
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
@@ -48,16 +44,13 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
-/**
- * Created by aaronlong on 6/28/17.
- */
 @RunWith(SpringRunner.class)
-public class TestUserController {
-    private static final Logger LOGGER = LoggerFactory.getLogger(TestUserController.class);
-    private static final String MISSING_FILE = "Test setup error! ";
+public class TestAuthenticationController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(TestAuthenticationController.class);
 
     private MockMvc mvc;
+    private byte[] secret;
 
     @Mock
     private MockEnvironment environment;
@@ -81,62 +74,28 @@ public class TestUserController {
     private JwtSettings settings;
 
     @InjectMocks
-    private UsersController controller;
-
-    static Optional<String> jsonFileToBase64String(String fileName) {
-        try {
-            URL inputFile = TestUserController.class.getResource(fileName);
-            byte[] jsonData = Files.readAllBytes(Paths.get(inputFile.toURI()));
-            return Optional.<String>of(Base64.getEncoder().encodeToString(jsonData));
-        } catch (Exception e) {
-            LOGGER.error(MISSING_FILE + e.getMessage());
-            return Optional.empty();
-        }
-    }
-
-    @Before
-    public void initJwtSetting() {
-        when(settings.getTokenSigningKey()).thenReturn("secret".getBytes());
-        when(settings.getTokenExpirationTime()).thenReturn(15);
-        when(settings.getTokenRefreshTime()).thenReturn(60);
-        when(settings.getTokenIssuer()).thenReturn("feede");
-    }
+    private AuthenticationController controller;
 
     @Before
     public void init() {
         MockitoAnnotations.initMocks(this);
+        secret = "65455ecrvrdytfyg6rr".getBytes();
+        when(settings.getTokenSigningKey()).thenReturn(secret);
+        when(settings.getTokenExpirationTime()).thenReturn(15);
+        when(settings.getTokenRefreshTime()).thenReturn(60);
+        when(settings.getTokenIssuer()).thenReturn("feede");
         mvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
 
-    @Test
-    // Needs to handle the exception
-    public void testPostBadInput() throws Exception {
-        Optional<String> badAuth = jsonFileToBase64String("/json/BadUserSignUpInput.json");
-        if (badAuth.isPresent()) {
-            Map<String, String> badInput = Collections.singletonMap("auth", badAuth.get());
-            String badAuthBody = new ObjectMapper().writeValueAsString(badInput);
-            this.mvc.perform(post("/api/user")
-                    .contentType(MediaType.APPLICATION_JSON).content(badAuthBody))
-                    .andExpect(status().isBadRequest());
-        } else {
-            Assert.fail(MISSING_FILE + "testPostBadInput()");
-        }
-    }
-
-    @Test
-    public void testPostValidInput() throws Exception {
-        Optional<String> goodAuth = jsonFileToBase64String("/json/GoodUserSignUpInput.json");
-        when(userDao.getUserByEmail(anyString())).thenReturn(Optional.empty());
-        if (goodAuth.isPresent()) {
-            Map<String, String> map = Collections.singletonMap("auth", goodAuth.get());
-            String goodAuthJsonBody = new ObjectMapper().writeValueAsString(map);
-            this.mvc.perform(post("/api/user")
-                    .contentType(MediaType.APPLICATION_JSON).content(goodAuthJsonBody))
-                    .andExpect(status().isCreated());
-        } else {
-            Assert.fail(MISSING_FILE + "testPostValidInput()");
-        }
-    }
+//	@Before
+//	public void initJwtSetting() {
+//		when(settings.getTokenSigningKey()).thenReturn(secret);
+//		when(settings.getTokenExpirationTime()).thenReturn(15);
+//		when(settings.getTokenRefreshTime()).thenReturn(60);
+//		when(settings.getTokenIssuer()).thenReturn("feede");
+//		System.out.println("hey");
+//		LOGGER.warn(settings.toString());
+//	}
 
     @Test
     public void testTokenCreation() throws Exception {
@@ -145,31 +104,24 @@ public class TestUserController {
         String email = "johnDoe@gmail.com";
         byte[] authenticationRawBytes = String.format("%s;%s", email, passWordRaw).getBytes();
         String base64Authentication = Base64.getEncoder().encodeToString(authenticationRawBytes);
-        Map<String, String> map = new HashMap<>();
-        map.put("auth", base64Authentication);
+        Map<String, String> map = Collections.singletonMap("auth", base64Authentication);
         String httpBody = new ObjectMapper().writeValueAsString(map);
 
-        Users user = new Users()
-                .setPassword(passWordEncode)
-                .setEmail(email)
-                .setUuid(UUID.randomUUID());
+        Users user = new Users().setPassword(passWordEncode).setEmail(email).setUuid(UUID.randomUUID());
         Date now = new Date();
-        Tokens token = new Tokens().setExpirationTime(new Date(now.getTime() + 900000))
-                .setCreationTime(now)
-                .setTokenType(TokenType.USER)
-                .setToken(UUID.randomUUID())
-                .setUser(user)
-                .setUuid(UUID.randomUUID());
+        Tokens token = new Tokens().setExpirationTime(new Date(now.getTime() + 900000)).setCreationTime(now)
+                .setTokenType(TokenType.USER).setToken(UUID.randomUUID()).setUser(user).setUuid(UUID.randomUUID());
         when(userDao.getUserByEmail(anyString())).thenReturn(Optional.of(user));
         when(tokenDao.createTokenEntry(anyObject())).thenReturn(Optional.of(token));
 
-        MvcResult result = this.mvc.perform(post("/login")
-                .contentType(MediaType.APPLICATION_JSON).content(httpBody)).andExpect(status().isOk())
-                .andReturn();
+        MvcResult result = this.mvc
+                .perform(post("/login").contentType(MediaType.APPLICATION_JSON).content(httpBody))
+                .andExpect(status().isOk()).andReturn();
         EntityWrapper<Tokens> tokensEntityWrapper = EntityWrapper.makeWrapper(Optional.of(token));
         String tokenHeaderExpected = String.format("Bearer %s",
-                JwtToken.createTokenInstance(tokensEntityWrapper, settings.getTokenSigningKey()).getTokenString());
+                JwtToken.createTokenInstance(tokensEntityWrapper, secret).getTokenString());
         String tokenHeaderActual = result.getResponse().getHeader(WebSecurityConfig.JWT_TOKEN_HEADER_PARAM);
         Assert.assertEquals("Confirming jwt comparisons", tokenHeaderActual, tokenHeaderExpected);
     }
+
 }

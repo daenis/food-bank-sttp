@@ -11,20 +11,20 @@ import java.util.Optional;
  */
 @Converter
 public class TokenConverter implements AttributeConverter<TokenType, String> {
-  @Override
-  public String convertToDatabaseColumn(TokenType token) {
-    if (token == null) {
-      return null;
+    @Override
+    public String convertToDatabaseColumn(TokenType token) {
+        if (token == null) {
+            return null;
+        }
+        return token.getCode();
     }
-    return token.getCode();
-  }
 
-  @Override
-  public TokenType convertToEntityAttribute(String tokenString) {
-    if (tokenString == null) {
-      return null;
+    @Override
+    public TokenType convertToEntityAttribute(String tokenString) {
+        if (tokenString == null) {
+            return null;
+        }
+        Optional<TokenType> field = TokenType.getTypeFromCode(tokenString);
+        return field.isPresent() ? field.get() : null;
     }
-    Optional<TokenType> field = TokenType.getTypeFromCode(tokenString);
-    return field.isPresent() ? field.get() : null;
-  }
 }

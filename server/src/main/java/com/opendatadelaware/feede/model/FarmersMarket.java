@@ -19,109 +19,109 @@ import java.util.UUID;
 @Entity
 @Table(name = "FARMERS_MARKET")
 public class FarmersMarket implements Serializable {
-  @Id
-  @GeneratedValue(generator = "uuid2")
-  @GenericGenerator(name = "uuid2", strategy = "uuid2")
-  @Column(name = "uuid", columnDefinition = "BINARY(16)", updatable = false, nullable = false)
-  private UUID uuid;
+    @Id
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @Column(name = "uuid", columnDefinition = "BINARY(16)", updatable = false, nullable = false)
+    private UUID uuid;
 
-  @Column(name = "name")
-  private String name;
+    @Column(name = "name")
+    private String name;
 
-  @Column(name = "email")
-  private String email;
+    @Column(name = "email")
+    private String email;
 
-  @Column(name = "website")
-  private String website;
+    @Column(name = "website")
+    private String website;
 
-  @Column(name = "phone")
-  private String phone;
+    @Column(name = "phone")
+    private String phone;
 
-  @Column(name = "street_address")
-  private String streetAddress;
+    @Column(name = "street_address")
+    private String streetAddress;
 
-  @Column(name = "city")
-  private String city;
+    @Column(name = "city")
+    private String city;
 
-  @Column(name = "state")
-  private String state;
+    @Column(name = "state")
+    private String state;
 
-  @Column(name = "zip")
-  private String zip;
+    @Column(name = "zip")
+    private String zip;
 
-  @OneToOne(fetch= FetchType.EAGER)
-  @JoinColumn(name = "contact", referencedColumnName = "uuid")
-  private Users contact;
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "contact", referencedColumnName = "uuid")
+    private Users contact;
 
-  public String getName() {
-    return name;
-  }
+    public String getName() {
+        return name;
+    }
 
-  public void setName(String name) {
-    this.name = name;
-  }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-  public String getEmail() {
-    return email;
-  }
+    public String getEmail() {
+        return email;
+    }
 
-  public void setEmail(String email) {
-    this.email = email;
-  }
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-  public String getWebsite() {
-    return website;
-  }
+    public String getWebsite() {
+        return website;
+    }
 
-  public void setWebsite(String website) {
-    this.website = website;
-  }
+    public void setWebsite(String website) {
+        this.website = website;
+    }
 
-  public String getPhone() {
-    return phone;
-  }
+    public String getPhone() {
+        return phone;
+    }
 
-  public void setPhone(String phone) {
-    this.phone = phone;
-  }
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
-  public String getStreetAddress() {
-    return streetAddress;
-  }
+    public String getStreetAddress() {
+        return streetAddress;
+    }
 
-  public void setStreetAddress(String streetAddress) {
-    this.streetAddress = streetAddress;
-  }
+    public void setStreetAddress(String streetAddress) {
+        this.streetAddress = streetAddress;
+    }
 
-  public String getCity() {
-    return city;
-  }
+    public String getCity() {
+        return city;
+    }
 
-  public void setCity(String city) {
-    this.city = city;
-  }
+    public void setCity(String city) {
+        this.city = city;
+    }
 
-  public String getState() {
-    return state;
-  }
+    public String getState() {
+        return state;
+    }
 
-  public void setState(String state) {
-    this.state = state;
-  }
+    public void setState(String state) {
+        this.state = state;
+    }
 
-  public String getZip() {
-    return zip;
-  }
+    public String getZip() {
+        return zip;
+    }
 
-  public void setZip(String zip) {
-    this.zip = zip;
-  }
+    public void setZip(String zip) {
+        this.zip = zip;
+    }
 
-  public Users getContact() {
-    return contact;
-  }
+    public Users getContact() {
+        return contact;
+    }
 
-  public void setContact(Users contact) {
-    this.contact = contact;
-  }
+    public void setContact(Users contact) {
+        this.contact = contact;
+    }
 }

@@ -29,35 +29,35 @@ import java.util.Map;
 @RequestMapping("/login")
 public class AuthenticationController {
 
-  private UserService service;
-  private TokenService tokenService;
+    private UserService service;
+    private TokenService tokenService;
 
-  @Autowired
-  public void setUserService(UserService theUserService) {
-    service = theUserService;
-  }
-
-  @Autowired
-  public void setTokenService(TokenService theTokenService) {
-    tokenService = theTokenService;
-  }
-
-  @RequestMapping(method = RequestMethod.POST)
-  public ResponseEntity<? extends Response> loginRequestHandler(@RequestBody Map<String, String> userSubmission)
-          throws CredentialException {
-    if (userSubmission.containsKey("auth")) {
-      System.out.println("Hello");
-      UserCredentials auth = new UserCredentials(userSubmission.get("auth"));
-      EntityWrapper<Users> user = service.validateUserForLogin(auth);
-      JwtToken token = tokenService.createToken(user);
-      String bearerToken = String.format("Bearer %s", token.getTokenString());
-      HttpHeaders header = new HttpHeaders();
-      header.add(WebSecurityConfig.JWT_TOKEN_HEADER_PARAM, bearerToken);
-      return new Success()
-                     .setHeader(header)
-                     .setStatusCode(HttpStatus.OK)
-                     .makeResponse();
+    @Autowired
+    public void setUserService(UserService theUserService) {
+        service = theUserService;
     }
-    return new BadRequest().makeResponse(HttpStatus.BAD_REQUEST);
-  }
+
+    @Autowired
+    public void setTokenService(TokenService theTokenService) {
+        tokenService = theTokenService;
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<? extends Response> loginRequestHandler(@RequestBody Map<String, String> userSubmission)
+            throws CredentialException {
+        if (userSubmission.containsKey("auth")) {
+            System.out.println("Hello");
+            UserCredentials auth = new UserCredentials(userSubmission.get("auth"));
+            EntityWrapper<Users> user = service.validateUserForLogin(auth);
+            JwtToken token = tokenService.createToken(user);
+            String bearerToken = String.format("Bearer %s", token.getTokenString());
+            HttpHeaders header = new HttpHeaders();
+            header.add(WebSecurityConfig.JWT_TOKEN_HEADER_PARAM, bearerToken);
+            return new Success()
+                    .setHeader(header)
+                    .setStatusCode(HttpStatus.OK)
+                    .makeResponse();
+        }
+        return new BadRequest().makeResponse(HttpStatus.BAD_REQUEST);
+    }
 }

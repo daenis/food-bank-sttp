@@ -19,54 +19,54 @@ import java.util.UUID;
 @Entity
 @Table(name = "ITEMS")
 public class Items implements Serializable {
-  @Id
-  @GeneratedValue(generator = "uuid2")
-  @GenericGenerator(name = "uuid2", strategy = "uuid2")
-  @Column(name = "uuid", columnDefinition = "BINARY(16)", updatable = false, nullable = false)
-  private UUID uuid;
+    @Id
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @Column(name = "uuid", columnDefinition = "BINARY(16)", updatable = false, nullable = false)
+    private UUID uuid;
 
-  @Column(name = "category")
-  private String category;
+    @Column(name = "category")
+    private String category;
 
-  @Column(name = "description")
-  private String description;
+    @Column(name = "description")
+    private String description;
 
-  @Column(name = "quantity")
-  private Double quantity;
+    @Column(name = "quantity")
+    private Double quantity;
 
-  @ManyToOne(fetch= FetchType.EAGER)
-  @JoinColumn(name = "order_number", referencedColumnName = "uuid")
-  private Orders orderNumber;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "order_number", referencedColumnName = "uuid")
+    private Orders orderNumber;
 
-  public String getCategory() {
-    return category;
-  }
+    public String getCategory() {
+        return category;
+    }
 
-  public void setCategory(String category) {
-    this.category = category;
-  }
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
-  public String getDescription() {
-    return description;
-  }
+    public String getDescription() {
+        return description;
+    }
 
-  public void setDescription(String description) {
-    this.description = description;
-  }
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-  public Double getQuantity() {
-    return quantity;
-  }
+    public Double getQuantity() {
+        return quantity;
+    }
 
-  public void setQuantity(Double quantity) {
-    this.quantity = quantity;
-  }
+    public void setQuantity(Double quantity) {
+        this.quantity = quantity;
+    }
 
-  public Orders getOrderNumber() {
-    return orderNumber;
-  }
+    public Orders getOrderNumber() {
+        return orderNumber;
+    }
 
-  public void setOrderNumber(Orders orderNumber) {
-    this.orderNumber = orderNumber;
-  }
+    public void setOrderNumber(Orders orderNumber) {
+        this.orderNumber = orderNumber;
+    }
 }

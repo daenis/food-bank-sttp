@@ -12,22 +12,22 @@ import java.util.Optional;
  * Created by aaronlong on 7/7/17.
  */
 public class TestEntityWrapper {
-  private EntityWrapper<Tokens> token;
+    private EntityWrapper<Tokens> token;
 
-  @Before
-  public void setUp() {
-    token = EntityWrapper.makeWrapper(Optional.of(new Tokens()));
-  }
+    @Before
+    public void setUp() {
+        token = EntityWrapper.makeWrapper(Optional.of(new Tokens()));
+    }
 
-  @Test
-  public void testEntityCreation() {
-    token = EntityWrapper.makeWrapper(Optional.of(new Tokens()));
-    Assert.assertTrue("Confirm object was created", token.isPopulated());
-  }
+    @Test
+    public void testEntityCreation() {
+        token = EntityWrapper.makeWrapper(Optional.of(new Tokens()));
+        Assert.assertTrue("Confirm object was created", token.isPopulated());
+    }
 
-  @Test
-  public void testTokenReturn() {
-    token = EntityWrapper.makeWrapper(Optional.of(new Tokens()));
-    Assert.assertTrue("Confirm object was created", token.getEntityObject() != null);
-  }
+    @Test
+    public void testTokenReturn() {
+        token = EntityWrapper.makeWrapper(Optional.of(new Tokens()));
+        Assert.assertTrue("Confirm object was created", token.getEntityObject() != null);
+    }
 }

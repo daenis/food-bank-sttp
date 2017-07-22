@@ -10,9 +10,9 @@ import java.io.Serializable;
  */
 public interface Response extends Serializable {
 
-  ResponseEntity<? extends Response> makeResponse();
+    ResponseEntity<? extends Response> makeResponse();
 
-  ResponseEntity<? extends Response> makeResponse(HttpStatus httpCode);
+    ResponseEntity<? extends Response> makeResponse(HttpStatus httpCode);
 
-  Response setStatusCode(HttpStatus httpCode);
+    Response setStatusCode(HttpStatus httpCode);
 }

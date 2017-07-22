@@ -44,13 +44,12 @@ public class FilterExceptionConsumer {
         logError(e.getMessage());
     }
 
-    private class ErrorResponse implements Serializable {
-
-        @JsonProperty("timestamp")
-        private final Long timestamp = FilterExceptionConsumer.this.timestamp;
-
-        @JsonProperty("message")
-        private final String message = FilterExceptionConsumer.this.message;
+    public static FilterExceptionConsumer makeExceptionConsumer(Throwable e) {
+        if (e instanceof HttpRequestMethodNotSupportedException) {
+            return new FilterExceptionConsumer((HttpRequestMethodNotSupportedException) e);
+        } else {
+            return new FilterExceptionConsumer(e);
+        }
     }
 
     private void logError(String error) {
@@ -65,11 +64,12 @@ public class FilterExceptionConsumer {
         return new ObjectMapper().writeValueAsString(new ErrorResponse());
     }
 
-    public static FilterExceptionConsumer makeExceptionConsumer(Throwable e) {
-        if (e instanceof HttpRequestMethodNotSupportedException) {
-            return new FilterExceptionConsumer((HttpRequestMethodNotSupportedException) e);
-        } else {
-            return new FilterExceptionConsumer(e);
-        }
+    private class ErrorResponse implements Serializable {
+
+        @JsonProperty("timestamp")
+        private final Long timestamp = FilterExceptionConsumer.this.timestamp;
+
+        @JsonProperty("message")
+        private final String message = FilterExceptionConsumer.this.message;
     }
 }

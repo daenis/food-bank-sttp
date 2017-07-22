@@ -18,28 +18,28 @@ import java.util.Optional;
 @Transactional
 public class TokenService extends AbstractService<TokenDao> {
 
-  private final JwtSettings settings;
+    private final JwtSettings settings;
 
-  @Autowired
-  public TokenService(final JwtSettings theSettings) {
-    settings = theSettings;
-  }
-
-  public EntityWrapper<Tokens> getTokenEntityFromJtiToken(String jtiToken) {
-    Optional<Tokens> token = dao.getTokenEntityFromJTI(jtiToken);
-    return EntityWrapper.makeWrapper(token);
-  }
-
-  public boolean validateUserFromToken(EntityWrapper<Tokens> token, EntityWrapper<Users> user) {
-    if (token.isPopulated() && user.isPopulated()) {
-      return token.getEntityObject().getUser().getUuid() == user.getEntityObject().getUuid();
+    @Autowired
+    public TokenService(final JwtSettings theSettings) {
+        settings = theSettings;
     }
-    return false;
-  }
 
-  public JwtToken createToken(EntityWrapper<Users> user) {
-    EntityWrapper<Tokens> token = EntityWrapper.makeWrapper(dao.createTokenEntry(user));
-    return JwtToken.createTokenInstance(token, settings.getTokenSigningKey());
-  }
+    public EntityWrapper<Tokens> getTokenEntityFromJtiToken(String jtiToken) {
+        Optional<Tokens> token = dao.getTokenEntityFromJTI(jtiToken);
+        return EntityWrapper.makeWrapper(token);
+    }
+
+    public boolean validateUserFromToken(EntityWrapper<Tokens> token, EntityWrapper<Users> user) {
+        if (token.isPopulated() && user.isPopulated()) {
+            return token.getEntityObject().getUser().getUuid() == user.getEntityObject().getUuid();
+        }
+        return false;
+    }
+
+    public JwtToken createToken(EntityWrapper<Users> user) {
+        EntityWrapper<Tokens> token = EntityWrapper.makeWrapper(dao.createTokenEntry(user));
+        return JwtToken.createTokenInstance(token, settings.getTokenSigningKey());
+    }
 
 }

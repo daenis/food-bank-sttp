@@ -22,10 +22,10 @@ import java.util.UUID;
  */
 public class TestJwtToken {
 
+    private static final String BEARER = "Bearer ";
     private Key key;
     private String jwt;
     private Claims claims;
-    private static final String BEARER = "Bearer ";
 
     @Before
     public void setup() {
@@ -38,15 +38,15 @@ public class TestJwtToken {
     @Before
     public void setUpForTokenGeneration() {
         Users user = new Users().setEmail("johndoe@example.com").setPassword("12345")
-                             .setPhone("3022222222");
+                .setPhone("3022222222");
 
         Date issuedTime = new Date();
 
         Date expirationTime = new Date(issuedTime.getTime() + 90000);
 
         Tokens predictionToken = new Tokens().setCreationTime(issuedTime)
-                                        .setExpirationTime(expirationTime).setTokenType(TokenType.USER)
-                                        .setActive(true).setUser(user).setToken(UUID.randomUUID());
+                .setExpirationTime(expirationTime).setTokenType(TokenType.USER)
+                .setActive(true).setUser(user).setToken(UUID.randomUUID());
 
         EntityWrapper<Tokens> wrapper = EntityWrapper.makeWrapper(Optional.of(predictionToken));
 

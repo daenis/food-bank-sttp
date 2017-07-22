@@ -16,7 +16,7 @@ public class FilterExceptionHandler extends OncePerRequestFilter {
                                     FilterChain filterChain) throws ServletException, IOException {
         try {
             filterChain.doFilter(httpServletRequest, httpServletResponse);
-        } catch(Throwable e) {
+        } catch (Throwable e) {
             FilterExceptionConsumer consumer = FilterExceptionConsumer.makeExceptionConsumer(e);
             httpServletResponse.setStatus(consumer.getStatusCode().value());
             httpServletResponse.getWriter().write(consumer.getJson());

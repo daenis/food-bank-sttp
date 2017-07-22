@@ -8,24 +8,25 @@ import java.util.Optional;
  */
 public class EntityWrapper<T extends Serializable> {
 
-  private T entityObject;
-  private boolean populated;
-  private EntityWrapper(Optional<T> entity) {
-    populated = entity.isPresent();
-    if (populated) {
-      entityObject = entity.get();
+    private T entityObject;
+    private boolean populated;
+
+    private EntityWrapper(Optional<T> entity) {
+        populated = entity.isPresent();
+        if (populated) {
+            entityObject = entity.get();
+        }
     }
-  }
 
-  public T getEntityObject() {
-    return entityObject;
-  }
+    public static <T extends Serializable> EntityWrapper<T> makeWrapper(Optional<T> entity) {
+        return new EntityWrapper<>(entity);
+    }
 
-  public boolean isPopulated() {
-    return populated;
-  }
+    public T getEntityObject() {
+        return entityObject;
+    }
 
-  public static <T extends Serializable> EntityWrapper<T> makeWrapper(Optional<T> entity) {
-    return new EntityWrapper<>(entity);
-  }
+    public boolean isPopulated() {
+        return populated;
+    }
 }

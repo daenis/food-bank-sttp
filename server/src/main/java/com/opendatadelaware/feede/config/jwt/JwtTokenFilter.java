@@ -2,10 +2,10 @@ package com.opendatadelaware.feede.config.jwt;
 
 import com.opendatadelaware.feede.config.WebSecurityConfig;
 import com.opendatadelaware.feede.config.jwt.token.JwtAuthenticationToken;
+import com.opendatadelaware.feede.config.jwt.token.JwtToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
@@ -15,10 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.stereotype.Component;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
-
-import com.opendatadelaware.feede.config.jwt.token.JwtToken;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -31,9 +28,9 @@ import java.io.IOException;
  */
 public class JwtTokenFilter extends AbstractAuthenticationProcessingFilter {
     private static final Logger LOGGER = LoggerFactory.getLogger(JwtTokenFilter.class);
+    private static final String defaultUrl = "/api/**";
     private final AuthenticationSuccessHandler successHandler;
     private final AuthenticationFailureHandler failureHandler;
-    private static final String defaultUrl = "/api/**";
     private JwtSettings settings;
 
     @Autowired
@@ -51,7 +48,7 @@ public class JwtTokenFilter extends AbstractAuthenticationProcessingFilter {
                                                 HttpServletResponse httpServletResponse)
             throws AuthenticationException, IOException, ServletException {
         if (!HttpMethod.POST.name().equals(httpServletRequest.getMethod())) {
-            if(LOGGER.isDebugEnabled()) {
+            if (LOGGER.isDebugEnabled()) {
                 LOGGER.debug("Authentication method not supported. Request method: " + httpServletRequest.getMethod());
             }
             throw new HttpRequestMethodNotSupportedException("Authentication method not supported");

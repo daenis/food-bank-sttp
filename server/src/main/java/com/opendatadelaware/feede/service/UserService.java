@@ -24,42 +24,41 @@ import java.util.Optional;
 @Transactional
 public class UserService extends AbstractService<UserDao> {
 
-  private PasswordEncoder passwordEncoder;
+    private static final String successMessage = "User was created";
+    private static final String failureMessage = "User couldn't be created because of missing or invalid properties";
+    private PasswordEncoder passwordEncoder;
 
-  private static final String successMessage = "User was created";
-  private static final String failureMessage = "User couldn't be created because of missing or invalid properties";
-
-  public Response createUserFromRequest(RequestBodyMapper<UserAuthValidator> authSubmission) {
-    if (authSubmission.doesExist() && authSubmission.get().isValid()) {
-      UserAuthValidator auth = authSubmission.get();
-      if (!dao.getUserByEmail(auth.getEmail()).isPresent()) {
-        String encodedPassword = passwordEncoder.encode(auth.getPassword());
-        Users user = new Users().setEmail(auth.getEmail())
-                             .setPhone(auth.getPhone())
-                             .setAddress(auth.getStreet())
-                             .setCity(auth.getCity()).setState(auth.getState())
-                             .setZip(auth.getZip()).setPassword(encodedPassword);
-        dao.create(user);
-        return new Success(successMessage).setStatusCode(HttpStatus.CREATED);
-      }
+    public Response createUserFromRequest(RequestBodyMapper<UserAuthValidator> authSubmission) {
+        if (authSubmission.doesExist() && authSubmission.get().isValid()) {
+            UserAuthValidator auth = authSubmission.get();
+            if (!dao.getUserByEmail(auth.getEmail()).isPresent()) {
+                String encodedPassword = passwordEncoder.encode(auth.getPassword());
+                Users user = new Users().setEmail(auth.getEmail())
+                        .setPhone(auth.getPhone())
+                        .setAddress(auth.getStreet())
+                        .setCity(auth.getCity()).setState(auth.getState())
+                        .setZip(auth.getZip()).setPassword(encodedPassword);
+                dao.create(user);
+                return new Success(successMessage).setStatusCode(HttpStatus.CREATED);
+            }
+        }
+        return new BadRequest(failureMessage).setStatusCode(HttpStatus.BAD_REQUEST);
     }
-    return new BadRequest(failureMessage).setStatusCode(HttpStatus.BAD_REQUEST);
-  }
 
-  public EntityWrapper<Users> getUserFromEmail(String email) {
-    return EntityWrapper.makeWrapper(dao.getUserByEmail(email));
-  }
-
-  public EntityWrapper<Users> validateUserForLogin(UserCredentials creds) {
-    Optional<Users> user = dao.getUserByEmail(creds.getUsername());
-    if(user.isPresent() && passwordEncoder.matches(creds.getPassword(), user.get().getPassword())) {
-      return EntityWrapper.makeWrapper(user);
+    public EntityWrapper<Users> getUserFromEmail(String email) {
+        return EntityWrapper.makeWrapper(dao.getUserByEmail(email));
     }
-    return EntityWrapper.makeWrapper(Optional.empty());
-  }
 
-  @Autowired
-  public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
-    this.passwordEncoder = passwordEncoder;
-  }
+    public EntityWrapper<Users> validateUserForLogin(UserCredentials creds) {
+        Optional<Users> user = dao.getUserByEmail(creds.getUsername());
+        if (user.isPresent() && passwordEncoder.matches(creds.getPassword(), user.get().getPassword())) {
+            return EntityWrapper.makeWrapper(user);
+        }
+        return EntityWrapper.makeWrapper(Optional.empty());
+    }
+
+    @Autowired
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
 }

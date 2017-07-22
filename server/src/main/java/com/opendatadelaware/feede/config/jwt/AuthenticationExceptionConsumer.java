@@ -13,25 +13,9 @@ import java.util.Date;
  */
 public class AuthenticationExceptionConsumer {
 
+    private static final HttpStatus status = HttpStatus.UNAUTHORIZED;
     private String message;
     private ErrorCodes code;
-    private static final HttpStatus status = HttpStatus.UNAUTHORIZED;
-
-    private enum ErrorCodes {
-        TOKEN_EXPIRED("Token has expired"),
-        BAD_CREDENTIALS("Invalid username or password"),
-        AUTHENTICATION("Authorization couldn't be provide");
-
-        private String error;
-
-        ErrorCodes(String theError) {
-            error = theError;
-        }
-
-        public String getError() {
-            return this.error;
-        }
-    }
 
     private AuthenticationExceptionConsumer(BadCredentialsException e) {
         setExceptionMessage(e);
@@ -49,8 +33,36 @@ public class AuthenticationExceptionConsumer {
         code = ErrorCodes.AUTHENTICATION;
     }
 
+    public static AuthenticationExceptionConsumer factory(AuthenticationException e) {
+        if (e instanceof BadCredentialsException) {
+            return new AuthenticationExceptionConsumer((BadCredentialsException) e);
+        } else if (e instanceof JwtExpiredTokenException) {
+            return new AuthenticationExceptionConsumer((JwtExpiredTokenException) e);
+        } else return new AuthenticationExceptionConsumer(e);
+    }
+
     private void setExceptionMessage(Exception e) {
         message = e.getMessage();
+    }
+
+    public ErrorResponse getErrorResponse() {
+        return new ErrorResponse();
+    }
+
+    private enum ErrorCodes {
+        TOKEN_EXPIRED("Token has expired"),
+        BAD_CREDENTIALS("Invalid username or password"),
+        AUTHENTICATION("Authorization couldn't be provide");
+
+        private String error;
+
+        ErrorCodes(String theError) {
+            error = theError;
+        }
+
+        public String getError() {
+            return this.error;
+        }
     }
 
     public class ErrorResponse implements Serializable {
@@ -81,19 +93,5 @@ public class AuthenticationExceptionConsumer {
         public Date getTimestamp() {
             return timestamp;
         }
-    }
-
-    public ErrorResponse getErrorResponse() {
-        return new ErrorResponse();
-    }
-
-    public static AuthenticationExceptionConsumer factory(AuthenticationException e) {
-        if (e instanceof BadCredentialsException) {
-            return new AuthenticationExceptionConsumer((BadCredentialsException) e);
-        }
-        else if (e instanceof JwtExpiredTokenException) {
-            return new AuthenticationExceptionConsumer((JwtExpiredTokenException) e);
-        }
-        else return new AuthenticationExceptionConsumer(e);
     }
 }
