@@ -163,7 +163,7 @@ public class TestUserController {
     when(userDao.getUserByEmail(anyString())).thenReturn(Optional.of(user));
     when(tokenDao.createTokenEntry(anyObject())).thenReturn(Optional.of(token));
 
-    MvcResult result = this.mvc.perform(post("/api/user/login")
+    MvcResult result = this.mvc.perform(post("/login")
                              .contentType(MediaType.APPLICATION_JSON).content(httpBody)).andExpect(status().isOk())
                                .andReturn();
     EntityWrapper<Tokens> tokensEntityWrapper = EntityWrapper.makeWrapper(Optional.of(token));
