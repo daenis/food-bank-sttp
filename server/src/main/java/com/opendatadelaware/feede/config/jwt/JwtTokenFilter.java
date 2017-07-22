@@ -5,6 +5,7 @@ import com.opendatadelaware.feede.config.jwt.token.JwtAuthenticationToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
@@ -40,7 +41,6 @@ public class JwtTokenFilter extends AbstractAuthenticationProcessingFilter {
                           AuthenticationFailureHandler theFailureHandler,
                           JwtSettings theSettings) {
         super(defaultUrl);
-        LOGGER.info("Filter called");
         successHandler = theSuccessHandler;
         failureHandler = theFailureHandler;
         settings = theSettings;
@@ -70,8 +70,12 @@ public class JwtTokenFilter extends AbstractAuthenticationProcessingFilter {
         SecurityContext context = SecurityContextHolder.createEmptyContext();
         context.setAuthentication(authResult);
         SecurityContextHolder.setContext(context);
-        chain.doFilter(request, response);
-        successHandler.onAuthenticationSuccess(request, response, authResult);
+        try {
+            chain.doFilter(request, response);
+            successHandler.onAuthenticationSuccess(request, response, authResult);
+        } catch(Throwable e) {
+            System.out.println("Fuck");
+        }
     }
 
     @Override
@@ -85,4 +89,6 @@ public class JwtTokenFilter extends AbstractAuthenticationProcessingFilter {
     public void setAuthenticationManager(AuthenticationManager authenticationManager) {
         super.setAuthenticationManager(authenticationManager);
     }
+
+
 }
