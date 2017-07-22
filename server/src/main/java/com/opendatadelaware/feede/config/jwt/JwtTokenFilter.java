@@ -70,12 +70,8 @@ public class JwtTokenFilter extends AbstractAuthenticationProcessingFilter {
         SecurityContext context = SecurityContextHolder.createEmptyContext();
         context.setAuthentication(authResult);
         SecurityContextHolder.setContext(context);
-        try {
-            chain.doFilter(request, response);
-            successHandler.onAuthenticationSuccess(request, response, authResult);
-        } catch(Throwable e) {
-            System.out.println("Fuck");
-        }
+        chain.doFilter(request, response);
+        successHandler.onAuthenticationSuccess(request, response, authResult);
     }
 
     @Override
