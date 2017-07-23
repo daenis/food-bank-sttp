@@ -46,7 +46,6 @@ public class AuthenticationController {
     public ResponseEntity<? extends Response> loginRequestHandler(@RequestBody Map<String, String> userSubmission)
             throws CredentialException {
         if (userSubmission.containsKey("auth")) {
-            System.out.println("Hello");
             UserCredentials auth = new UserCredentials(userSubmission.get("auth"));
             EntityWrapper<Users> user = service.validateUserForLogin(auth);
             JwtToken token = tokenService.createToken(user);
