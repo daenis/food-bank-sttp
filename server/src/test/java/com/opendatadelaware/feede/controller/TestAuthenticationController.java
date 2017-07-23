@@ -80,12 +80,7 @@ public class TestAuthenticationController {
     public void init() {
         secret = "65455ecrvrdytfyg6rr".getBytes();
         MockitoAnnotations.initMocks(this);
-
-        when(settings.getTokenSigningKey()).thenReturn(secret);
-        when(settings.getTokenExpirationTime()).thenReturn(15);
-        when(settings.getTokenRefreshTime()).thenReturn(60);
-        when(settings.getTokenIssuer()).thenReturn("feede");
-        
+        ControllerTestUtil.setJwtSettingsStub(settings, secret);
         mvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
 
