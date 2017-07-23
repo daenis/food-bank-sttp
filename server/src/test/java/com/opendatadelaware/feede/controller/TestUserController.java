@@ -82,7 +82,7 @@ public class TestUserController {
 
     @InjectMocks
     private UsersController controller;
-    
+
     @Before
     public void initJwtSetting() {
         ControllerTestUtil.setJwtSettingsStub(settings, "secret".getBytes());

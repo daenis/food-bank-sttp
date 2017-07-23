@@ -20,6 +20,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,6 +31,8 @@ import java.util.stream.Collectors;
 public class JwtToken {
     private static final Logger LOGGER = LoggerFactory.getLogger(JwtToken.class);
     private static final String HEADER_PREFIX = "Bearer ";
+    private static final String CLAIM_SCOPE = "scope";
+
     private final String tokenAsString;
     private final byte[] tokenSigningKey;
     private Claims claims;
@@ -76,7 +79,7 @@ public class JwtToken {
         return Jwts.builder().setId(token.getUser().getEmail())
                 .setExpiration(token.getExpirationTime())
                 .setIssuedAt(token.getCreationTime())
-                .claim("scope", token.getTokenType().getCode())
+                .claim(CLAIM_SCOPE, token.getTokenType().getCode())
                 .setSubject(token.getUser().getEmail())
                 .signWith(SignatureAlgorithm.HS512, tokenSigningKey)
                 .compact();
@@ -95,7 +98,8 @@ public class JwtToken {
     }
 
     public List<GrantedAuthority> getAuthorities() {
-        List<String> scopes = getTokenClaims().get("scopes", List.class);
+        LOGGER.debug("Made it to get authrorities");
+        List<String> scopes = Collections.singletonList(getTokenClaims().get(CLAIM_SCOPE, String.class));
         LOGGER.warn(scopes.toString());
         return scopes.stream()
                 .map(SimpleGrantedAuthority::new)

@@ -47,12 +47,12 @@ public class JwtTokenFilter extends AbstractAuthenticationProcessingFilter {
     public Authentication attemptAuthentication(HttpServletRequest httpServletRequest,
                                                 HttpServletResponse httpServletResponse)
             throws AuthenticationException, IOException, ServletException {
-        if (!HttpMethod.POST.name().equals(httpServletRequest.getMethod())) {
-            if (LOGGER.isDebugEnabled()) {
-                LOGGER.debug("Authentication method not supported. Request method: " + httpServletRequest.getMethod());
-            }
-            throw new HttpRequestMethodNotSupportedException("Authentication method not supported");
-        }
+//        if (!HttpMethod.POST.name().equals(httpServletRequest.getMethod())) {
+//            if (LOGGER.isDebugEnabled()) {
+//                LOGGER.debug("Authentication method not supported. Request method: " + httpServletRequest.getMethod());
+//            }
+//            throw new HttpRequestMethodNotSupportedException("Authentication method not supported");
+//        }
         String tokenHeader = httpServletRequest.getHeader(WebSecurityConfig.JWT_TOKEN_HEADER_PARAM);
         LOGGER.warn(tokenHeader);
         JwtToken token = JwtToken.createTokenInstanceFromHeader(tokenHeader, settings.getTokenSigningKey());
