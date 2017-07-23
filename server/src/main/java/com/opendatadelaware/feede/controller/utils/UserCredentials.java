@@ -9,7 +9,7 @@ import javax.security.auth.login.CredentialException;
  */
 public class UserCredentials {
 
-    private static String errorMessage = "Username or Password are invalid";
+    private static final String ERROR_MESSAGE = "Username or Password are invalid";
     private transient String username;
 
     private transient String password;
@@ -17,7 +17,7 @@ public class UserCredentials {
     public UserCredentials(String base64String) throws CredentialException {
         String[] credentials = base64StringToGeneralString(base64String).split(";");
         if (credentials.length > 2 || credentials.length < 2) {
-            throw new CredentialException(errorMessage);
+            throw new CredentialException(ERROR_MESSAGE);
         }
         username = credentials[0];
         password = credentials[1];
