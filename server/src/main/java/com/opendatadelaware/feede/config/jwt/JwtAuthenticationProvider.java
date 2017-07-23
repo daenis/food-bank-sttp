@@ -43,16 +43,16 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
     public Authentication authenticate(Authentication authentication)
             throws AuthenticationException {
         JwtToken jwtToken = (JwtToken) authentication.getCredentials();
-        LOGGER.warn(jwtToken.toString());
+        LOGGER.debug(jwtToken.toString());
         Claims claims = jwtToken.getTokenClaims();
         String email = claims.getSubject();
         String jti = claims.getId();
         List<GrantedAuthority> authorities = jwtToken.getAuthorities();
-        LOGGER.warn(authorities.toString());
+        LOGGER.debug(authorities.toString());
         EntityWrapper<Users> user = userService.getUserFromEmail(email);
-        LOGGER.warn(user.getEntityObject().toString());
+        LOGGER.debug(user.getEntityObject().toString());
         EntityWrapper<Tokens> token = tokenService.getTokenEntityFromJtiToken(jti);
-        LOGGER.warn(token.getEntityObject().toString());
+        LOGGER.debug(token.getEntityObject().toString());
         if (!tokenService.validateUserFromToken(token, user)) {
             throw new BadCredentialsException("The user credentials you provide are incorrect");
         }

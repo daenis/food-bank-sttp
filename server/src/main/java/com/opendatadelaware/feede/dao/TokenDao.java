@@ -1,5 +1,6 @@
 package com.opendatadelaware.feede.dao;
 
+import com.opendatadelaware.feede.config.jwt.JwtTokenFilter;
 import com.opendatadelaware.feede.model.Tokens;
 import com.opendatadelaware.feede.model.Users;
 import com.opendatadelaware.feede.model.fields.TokenType;
@@ -8,6 +9,9 @@ import org.apache.lucene.search.Query;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.Search;
 import org.hibernate.search.query.dsl.QueryBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,7 +28,7 @@ import java.util.UUID;
 @Repository
 @Transactional
 public class TokenDao extends AbstractDao<Tokens, UUID> {
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(TokenDao.class);
     private static final long EXPIRATION_TIME = 900000;
     private EntityManager entityManager;
 
@@ -32,9 +36,10 @@ public class TokenDao extends AbstractDao<Tokens, UUID> {
         super(Tokens.class);
     }
 
-    @PersistenceContext
-    public void setEntityManager(EntityManager em) {
+    @Autowired
+    public TokenDao setEntityManager(EntityManager em) {
         entityManager = em;
+        return this;
     }
 
     public Optional<Tokens> getTokenEntityFromJTI(String uuid) {
@@ -51,6 +56,7 @@ public class TokenDao extends AbstractDao<Tokens, UUID> {
                     .createQuery();
             return Optional.of((Tokens) fullTextEntityManager.createFullTextQuery(query).getSingleResult());
         } catch (PersistenceException e) {
+            LOGGER.warn(e.getMessage());
             return Optional.empty();
         }
     }
