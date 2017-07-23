@@ -30,35 +30,17 @@ import java.util.UUID;
 public class TokenDao extends AbstractDao<Tokens, UUID> {
     private static final Logger LOGGER = LoggerFactory.getLogger(TokenDao.class);
     private static final long EXPIRATION_TIME = 900000;
-    private EntityManager entityManager;
 
     public TokenDao() {
         super(Tokens.class);
     }
 
-    @Autowired
-    public TokenDao setEntityManager(EntityManager em) {
-        entityManager = em;
-        return this;
-    }
-
-    public Optional<Tokens> getTokenEntityFromJTI(String uuid) {
-        try {
-            FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
-            final QueryBuilder queryBuilder = fullTextEntityManager
-                    .getSearchFactory()
-                    .buildQueryBuilder().forEntity(Tokens.class).get();
-            Query query = queryBuilder
-                    .bool()
-                    .must(queryBuilder.keyword().onField("token").matching(uuid).createQuery())
-                    .must(queryBuilder.keyword().onField("active").matching(true).createQuery())
-                    .must(queryBuilder.range().onField("expiration_date").above(new Date()).createQuery())
-                    .createQuery();
-            return Optional.of((Tokens) fullTextEntityManager.createFullTextQuery(query).getSingleResult());
-        } catch (PersistenceException e) {
-            LOGGER.warn(e.getMessage());
-            return Optional.empty();
-        }
+    public Optional<Tokens> getTokenEntityFromJTI(String jti) {
+       Tokens token  = (Tokens) getSession().createSQLQuery("FROM TOKENS where token = :jti AND expiration_date >= :now")
+               .setParameter("jti", UUID.fromString(jti))
+               .setParameter("now", new Date());
+       LOGGER.debug(token.toString());
+       return (token != null) ? Optional.of(token) : Optional.empty();
     }
 
     public Optional<Tokens> createTokenEntry(EntityWrapper<Users> user) {
@@ -74,6 +56,7 @@ public class TokenDao extends AbstractDao<Tokens, UUID> {
             Tokens tokenModal = read(tokenPK);
             return (tokenModal != null) ? Optional.of(token) : Optional.empty();
         }
+        LOGGER.debug("Valid user entry: " + user.isPopulated());
         return Optional.empty();
     }
 
