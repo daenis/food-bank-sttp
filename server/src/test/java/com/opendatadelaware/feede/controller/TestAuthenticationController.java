@@ -78,24 +78,16 @@ public class TestAuthenticationController {
 
     @Before
     public void init() {
-        MockitoAnnotations.initMocks(this);
         secret = "65455ecrvrdytfyg6rr".getBytes();
+        MockitoAnnotations.initMocks(this);
+
         when(settings.getTokenSigningKey()).thenReturn(secret);
         when(settings.getTokenExpirationTime()).thenReturn(15);
         when(settings.getTokenRefreshTime()).thenReturn(60);
         when(settings.getTokenIssuer()).thenReturn("feede");
+        
         mvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
-
-//	@Before
-//	public void initJwtSetting() {
-//		when(settings.getTokenSigningKey()).thenReturn(secret);
-//		when(settings.getTokenExpirationTime()).thenReturn(15);
-//		when(settings.getTokenRefreshTime()).thenReturn(60);
-//		when(settings.getTokenIssuer()).thenReturn("feede");
-//		System.out.println("hey");
-//		LOGGER.warn(settings.toString());
-//	}
 
     @Test
     public void testTokenCreation() throws Exception {
@@ -118,6 +110,7 @@ public class TestAuthenticationController {
                 .perform(post("/login").contentType(MediaType.APPLICATION_JSON).content(httpBody))
                 .andExpect(status().isOk()).andReturn();
         EntityWrapper<Tokens> tokensEntityWrapper = EntityWrapper.makeWrapper(Optional.of(token));
+
         String tokenHeaderExpected = String.format("Bearer %s",
                 JwtToken.createTokenInstance(tokensEntityWrapper, secret).getTokenString());
         String tokenHeaderActual = result.getResponse().getHeader(WebSecurityConfig.JWT_TOKEN_HEADER_PARAM);

@@ -137,39 +137,4 @@ public class TestUserController {
             Assert.fail(MISSING_FILE + "testPostValidInput()");
         }
     }
-
-    @Test
-    public void testTokenCreation() throws Exception {
-        String passWordRaw = "12345Password";
-        String passWordEncode = passwordEncoder.encode(passWordRaw);
-        String email = "johnDoe@gmail.com";
-        byte[] authenticationRawBytes = String.format("%s;%s", email, passWordRaw).getBytes();
-        String base64Authentication = Base64.getEncoder().encodeToString(authenticationRawBytes);
-        Map<String, String> map = new HashMap<>();
-        map.put("auth", base64Authentication);
-        String httpBody = new ObjectMapper().writeValueAsString(map);
-
-        Users user = new Users()
-                .setPassword(passWordEncode)
-                .setEmail(email)
-                .setUuid(UUID.randomUUID());
-        Date now = new Date();
-        Tokens token = new Tokens().setExpirationTime(new Date(now.getTime() + 900000))
-                .setCreationTime(now)
-                .setTokenType(TokenType.USER)
-                .setToken(UUID.randomUUID())
-                .setUser(user)
-                .setUuid(UUID.randomUUID());
-        when(userDao.getUserByEmail(anyString())).thenReturn(Optional.of(user));
-        when(tokenDao.createTokenEntry(anyObject())).thenReturn(Optional.of(token));
-
-        MvcResult result = this.mvc.perform(post("/login")
-                .contentType(MediaType.APPLICATION_JSON).content(httpBody)).andExpect(status().isOk())
-                .andReturn();
-        EntityWrapper<Tokens> tokensEntityWrapper = EntityWrapper.makeWrapper(Optional.of(token));
-        String tokenHeaderExpected = String.format("Bearer %s",
-                JwtToken.createTokenInstance(tokensEntityWrapper, settings.getTokenSigningKey()).getTokenString());
-        String tokenHeaderActual = result.getResponse().getHeader(WebSecurityConfig.JWT_TOKEN_HEADER_PARAM);
-        Assert.assertEquals("Confirming jwt comparisons", tokenHeaderActual, tokenHeaderExpected);
-    }
 }
