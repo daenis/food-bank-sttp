@@ -8,9 +8,7 @@ import java.nio.charset.StandardCharsets;
 
 @Configuration
 public class JwtSettings {
-    /**
-     * {@link JwtToken} will expire after this time.
-     */
+
     private Integer tokenExpirationTime;
 
     private Integer tokenRefreshTime;
