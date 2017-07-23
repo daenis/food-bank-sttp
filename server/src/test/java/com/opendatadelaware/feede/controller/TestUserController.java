@@ -82,24 +82,10 @@ public class TestUserController {
 
     @InjectMocks
     private UsersController controller;
-
-    static Optional<String> jsonFileToBase64String(String fileName) {
-        try {
-            URL inputFile = TestUserController.class.getResource(fileName);
-            byte[] jsonData = Files.readAllBytes(Paths.get(inputFile.toURI()));
-            return Optional.<String>of(Base64.getEncoder().encodeToString(jsonData));
-        } catch (Exception e) {
-            LOGGER.error(MISSING_FILE + e.getMessage());
-            return Optional.empty();
-        }
-    }
-
+    
     @Before
     public void initJwtSetting() {
-        when(settings.getTokenSigningKey()).thenReturn("secret".getBytes());
-        when(settings.getTokenExpirationTime()).thenReturn(15);
-        when(settings.getTokenRefreshTime()).thenReturn(60);
-        when(settings.getTokenIssuer()).thenReturn("feede");
+        ControllerTestUtil.setJwtSettingsStub(settings, "secret".getBytes());
     }
 
     @Before
@@ -111,7 +97,7 @@ public class TestUserController {
     @Test
     // Needs to handle the exception
     public void testPostBadInput() throws Exception {
-        Optional<String> badAuth = jsonFileToBase64String("/json/BadUserSignUpInput.json");
+        Optional<String> badAuth = ControllerTestUtil.jsonFileToBase64String("/json/BadUserSignUpInput.json");
         if (badAuth.isPresent()) {
             Map<String, String> badInput = Collections.singletonMap("auth", badAuth.get());
             String badAuthBody = new ObjectMapper().writeValueAsString(badInput);
@@ -125,7 +111,7 @@ public class TestUserController {
 
     @Test
     public void testPostValidInput() throws Exception {
-        Optional<String> goodAuth = jsonFileToBase64String("/json/GoodUserSignUpInput.json");
+        Optional<String> goodAuth = ControllerTestUtil.jsonFileToBase64String("/json/GoodUserSignUpInput.json");
         when(userDao.getUserByEmail(anyString())).thenReturn(Optional.empty());
         if (goodAuth.isPresent()) {
             Map<String, String> map = Collections.singletonMap("auth", goodAuth.get());
