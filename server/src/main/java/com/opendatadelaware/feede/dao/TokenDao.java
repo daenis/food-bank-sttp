@@ -36,9 +36,10 @@ public class TokenDao extends AbstractDao<Tokens, UUID> {
     }
 
     public Optional<Tokens> getTokenEntityFromJTI(String jti) {
-       Tokens token  = (Tokens) getSession().createSQLQuery("FROM TOKENS where token = :jti AND expiration_date >= :now")
+       Tokens token  = (Tokens) getSession().createQuery("FROM Tokens where token = :jti AND expiration_date > :now")
                .setParameter("jti", UUID.fromString(jti))
-               .setParameter("now", new Date());
+               .setParameter("now", new Date())
+               .uniqueResult();
        LOGGER.debug(token.toString());
        return (token != null) ? Optional.of(token) : Optional.empty();
     }

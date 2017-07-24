@@ -76,7 +76,7 @@ public class JwtToken {
 
     private String buildToken(Tokens token) {
         LOGGER.warn(token.getExpirationTime().toString());
-        return Jwts.builder().setId(token.getUser().getEmail())
+        return Jwts.builder().setId(token.getToken().toString())
                 .setExpiration(token.getExpirationTime())
                 .setIssuedAt(token.getCreationTime())
                 .claim(CLAIM_SCOPE, token.getTokenType().getCode())

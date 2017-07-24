@@ -1,10 +1,13 @@
 package com.opendatadelaware.feede.service;
 
+import com.opendatadelaware.feede.config.jwt.JwtAuthenticationProvider;
 import com.opendatadelaware.feede.config.jwt.JwtSettings;
 import com.opendatadelaware.feede.config.jwt.token.JwtToken;
 import com.opendatadelaware.feede.dao.TokenDao;
 import com.opendatadelaware.feede.model.Tokens;
 import com.opendatadelaware.feede.model.Users;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +20,7 @@ import java.util.Optional;
 @Service
 @Transactional
 public class TokenService extends AbstractService<TokenDao> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(TokenService.class);
 
     private final JwtSettings settings;
 
@@ -32,7 +36,11 @@ public class TokenService extends AbstractService<TokenDao> {
 
     public boolean validateUserFromToken(EntityWrapper<Tokens> token, EntityWrapper<Users> user) {
         if (token.isPopulated() && user.isPopulated()) {
-            return token.getEntityObject().getUser().getUuid() == user.getEntityObject().getUuid();
+            boolean result = token.getEntityObject().getUser().getUuid().equals(user.getEntityObject().getUuid());
+            LOGGER.debug("Double check on token and user consistency: " + result);
+            LOGGER.debug(token.getEntityObject().getUser().getUuid().toString());
+            LOGGER.debug(user.getEntityObject().getUuid().toString());
+            return result;
         }
         return false;
     }
