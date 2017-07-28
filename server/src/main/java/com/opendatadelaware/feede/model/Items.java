@@ -26,31 +26,31 @@ public class Items implements Serializable {
   @Column(name = "uuid", columnDefinition = "BINARY(16)", updatable = false, nullable = false)
   private UUID uuid;
 
-  @Column(name = "category")
-  private String category;
+    @Column(name = "category")
+    private String category;
 
-  @Column(name = "description")
-  private String description;
+    @Column(name = "description")
+    private String description;
 
   @Column(name = "quantity")
   private String quantity;
 
-  @ManyToOne(fetch= FetchType.EAGER)
-  @JoinColumn(name = "order_number", referencedColumnName = "uuid")
-  private Orders orderNumber;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "order_number", referencedColumnName = "uuid")
+    private Orders orderNumber;
 
-  public String getCategory() {
-    return category;
-  }
+    public String getCategory() {
+        return category;
+    }
 
   public Items setCategory(String category) {
     this.category = category;
     return this;
   }
 
-  public String getDescription() {
-    return description;
-  }
+    public String getDescription() {
+        return description;
+    }
 
   public Items setDescription(String description) {
     this.description = description;
@@ -66,9 +66,9 @@ public class Items implements Serializable {
     return this;
   }
 
-  public Orders getOrderNumber() {
-    return orderNumber;
-  }
+    public Orders getOrderNumber() {
+        return orderNumber;
+    }
 
   public void setOrderNumber(Orders orderNumber) {
     this.orderNumber = orderNumber;
@@ -82,6 +82,5 @@ public class Items implements Serializable {
     this.uuid = uuid;
     return this;
   }
-
 
 }

@@ -1,6 +1,5 @@
 package com.opendatadelaware.feede.config;
 
-import com.opendatadelaware.feede.service.UsersService;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -16,8 +15,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @Configuration
 @ComponentScan("com.opendatadelaware.feede")
 public class RestConfig extends WebMvcConfigurerAdapter {
-  @Bean
-  public RestTemplate restTemplate(RestTemplateBuilder builder) {
-    return builder.build();
-  }
+    @Bean
+    public RestTemplate restTemplate(RestTemplateBuilder builder) {
+        return builder.build();
+    }
 }

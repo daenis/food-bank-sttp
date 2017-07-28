@@ -42,6 +42,12 @@ output/
 *.iml
 *.iws
 
+# Eclipse
+.classpath
+.project
+.settings/
+bin/
+
 # Maven
 log/
 target/

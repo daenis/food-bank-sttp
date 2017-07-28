@@ -6,34 +6,35 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.Optional;
 
 /**
  * Created by aaronlong on 7/2/17.
  */
-public class RequestBodyMapper <T> {
-  private static final Logger LOGGER = LoggerFactory.getLogger(RequestBodyMapper.class);
-  private transient Optional<T> value;
+public class RequestBodyMapper<T> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(RequestBodyMapper.class);
+    private boolean present;
+    private T result;
 
-  private RequestBodyMapper(byte[] json, Class<T> tClass) {
-    try {
-      T result = new ObjectMapper().readValue(json, tClass);
-      value = Optional.of(result);
-    } catch (IOException e) {
-      LOGGER.warn(e.getMessage());
-      value = Optional.empty();
+    private RequestBodyMapper(byte[] json, Class<T> tClass) {
+        try {
+            result = new ObjectMapper().readValue(json, tClass);
+            present = true;
+        } catch (IOException e) {
+            LOGGER.warn(e.getMessage());
+            present = false;
+            result = null;
+        }
     }
-  }
 
-  public boolean doesExist() {
-    return value.isPresent();
-  }
+    public static <T> RequestBodyMapper<T> factory(byte[] json, Class<T> theClass) {
+        return new RequestBodyMapper<T>(json, theClass);
+    }
 
-  public T get() {
-    return value.get();
-  }
+    public boolean doesExist() {
+        return present;
+    }
 
-  public static <T> RequestBodyMapper factory(byte[] json, Class<T> tClass) {
-    return new RequestBodyMapper<T>(json, tClass);
-  }
+    public T get() {
+        return result;
+    }
 }

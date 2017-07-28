@@ -38,7 +38,7 @@ public class TestUserAuthValidator {
 
     @Test
     public void testIsValidBadInputJson() {
-        Optional<UserAuthValidator> userAuthValidator = configure("/json/BadUserInput.json");
+        Optional<UserAuthValidator> userAuthValidator = configure("/json/BadUserSignUpInput.json");
         Boolean result = userAuthValidator.get().isValid();
         if (userAuthValidator.isPresent()) Assert.assertFalse("The object exists and it shouldn't", result);
         else testErrorLogger();
@@ -46,7 +46,7 @@ public class TestUserAuthValidator {
 
     @Test
     public void testIsValidGoodInputJson() {
-        Optional<UserAuthValidator> userAuthValidator = configure("/json/GoodUserInput.json");
+        Optional<UserAuthValidator> userAuthValidator = configure("/json/GoodUserSignUpInput.json");
         Boolean result = userAuthValidator.get().isValid();
         if (userAuthValidator.isPresent()) Assert.assertTrue("The object doesn't exist", result);
         else testErrorLogger();
@@ -174,7 +174,7 @@ public class TestUserAuthValidator {
 
     @Test
     public void testToString() {
-        Optional<UserAuthValidator> userAuthValidator = configure("/json/GoodUserInput.json");
+        Optional<UserAuthValidator> userAuthValidator = configure("/json/GoodUserSignUpInput.json");
         String result = userAuthValidator.get().toString();
         String expected = "[first_name=John, last_name=Doe, email=JohnDoe@gmail.com]";
         Assert.assertTrue("The wrong string is being returned", expected.equals(result));

@@ -1,7 +1,6 @@
 package com.opendatadelaware.feede.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.opendatadelaware.feede.controller.responses.Response;
 import com.opendatadelaware.feede.dao.OrdersDao;
 import com.opendatadelaware.feede.model.Users;
 import com.opendatadelaware.feede.service.OrdersService;
@@ -9,22 +8,17 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import static org.mockito.Mockito.*;
 import org.mockito.MockitoAnnotations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.*;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import com.opendatadelaware.feede.model.Orders;
-import com.opendatadelaware.feede.controller.responses.Success;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -61,7 +55,7 @@ public class TestOrderController {
         MockitoAnnotations.initMocks(this);
         mvc = MockMvcBuilders.standaloneSetup(ordersController).build();
         user = new Users();
-        user.setUsername("markb");
+        user.setEmail("markb");
         order = new Orders().setUUID(UUID.randomUUID()).setDateTime(Date.from(Instant.now())).setUser(user);
 
     }

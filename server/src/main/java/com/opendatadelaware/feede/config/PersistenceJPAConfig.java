@@ -3,8 +3,6 @@ package com.opendatadelaware.feede.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.AnnotatedElementUtils;
-import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.env.Environment;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -28,65 +26,65 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 public class PersistenceJPAConfig {
-  @Autowired
-  private Environment environment;
+    @Autowired
+    private Environment environment;
 
-  @Bean
-  public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-    LocalContainerEntityManagerFactoryBean entityManager = new LocalContainerEntityManagerFactoryBean();
-    entityManager.setDataSource(dataSource());
-    entityManager.setPackagesToScan(new String[] { "com.opendatadelaware.feede.model" });
+    @Bean
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+        LocalContainerEntityManagerFactoryBean entityManager = new LocalContainerEntityManagerFactoryBean();
+        entityManager.setDataSource(dataSource());
+        entityManager.setPackagesToScan(new String[]{"com.opendatadelaware.feede.model"});
 
-    JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-    entityManager.setJpaVendorAdapter(vendorAdapter);
-    entityManager.setJpaProperties(additionalProperties());
+        JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+        entityManager.setJpaVendorAdapter(vendorAdapter);
+        entityManager.setJpaProperties(additionalProperties());
 
-    return entityManager;
-  }
+        return entityManager;
+    }
 
-  @Bean
-  public LocalSessionFactoryBean sessionFactory() {
-    LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-    sessionFactory.setDataSource(dataSource());
-    sessionFactory.setPackagesToScan(new String[] { "com.opendatadelaware.feede.model" });
-    sessionFactory.setHibernateProperties(additionalProperties());
-    return sessionFactory;
-  }
+    @Bean
+    public LocalSessionFactoryBean sessionFactory() {
+        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
+        sessionFactory.setDataSource(dataSource());
+        sessionFactory.setPackagesToScan(new String[]{"com.opendatadelaware.feede.model"});
+        sessionFactory.setHibernateProperties(additionalProperties());
+        return sessionFactory;
+    }
 
 
-  @Bean
-  public DataSource dataSource() {
-    String url = String.format("jdbc:mysql://%s:%s/%s",
-            environment.getProperty("DB_URI"),
-            environment.getProperty("DB_PORT"),
-            environment.getProperty("MYSQL_DATABASE"));
-    DriverManagerDataSource dataSource = new DriverManagerDataSource();
-    dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-    dataSource.setUrl(url);
-    dataSource.setUsername( environment.getProperty("MYSQL_USER") );
-    dataSource.setPassword( environment.getProperty("MYSQL_PASSWORD") );
-    return dataSource;
-  }
+    @Bean
+    public DataSource dataSource() {
+        String url = String.format("jdbc:mysql://%s:%s/%s",
+                environment.getProperty("DB_URI"),
+                environment.getProperty("DB_PORT"),
+                environment.getProperty("MYSQL_DATABASE"));
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+        dataSource.setUrl(url);
+        dataSource.setUsername(environment.getProperty("MYSQL_USER"));
+        dataSource.setPassword(environment.getProperty("MYSQL_PASSWORD"));
+        return dataSource;
+    }
 
-  /* https://www.tutorialspoint.com/spring/programmatic_management.htm */
-  @Bean
-  public PlatformTransactionManager transactionManager(EntityManagerFactory emf){
-    JpaTransactionManager transactionManager = new JpaTransactionManager();
-    transactionManager.setEntityManagerFactory(emf);
-    return transactionManager;
-  }
+    /* https://www.tutorialspoint.com/spring/programmatic_management.htm */
+    @Bean
+    public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
+        JpaTransactionManager transactionManager = new JpaTransactionManager();
+        transactionManager.setEntityManagerFactory(emf);
+        return transactionManager;
+    }
 
-  @Bean
-  public PersistenceExceptionTranslationPostProcessor exceptionTranslation(){
-    return new PersistenceExceptionTranslationPostProcessor();
-  }
+    @Bean
+    public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
+        return new PersistenceExceptionTranslationPostProcessor();
+    }
 
-  /* https://docs.jboss.org/hibernate/orm/5.0/manual/en-US/html/ch03.html#d5e1655 */
-  Properties additionalProperties() {
-    Properties properties = new Properties();
-    properties.setProperty("hibernate.hbm2ddl.auto", "update");
-    properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
-    return properties;
-  }
+    /* https://docs.jboss.org/hibernate/orm/5.0/manual/en-US/html/ch03.html#d5e1655 */
+    Properties additionalProperties() {
+        Properties properties = new Properties();
+        properties.setProperty("hibernate.hbm2ddl.auto", "update");
+        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
+        return properties;
+    }
 
 }
