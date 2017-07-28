@@ -1,15 +1,9 @@
 package com.opendatadelaware.feede.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.opendatadelaware.feede.config.WebSecurityConfig;
 import com.opendatadelaware.feede.config.jwt.JwtSettings;
-import com.opendatadelaware.feede.config.jwt.token.JwtToken;
 import com.opendatadelaware.feede.dao.TokenDao;
 import com.opendatadelaware.feede.dao.UserDao;
-import com.opendatadelaware.feede.model.Tokens;
-import com.opendatadelaware.feede.model.Users;
-import com.opendatadelaware.feede.model.fields.TokenType;
-import com.opendatadelaware.feede.service.EntityWrapper;
 import com.opendatadelaware.feede.service.TokenService;
 import com.opendatadelaware.feede.service.UserService;
 import org.junit.Assert;
@@ -28,21 +22,12 @@ import org.springframework.mock.env.MockEnvironment;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Base64;
 import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import java.util.UUID;
 
-import static org.mockito.Matchers.anyObject;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -95,7 +80,6 @@ public class TestUserController {
     }
 
     @Test
-    // Needs to handle the exception
     public void testPostBadInput() throws Exception {
         Optional<String> badAuth = ControllerTestUtil.jsonFileToBase64String("/json/BadUserSignUpInput.json");
         if (badAuth.isPresent()) {

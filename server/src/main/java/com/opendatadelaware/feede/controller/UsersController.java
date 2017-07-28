@@ -55,9 +55,4 @@ public class UsersController {
         return new BadRequest().makeResponse(HttpStatus.BAD_REQUEST);
     }
 
-    @RequestMapping(path = "check", method = RequestMethod.POST)
-    public ResponseEntity<String> checkItOut(@RequestBody Map<String, String> userSubmission) {
-        return new ResponseEntity<String>("<h1>Check</h1>", HttpStatus.OK);
-    }
-
 }
