@@ -50,4 +50,10 @@ public abstract class AbstractDao<E extends Serializable, PK extends Serializabl
     getSession().delete(o);
   }
 
+  public void deleteByUUID(UUID uuid) {
+    getSession().load(getType(), uuid);
+    getSession().delete(uuid);
+    getSession().flush();
+  }
+
 }

@@ -28,28 +28,27 @@ public class ItemsController {
     @Autowired
     public void setItemsService(ItemsService aService) {
         service = aService;
-        service.setDao(itemsDao);
     }
 
     @RequestMapping(value = "/{uuid}/", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteItemByUUID(@PathVariable UUID uuid) {
-        itemsDao.deleteByUUID(uuid);
+        service.deleteItemsById(uuid);
         return new Success().makeResponse(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{uuid}/", method = RequestMethod.GET)
     public ResponseEntity<Items> getItemsByUUID(@PathVariable UUID uuid) {
-        return new ResponseEntity<>(itemsDao.read(uuid), HttpStatus.OK);
+        return new ResponseEntity<>(service.getItemsById(uuid), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public ResponseEntity<?> postItems(@RequestBody Items items) {
-        itemsDao.create(items);
+        service.postItems(items);
         HttpHeaders responseHeaders = new HttpHeaders();
         URI newItemsURI = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{uuid}")
-                .buildAndExpand(items.getUuid())
+                .buildAndExpand(items.getUUID())
                 .toUri();
         responseHeaders.setLocation(newItemsURI);
         return new Success().makeResponse(HttpStatus.CREATED);
