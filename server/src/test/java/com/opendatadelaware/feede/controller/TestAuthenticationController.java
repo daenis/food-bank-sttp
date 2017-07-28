@@ -112,4 +112,33 @@ public class TestAuthenticationController {
         Assert.assertEquals("Confirming jwt comparisons", tokenHeaderActual, tokenHeaderExpected);
     }
 
+    @Test
+    public void testBadUserSignUp() throws Exception {
+        Optional<String> badAuth = ControllerTestUtil.jsonFileToBase64String("/json/BadUserSignUpInput.json");
+        if (badAuth.isPresent()) {
+            Map<String, String> badInput = Collections.singletonMap("auth", badAuth.get());
+            String badAuthBody = new ObjectMapper().writeValueAsString(badInput);
+            this.mvc.perform(post("/login/create")
+                    .contentType(MediaType.APPLICATION_JSON).content(badAuthBody))
+                    .andExpect(status().isBadRequest());
+        } else {
+            Assert.fail(ControllerTestUtil.MISSING_FILE + "testPostBadInput()");
+        }
+    }
+
+    @Test
+    public void testGoodUserSignUp() throws Exception {
+        Optional<String> goodAuth = ControllerTestUtil.jsonFileToBase64String("/json/GoodUserSignUpInput.json");
+        when(userDao.getUserByEmail(anyString())).thenReturn(Optional.empty());
+        if (goodAuth.isPresent()) {
+            Map<String, String> map = Collections.singletonMap("auth", goodAuth.get());
+            String goodAuthJsonBody = new ObjectMapper().writeValueAsString(map);
+            this.mvc.perform(post("/login/create")
+                    .contentType(MediaType.APPLICATION_JSON).content(goodAuthJsonBody))
+                    .andExpect(status().isCreated());
+        } else {
+            Assert.fail(ControllerTestUtil.MISSING_FILE + "testPostValidInput()");
+        }
+    }
+
 }

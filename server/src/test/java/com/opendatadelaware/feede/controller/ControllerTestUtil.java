@@ -15,7 +15,7 @@ import static org.mockito.Mockito.when;
 public class ControllerTestUtil {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ControllerTestUtil.class);
-    private static final String MISSING_FILE = "Test setup error! ";
+    public static final String MISSING_FILE = "Test setup error! ";
 
     public static void setJwtSettingsStub(JwtSettings settings, byte[] secret) {
         when(settings.getTokenSigningKey()).thenReturn(secret);

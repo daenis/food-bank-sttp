@@ -24,23 +24,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.util.Collections;
-import java.util.Map;
-import java.util.Optional;
-
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 
 /**
  * Created by aaronlong on 6/28/17.
  */
-@RunWith(SpringRunner.class)
 public class TestUserController {
     private static final Logger LOGGER = LoggerFactory.getLogger(TestUserController.class);
-    private static final String MISSING_FILE = "Test setup error! ";
 
     private MockMvc mvc;
 
@@ -77,34 +66,5 @@ public class TestUserController {
     public void init() {
         MockitoAnnotations.initMocks(this);
         mvc = MockMvcBuilders.standaloneSetup(controller).build();
-    }
-
-    @Test
-    public void testPostBadInput() throws Exception {
-        Optional<String> badAuth = ControllerTestUtil.jsonFileToBase64String("/json/BadUserSignUpInput.json");
-        if (badAuth.isPresent()) {
-            Map<String, String> badInput = Collections.singletonMap("auth", badAuth.get());
-            String badAuthBody = new ObjectMapper().writeValueAsString(badInput);
-            this.mvc.perform(post("/api/user")
-                    .contentType(MediaType.APPLICATION_JSON).content(badAuthBody))
-                    .andExpect(status().isBadRequest());
-        } else {
-            Assert.fail(MISSING_FILE + "testPostBadInput()");
-        }
-    }
-
-    @Test
-    public void testPostValidInput() throws Exception {
-        Optional<String> goodAuth = ControllerTestUtil.jsonFileToBase64String("/json/GoodUserSignUpInput.json");
-        when(userDao.getUserByEmail(anyString())).thenReturn(Optional.empty());
-        if (goodAuth.isPresent()) {
-            Map<String, String> map = Collections.singletonMap("auth", goodAuth.get());
-            String goodAuthJsonBody = new ObjectMapper().writeValueAsString(map);
-            this.mvc.perform(post("/api/user")
-                    .contentType(MediaType.APPLICATION_JSON).content(goodAuthJsonBody))
-                    .andExpect(status().isCreated());
-        } else {
-            Assert.fail(MISSING_FILE + "testPostValidInput()");
-        }
     }
 }

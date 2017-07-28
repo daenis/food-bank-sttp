@@ -46,13 +46,4 @@ public class UsersController {
         return new ResponseEntity<String>("Hello World", HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<? extends Response> addUser(@RequestBody Map<String, String> userSubmission) {
-        if (userSubmission.containsKey("auth")) {
-            RequestBodyMapper<UserAuthValidator> auth = base64ToRequestBodyMapper(userSubmission.get("auth"), UserAuthValidator.class);
-            return service.createUserFromRequest(auth).makeResponse();
-        }
-        return new BadRequest().makeResponse(HttpStatus.BAD_REQUEST);
-    }
-
 }
