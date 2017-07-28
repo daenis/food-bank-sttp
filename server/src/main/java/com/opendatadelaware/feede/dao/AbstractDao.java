@@ -45,7 +45,7 @@ public abstract class AbstractDao<E extends Serializable, PK extends Serializabl
     public void update(E o) {
         getSession().update(o);
     }
-    
+
   public void delete(E o) {
     getSession().delete(o);
   }
