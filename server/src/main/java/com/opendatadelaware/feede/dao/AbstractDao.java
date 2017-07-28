@@ -13,39 +13,39 @@ import java.util.UUID;
  */
 public abstract class AbstractDao<E extends Serializable, PK extends Serializable> {
 
-  protected SessionFactory session;
+    protected SessionFactory session;
 
-  private Class<E> type;
+    private Class<E> type;
 
-  public AbstractDao(Class<E> daoType) {
-    type = daoType;
-  }
+    public AbstractDao(Class<E> daoType) {
+        type = daoType;
+    }
 
-  protected Class<E> getType() {
-    return type;
-  }
+    protected Class<E> getType() {
+        return type;
+    }
 
-  @Autowired
-  protected void setSession(SessionFactory sessionFactory) {
-    session = sessionFactory;
-  }
+    protected Session getSession() {
+        return session.getCurrentSession();
+    }
 
-  protected Session getSession() {
-    return session.getCurrentSession();
-  }
+    @Autowired
+    protected void setSession(SessionFactory sessionFactory) {
+        session = sessionFactory;
+    }
 
-  public E read(PK id) {
-    return session.getCurrentSession().get(type, id);
-  }
+    public E read(PK id) {
+        return session.getCurrentSession().get(type, id);
+    }
 
-  public PK create(E o) {
-    return (PK) getSession().save(o);
-  }
+    public PK create(E o) {
+        return (PK) getSession().save(o);
+    }
 
-  public void update(E o) {
-    getSession().update(o);
-  }
-
+    public void update(E o) {
+        getSession().update(o);
+    }
+    
   public void delete(E o) {
     getSession().delete(o);
   }
@@ -55,5 +55,4 @@ public abstract class AbstractDao<E extends Serializable, PK extends Serializabl
     getSession().delete(uuid);
     getSession().flush();
   }
-
 }

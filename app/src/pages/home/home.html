@@ -3,30 +3,34 @@
         <img src="assets/img/foodbank-logo.png"/>
     </div>
 
-<div text-center>
-    
-    <form [formGroup]="login" class="pure-form pure-form-aligned">
-        <fieldset>
+    <div text-center>
 
-            <div class="pure-control-group">
-                <input formControlName="username" id="name" type="text" placeholder="Username">
-            </div>
+        <form [formGroup]="login" class="pure-form pure-form-aligned">
+            <fieldset>
 
-            <div class="pure-control-group">
-                <input formControlName="password" id="password" type="password" placeholder="Password">
-            </div>
+                <div class="pure-control-group">
+                    <input formControlName="username" id="name" type="text" placeholder="Username">
+                </div>
 
-            <div class="pure-controls">
+                <div class="pure-control-group">
+                    <input formControlName="password" id="password" type="password" placeholder="Password">
+                </div>
 
-                <button ion-button round type="submit" (click)="authenticate()" class="pure-button pure-button-primary">LOGIN</button>
-                <button ion-button round (click)="goToSignUp()"type="submit" class="pure-button pure-button-primary">REGISTER</button>
+                <div class="pure-controls">
 
-            </div>
+                    <button ion-button round type="submit" (click)="authenticate()"
+                            class="pure-button pure-button-primary">LOGIN
+                    </button>
+                    <button ion-button round (click)="goToSignUp()" type="submit"
+                            class="pure-button pure-button-primary">REGISTER
+                    </button>
+
+                </div>
 
 
-        </fieldset>
-    </form>
+            </fieldset>
+        </form>
 
-</div>
+    </div>
 
 </ion-content>

@@ -1,49 +1,57 @@
 <ion-content>
 
-	<div class="pick-up">
+    <div class="pick-up">
 
-		<form [formGroup]="form" class="pure-form pure-form-stacked pure-form-aligned">
-			<fieldset>
+        <form [formGroup]="form" class="pure-form pure-form-stacked pure-form-aligned">
+            <fieldset>
 
-				<div class="pure-control-group">
-					<h1>Please enter a category:</h1>
-                	<input formControlName="category" type="text" placeholder="Category">
-            	</div>
+                <div class="pure-control-group">
+                    <h1>Please enter a category:</h1>
+                    <input formControlName="category" type="text" placeholder="Category">
+                </div>
 
-				<div class="pure-control-group">
-					<h1> Please Describe The Type Of Donation:</h1>
-                	<input formControlName="description" type="text" placeholder="Description">
-            	</div>
+                <div class="pure-control-group">
+                    <h1> Please Describe The Type Of Donation:</h1>
+                    <input formControlName="description" type="text" placeholder="Description">
+                </div>
 
-				<div class="pure-control-group">
-					<h1>Please Let Us Know How Much You Are Donating:</h1>
-                	<input formControlName="quantity" type="text" placeholder="Quantity">
-            	</div>
+                <div class="pure-control-group">
+                    <h1>Please Let Us Know How Much You Are Donating:</h1>
+                    <input formControlName="quantity" type="text" placeholder="Quantity">
+                </div>
 
-			<br>
-			<div class ="pure-control-group" *ngIf="!hideHelp; else elseBlock">
-				{{help}}
-			</div>
+                <br>
+                <div class="pure-control-group" *ngIf="!hideHelp; else elseBlock">
+                    {{help}}
+                </div>
 
-			<ng-template #elseBlock>
-				<br>
-				<br>
-				<br>
-				<br>
-				<br>
-			</ng-template>
+                <ng-template #elseBlock>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </ng-template>
 
-			<div class="pure-controls">
-				<button ion-button round (click)="showOrHideHelp()" type="submit" class="pure-button pure-button-primary">Help</button>
-				<button ion-button round (click)="goToPostBoard()" type="submit" class="pure-button pure-button-primary">View Current Postings</button>
-				<button ion-button round (click)="postToPostBoard()" type="submit" class="pure-button pure-button-primary">Post</button>
-				<button ion-button full round (click)="goBack()" type="submit" class="pure-button pure-button-primary">Back</button>
-			</div>
+                <div class="pure-controls">
+                    <button ion-button round (click)="showOrHideHelp()" type="submit"
+                            class="pure-button pure-button-primary">Help
+                    </button>
+                    <button ion-button round (click)="goToPostBoard()" type="submit"
+                            class="pure-button pure-button-primary">View Current Postings
+                    </button>
+                    <button ion-button round (click)="postToPostBoard()" type="submit"
+                            class="pure-button pure-button-primary">Post
+                    </button>
+                    <button ion-button full round (click)="goBack()" type="submit"
+                            class="pure-button pure-button-primary">Back
+                    </button>
+                </div>
 
-			</fieldset>
-		</form>
+            </fieldset>
+        </form>
 
-	</div>
-	
+    </div>
+
 </ion-content>
     
