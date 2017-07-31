@@ -59,7 +59,7 @@ public class TestOrderController {
         order = new Orders().setUUID(UUID.randomUUID()).setDateTime(Date.from(Instant.now())).setUser(user);
 
     }
-
+    // TODO - FIGURE OUT THE FAIL ON THIS TEST
     @Test
     public void testGetByIDMethodShouldPass() throws Exception {
         UUID uuid = order.getUUID();
@@ -68,8 +68,8 @@ public class TestOrderController {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.uuid").exists())
                 .andExpect(jsonPath("$.uuid").value(order.getUUID().toString()))
-                .andExpect(jsonPath("$.user.username").exists())
-                .andExpect(jsonPath("$.user.username").value("markb"));
+                .andExpect(jsonPath("$.user.email").exists())
+                .andExpect(jsonPath("$.user.email").value("markb"));
     }
 
     @Test
@@ -86,7 +86,7 @@ public class TestOrderController {
         when(ordersService.getOrderByID(order.getUUID())).thenReturn(order);
         mvc.perform(get("/api/orders/{random}/", random).accept(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.uuid").doesNotExist())
-                .andExpect(jsonPath("$.user.username").doesNotExist());
+                .andExpect(jsonPath("$.user.email").doesNotExist());
     }
 
     @Test

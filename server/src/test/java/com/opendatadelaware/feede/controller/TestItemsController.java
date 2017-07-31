@@ -87,7 +87,7 @@ public class TestItemsController {
         mvc.perform(get("/api/items/{random}/", random)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.uuid").doesNotExist())
-                .andExpect(jsonPath("$.user.username").doesNotExist());
+                .andExpect(jsonPath("$.user.email").doesNotExist());
     }
 
     @Test
